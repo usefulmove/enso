@@ -52,6 +52,13 @@
 2. [Step 2: What and where]
 3. [Step 3: What and where]
 
+### Context Audit (Required before build)
+*Purpose: Ensure the agent has sufficient context before modifying the codebase.*
+
+- [ ] **Reference Soil reviewed**: All files listed in "Reference Soil" have been read and understood.
+- [ ] **Active Soil verified**: The current state of all files in "Active Soil" has been analyzed.
+- [ ] **Symbols queried**: Key classes, functions, and types have been verified via LSP or `mgrep`.
+
 ### Pseudocode/Logic
 *Optional: Key algorithms or logic flows.*
 ```
@@ -86,7 +93,7 @@ function exampleLogic():
 *Files needed for context but should NOT be modified.*
 - `src/shared/types.ts` (for type definitions)
 - `src/config/constants.ts` (for configuration values)
-- `docs/soil/arch/PROJECT_NAME.md` (architecture reference)
+- `docs/foundation/arch/PROJECT_NAME.md` (architecture reference)
 
 ### Excluded Areas
 *Directories/files to explicitly ignore to reduce noise.*
@@ -124,12 +131,12 @@ function exampleLogic():
 ## 6. Scope Baseline
 
 ### In Scope for This Story
-*Explicitly list what WILL be delivered.*
+*Explicit list of what WILL be delivered.*
 - Feature/change 1
 - Feature/change 2
 
 ### Out of Scope
-*Explicitly list what will NOT be delivered (prevents scope creep).*
+*Explicit list of what will NOT be delivered (prevents scope creep).*
 - Future enhancement X (deferred to Story-XXX)
 - Edge case Y (logged as technical debt)
 
@@ -137,12 +144,12 @@ function exampleLogic():
 
 ### Architecture Alignment
 *How does this story align with the architecture document?*
-- Follows [pattern/principle] from `docs/soil/arch/PROJECT_NAME.md`
+- Follows [pattern/principle] from `docs/foundation/arch/PROJECT_NAME.md`
 - Integrates with [component] as designed
 
 ### Code Conventions
 *Specific coding standards to follow.*
-- Follow style guide in `docs/soil/standards/CODING_STANDARDS.md`
+- Follow style guide in `docs/foundation/standards/CODING_STANDARDS.md`
 - Use [naming convention] for [specific elements]
 
 ### Performance Considerations

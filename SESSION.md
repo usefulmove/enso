@@ -64,18 +64,14 @@ Applied project management rigor:
 ```
 docs/
 ├── templates/           # Reusable templates
-│   ├── PRD_TEMPLATE.md
-│   ├── ARCH_TEMPLATE.md
-│   └── STORY_TEMPLATE.md
-├── soil/               # Long-term semantic memory
+├── foundation/          # Long-term semantic memory (Soil)
 │   ├── prd/
 │   ├── arch/
 │   └── standards/
-└── growth/             # Episodic planning
-    └── stories/
-
-metabolism/             # Compaction history
-└── summaries/
+├── execution/           # Episodic planning (Growth)
+│   └── stories/
+└── history/             # Compaction history (Metabolism)
+    └── summaries/
 ```
 
 ### Templates Enhanced
@@ -139,7 +135,7 @@ metabolism/             # Compaction history
 
 ### 3. Standards Directory Empty
 **Impact**: No coding standards defined yet
-**Next Step**: Create `CODING_STANDARDS.md` and `CONTEXT_VIGOR.md` as needed
+**Next Step**: Create `CODING_STANDARDS.md` and `CONTEXT_VIGOR.md` in `docs/foundation/standards/` as needed
 
 ### 4. No Example/Pilot Story
 **Impact**: Framework untested in real workflow
@@ -150,7 +146,7 @@ metabolism/             # Compaction history
 ### Immediate (This Sprint)
 1. **Validate the Framework**: Execute a pilot Story using the full workflow
 2. **Configure LSP**: Set up language server for target environment
-3. **Create Initial Standards**: Bootstrap `docs/soil/standards/` with basic conventions
+3. **Create Initial Standards**: Bootstrap `docs/foundation/standards/` with basic conventions
 
 ### Short-Term (Next Sprint)
 1. **Operationalize RAG**: Set up retrieval system for long-term context queries
@@ -216,4 +212,35 @@ By embedding the complete template structure in `AGENTS.md`, we eliminate the ne
 
 ---
 
-*This summary represents the "birth" and initial evolution of the Context Engineering framework. All future sessions should append to this history or create dated summaries in `metabolism/summaries/`.*
+## Update: 2025-12-20 - Standalone Seed Enhancement
+
+### Enhancement Made
+Enhanced `AGENTS.md` with **Core Mandates** and **Context Audits** to ensure it functions as a high-vigor standalone seed for new projects.
+
+**What Changed:**
+- Added Section 13: Core Mandates for Agentic Vigor (Proactive Search, CCM Adherence, Rigorous Execution).
+- Updated Section 11.C (Story Spec) and `STORY_TEMPLATE.md` to include a mandatory **Context Audit** checklist.
+- Updated Section 12 (Init Guide) to recommend a consolidated `foundation/standards/README.md` file.
+
+**Key Insight:**
+A protocol is only as good as the behavior it mandates. By embedding behavioral rules ("Core Mandates") and verification loops ("Context Audit") directly into the seed, we ensure new agents operate with high fidelity from the first turn.
+
+---
+
+## Update: 2025-12-20 (Later Session) - Bridged Structure Refinement
+
+### Enhancement Made
+Restructured the project's directory layout to use a "Bridged" approach, combining Gardening metaphors with intuitive engineering terms to improve discoverability.
+
+**What Changed:**
+- Renamed `docs/soil/` to `docs/foundation/` (Soil).
+- Renamed `docs/growth/` to `docs/execution/` (Growth).
+- Moved `metabolism/` into `docs/history/` (Metabolism).
+- Renamed `enso-session-summary.md` to `SESSION.md`.
+- Updated `AGENTS.md` (The Seed) to reflect the new paths.
+- All internal references in stories and summaries updated to ensure context integrity.
+
+**Key Insight:**
+Structure should be "discoverable by intent." By bridging metaphors with standard naming (`foundation`, `execution`, `history`), we maintain the philosophical depth of Context Engineering while making the codebase accessible to any standard engineering tool or agent.
+
+---

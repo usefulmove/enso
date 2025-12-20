@@ -53,18 +53,18 @@ Just as a plant requires specific environmental conditions—clean air, rich soi
 - **Session History**: The live thread of current collaboration
 - **Compaction Trigger**: Summarize every 10-15 conversational turns or when approaching token limits
 
-**Management Action:** "Clear the Atmosphere" → Distill session into `metabolism/summaries/`
+**Management Action:** "Clear the Atmosphere" → Distill session into `docs/history/summaries/`
 
 ### B. Long-Term Memory (The Soil)
 **Markdown-based, persistent, low-entropy**
 
-#### The Foundation (Semantic Layer)
-- **PRDs** (`docs/soil/prd/`): Problem statements, requirements, scope baselines
-- **Architecture** (`docs/soil/arch/`): System design, component diagrams, technical decisions
-- **Standards** (`docs/soil/standards/`): Coding conventions, context vigor rules
+#### The Foundation (Semantic Layer / Soil)
+- **PRDs** (`docs/foundation/prd/`): Problem statements, requirements, scope baselines
+- **Architecture** (`docs/foundation/arch/`): System design, component diagrams, technical decisions
+- **Standards** (`docs/foundation/standards/`): Coding conventions, context vigor rules
 
-#### The Growth Layer (Episodic Layer)
-- **Stories** (`docs/growth/stories/`): Individual units of work with context control manifests
+#### The Execution Layer (Episodic Layer / Growth)
+- **Stories** (`docs/execution/stories/`): Individual units of work with context control manifests
 - **Tracking**: Sprint/iteration logs and progress markers
 
 **Management Action:** "Amend the Soil" → Update docs before changing code
@@ -79,11 +79,13 @@ Just as a plant requires specific environmental conditions—clean air, rich soi
 
 **Management Action:** "Query the Roots" → Use LSP/RAG when the Soil lacks detail
 
-### D. Tools (Human-Managed)
-**The Gardener's implements**
+### D. History & Summaries (The Compaction Layer / Metabolism)
+**Markdown-based, persistent session logs**
 
-- **Session Management**: Agent choice, tool selection, prompting, branching, snapshotting
-- **Operational**: Filesystem, Git, Bash, Tmux, OS primitives
+- **Summaries** (`docs/history/summaries/`): Distilled session insights.
+- **Project Pulse** (`SESSION.md`): High-level tracking of project health and major milestones.
+
+**Management Action:** "Clear the Atmosphere" → Distill session into `docs/history/summaries/`
 
 ## 3. The Agent Swarm
 
@@ -126,13 +128,13 @@ Just as a plant requires specific environmental conditions—clean air, rich soi
 **Actors:** Human Gardener + Planning Agent (Scrum Master & Architect roles)
 
 **Actions:**
-1. Define the problem and vision → Create PRD in `docs/soil/prd/`
-2. Design the system architecture → Create Architecture doc in `docs/soil/arch/`
+1. Define the problem and vision → Create PRD in `docs/foundation/prd/`
+2. Design the system architecture → Create Architecture doc in `docs/foundation/arch/`
 3. Establish the **Scope Baseline** (no changes without formal amendment)
 
 **Artifacts:**
-- `docs/soil/prd/PROJECT_NAME.md`
-- `docs/soil/arch/PROJECT_NAME.md`
+- `docs/foundation/prd/PROJECT_NAME.md`
+- `docs/foundation/arch/PROJECT_NAME.md`
 
 ### Phase 2: Growing (Planning)
 **Actors:** Planning Agent (Scrum Master role)
@@ -146,7 +148,7 @@ Just as a plant requires specific environmental conditions—clean air, rich soi
    - **Risk Register** (known risks + mitigation strategies)
 
 **Artifacts:**
-- `docs/growth/stories/STORY-XXX.md` (one per unit of work)
+- `docs/execution/stories/STORY-XXX.md` (one per unit of work)
 
 ### Phase 3: Harvesting (Execution)
 **Actors:** Coding Agent (Dev & QA role)
@@ -170,20 +172,20 @@ Just as a plant requires specific environmental conditions—clean air, rich soi
 
 **Actions:**
 1. Validate against PRD and Acceptance Criteria
-2. Update Context Summaries in `docs/soil/arch/` if patterns emerged
-3. **Clear the Atmosphere**: Compress session into `metabolism/summaries/`
+2. Update Context Summaries in `docs/foundation/arch/` if patterns emerged
+3. **Clear the Atmosphere**: Compress session into `docs/history/summaries/`
 4. Mark Story as complete
 
 **Artifacts:**
 - Updated architecture/standards if needed
-- Session summary in `metabolism/summaries/YYYY-MM-DD.md`
+- Session summary in `docs/history/summaries/YYYY-MM-DD.md`
 
 ## 5. The Domain Language (Operational Vocabulary)
 
 ### Context Management Actions
 - **"Amend the Soil"**: Update PRD/Architecture before coding (prevents hallucinated scope)
 - **"Clear the Atmosphere"**: Summarize session and start fresh thread (prevents token pollution)
-- **"Sow a Story"**: Create new `docs/growth/stories/STORY-XXX.md`
+- **"Sow a Story"**: Create new `docs/execution/stories/STORY-XXX.md`
 - **"Tend the Bloom"**: Execute TDD loop (Red → Green → Refactor)
 - **"Query the Roots"**: Use LSP/RAG for deep code search
 - **"Snapshot the Tree Rings"**: Git commit with context-aware message
@@ -276,7 +278,7 @@ When Context Engineering is working:
 ### How to Compact
 1. Summarize key decisions and insights
 2. Extract any new architectural patterns
-3. Save to `metabolism/summaries/YYYY-MM-DD-TOPIC.md`
+3. Save to `docs/history/summaries/YYYY-MM-DD-TOPIC.md`
 4. Update relevant Soil docs if needed
 5. Start fresh session with summary link
 
@@ -310,7 +312,7 @@ This section provides complete structural specifications for all Context Enginee
 
 **Purpose:** Define the scope baseline for a project. Created during Phase 1 (Planting).
 
-**File Location:** `docs/soil/prd/[PROJECT_NAME].md`
+**File Location:** `docs/foundation/prd/PRD-[PROJECT_NAME].md`
 
 **Metadata Block:**
 ```markdown
@@ -378,7 +380,7 @@ This section provides complete structural specifications for all Context Enginee
 
 **Purpose:** Define system structure and technical decisions. Created during Phase 1 (Planting).
 
-**File Location:** `docs/soil/arch/[PROJECT_NAME].md`
+**File Location:** `docs/foundation/arch/ARCH-[PROJECT_NAME].md`
 
 **Metadata Block:**
 ```markdown
@@ -476,7 +478,7 @@ This section provides complete structural specifications for all Context Enginee
 
 **Purpose:** Define a single unit of work with explicit context control. Created during Phase 2 (Growing).
 
-**File Location:** `docs/growth/stories/STORY-[ID]-[SLUG].md`
+**File Location:** `docs/execution/stories/STORY-[ID]-[SLUG].md`
 
 **Metadata Block:**
 ```markdown
@@ -509,6 +511,10 @@ This section provides complete structural specifications for all Context Enginee
 **3. Technical Implementation**
 - Approach: High-level technical strategy
 - Core Changes: Step-by-step what and where
+- Context Audit (Required before build):
+  - [ ] Reference Soil files read and understood
+  - [ ] Active Soil files analyzed for current state
+  - [ ] All relevant symbols queried via LSP/mgrep
 - Pseudocode/Logic: Key algorithms (optional)
 - Test Strategy: Unit test scenarios, integration test scenarios
 
@@ -560,7 +566,7 @@ This section provides complete structural specifications for all Context Enginee
 
 **Purpose:** Compact Atmosphere into Soil. Created during Phase 4 (Preparing) or when token limits approach.
 
-**File Location:** `metabolism/summaries/YYYY-MM-DD-[TOPIC].md`
+**File Location:** `docs/history/summaries/LOG-YYYY-MM-DD-[TOPIC].md`
 
 **Metadata Block:**
 ```markdown
@@ -634,8 +640,8 @@ This section provides complete structural specifications for all Context Enginee
 
 **Step 2: Initialize Directory Structure**
 ```bash
-mkdir -p docs/{templates,soil/{prd,arch,standards},growth/stories}
-mkdir -p metabolism/summaries
+mkdir -p docs/{templates,foundation/{prd,arch,standards},execution/stories,history/summaries}
+touch docs/foundation/standards/README.md # Consolidated standards
 ```
 
 **Step 3: Generate Templates (Optional)**
@@ -644,13 +650,14 @@ mkdir -p metabolism/summaries
 - These are derivable artifacts, not canonical sources
 
 **Step 4: Create Project Session Summary**
-- Initialize `[PROJECT_NAME]-session-summary.md` in root
+- Initialize `SESSION.md` in root
 - Use Session Summary template from Section 11.D
 
 **Step 5: Start Planting**
-- Create PRD in `docs/soil/prd/`
-- Create Architecture in `docs/soil/arch/`
+- Create PRD in `docs/foundation/prd/`
+- Create Architecture in `docs/foundation/arch/`
 - Establish Scope Baseline
+```
 
 ### Maintaining the Framework
 
@@ -665,9 +672,30 @@ mkdir -p metabolism/summaries
 - Use session summaries to track protocol evolution
 
 **Multi-Project Usage**
-- Each project gets its own `docs/soil/` and `docs/growth/`
+- Each project gets its own `docs/foundation/`, `docs/execution/`, and `docs/history/`
 - Share AGENTS.md across projects
 - Customize templates per project needs
+
+---
+
+## 13. Core Mandates for Agentic Vigor
+
+These mandates are the "Operating System" for agents. They ensure consistency, safety, and high-fidelity output.
+
+### 1. Proactive Understanding
+- **Search First**: Exhaust all search tools (`mgrep`, `glob`, `grep`) before asking for context or file paths.
+- **Read Deeply**: Always read the "Reference Soil" and "Active Soil" before proposing changes.
+- **Trust but Verify**: Use `mgrep` or LSP to verify assumptions about function signatures or class structures.
+
+### 2. Context Integrity
+- **CCM Adherence**: Never modify files outside the "Active Soil" without explicit human approval to amend the Story.
+- **Metabolism First**: Before long sessions, compact the "Atmosphere" to prevent entropy.
+- **Soil Stability**: Always update the PRD or Architecture doc before implementing changes that shift the "Scope Baseline."
+
+### 3. Execution Rigor
+- **TDD Loop**: Default to Red-Green-Refactor. Write tests that prove the fix or feature.
+- **Concise Communication**: Use terse, technical, action-oriented language. No conversational filler.
+- **Deterministic Results**: Aim for implementation that is a fulfillment of the spec, not a discovery of it.
 
 ---
 
