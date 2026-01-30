@@ -73,6 +73,7 @@ docs/
     STANDARDS.md  # Coding conventions, patterns
   stories/        # Active units of work
   reference/      # Read-only knowledge
+    LESSONS.md    # Shared learnings, anti-patterns, gotchas
     completed/    # Archived stories
   skills/         # On-demand capabilities (Agent Skills format)
   logs/           # Session summaries
@@ -85,6 +86,7 @@ When an agent encounters this file in a new project:
 **Step 1: Create structure**
 ```bash
 mkdir -p docs/{core,stories,reference/completed,skills,logs}
+touch docs/reference/LESSONS.md
 ```
 
 **Step 2: Gather context**
@@ -127,6 +129,7 @@ Context is living code. Refactor documentation as aggressively as you refactor c
 - Conventions, patterns, and completed stories
 - Read-only during execution
 - Prune when no longer relevant
+- **Update `LESSONS.md` with new learnings/anti-patterns**
 
 **Skills**
 - Add as capabilities are needed
@@ -209,10 +212,11 @@ Compaction moves insights from working context to persistent context.
 **Process:**
 1. Summarize key decisions and insights
 2. List artifacts created or modified
-3. Note open items and next steps
-4. Write summary to `docs/logs/YYYY-MM-DD-topic.md`
-5. Update core docs if new patterns or decisions emerged
-6. Continue with fresh working context
+3. Extract reusable lessons to `docs/reference/LESSONS.md`
+4. Note open items and next steps
+5. Write summary to `docs/logs/YYYY-MM-DD-topic.md`
+6. Update core docs if new patterns or decisions emerged
+7. Continue with fresh working context
 
 ## 10. Templates
 
@@ -302,8 +306,8 @@ What are we trying to accomplish? Why now?
 **Exclude:**
 - ...
 
-## Approach
-High-level implementation strategy.
+## Approach & Verification Plan
+High-level implementation strategy and how to verify success (automated tests, manual steps).
 
 ## Notes
 (Fill during/after implementation)
