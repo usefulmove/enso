@@ -18,12 +18,13 @@ The goal: maintain the smallest set of high-signal tokens needed for the next st
 
 **Context is finite.** The context window is the agent's working memory. Every token competes for attention. Treat context as a scarce resource.
 
-**Four operations manage context:**
+**Five operations manage context:**
 
 | Operation | Action |
 |-----------|--------|
 | **Write** | Persist information outside the context window |
 | **Select** | Pull relevant information into working context |
+| **Probe** | Actively search (grep/glob/LSP) to discover unknown context |
 | **Compress** | Summarize to retain only essential tokens |
 | **Isolate** | Split context across agents or scopes |
 
@@ -68,7 +69,7 @@ REFERENCE CONTEXT (external, queryable)
 docs/
   core/           # Foundational docs (rarely change)
     PRD.md        # Problem, goals, scope, requirements
-    ARCHITECTURE.md  # System design (when needed)
+    ARCHITECTURE.md  # System design (or docs/core/architecture/ for complex systems)
     STANDARDS.md  # Coding conventions, patterns
   stories/        # Active units of work
   reference/      # Read-only knowledge
@@ -96,8 +97,12 @@ Prompt the human for:
 **Step 3: Generate PRD**
 Create `docs/core/PRD.md` from the conversation.
 
-**Step 4: Architecture (if needed)**
-For non-trivial systems, create `docs/core/ARCHITECTURE.md`.
+**Step 4: System Mapping**
+Perform reconnaissance (`Probe`) to map the codebase.
+- **Architecture:** Create `docs/core/ARCHITECTURE.md` (or `docs/core/architecture/` for complex systems).
+- **Capabilities:** Identify reusable scripts/patterns (e.g., unit tests, linting) and document them in `docs/skills/`.
+- **Conventions:** Update `docs/reference/` with observed standards.
+- **Refinement:** If the system reality conflicts with the PRD, get clarity and update the PRD.
 
 **Step 5: First story**
 If the scope is clear, create the first story in `docs/stories/`.
@@ -105,6 +110,8 @@ If the scope is clear, create the first story in `docs/stories/`.
 **Step 6: Begin work**
 
 ## 6. Document Lifecycle
+
+Context is living code. Refactor documentation as aggressively as you refactor code. Stale context is technical debt.
 
 **Core Docs** (PRD, Architecture, Standards)
 - Update in place when scope or direction changes
@@ -152,6 +159,7 @@ Every story declares its context boundaries:
 
 **Enforcement:**
 - Agent must not modify files outside Write scope
+- Read files are a seed; use Probe to dynamically discover related context
 - Agent should consult Read files before making changes
 - Agent should avoid loading Excluded paths into context
 - Scope changes require explicit human approval
@@ -247,7 +255,7 @@ What does success look like? How will we measure it?
 
 ### Architecture
 
-Create when the system has multiple components or non-obvious structure.
+Create when the system has multiple components or non-obvious structure. For complex systems, use a directory `docs/core/architecture/` with an `OVERVIEW.md` and component-specific files.
 
 ```markdown
 # [Project Name] Architecture
@@ -326,6 +334,8 @@ What was accomplished this session.
 ## 11. Agent Guidelines
 
 **Search first.** Exhaust search tools (grep, glob, LSP) before asking for file paths or context.
+
+**Tool Selection.** Use `docs/skills/` for repo-specific capabilities (build, test, lint). Use external tools (MCP, LSP) for general language reference and code navigation.
 
 **Read before writing.** Always consult the Context Scope. Read the Read files before modifying Write files.
 
