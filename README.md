@@ -1,4 +1,4 @@
-# Enso
+# enso
 
 **A Context Engineering Structure for Agentic Coding**
 
