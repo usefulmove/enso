@@ -22,7 +22,7 @@ AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **Context R
 *   **Institutional Memory:** The "Reflexion Loop" captures lessons and anti-patterns in `LESSONS.md`, preventing repeat mistakes.
 *   **MCP-Ready:** Designed to work seamlessly with (or without) the Model Context Protocol.
 
-## Quick Start
+## Usage
 
 ### 1. Plant the Seed
 Download `AGENTS.md` and place it in the root of your project.
@@ -37,6 +37,9 @@ Point your agent manager (Cursor, Claude Code, OpenCode, Windsurf) to the file:
 > "Read @AGENTS.md and bootstrap this project."
 
 ### 3. Watch it Grow
+
+Enso acts as a Context Manager. It will ask you for the problem statement and constraints, then build out the context management structure.
+
 The agent will:
 1.  **Bootstraps** the `docs/` directory structure.
 2.  **Probes** your codebase to understand the architecture.
@@ -67,14 +70,6 @@ docs/
   skills/         # Local Capabilities (Scripts, Tests)
   logs/           # Session History
 ```
-
-## Usage
-
-### For New Projects
-Enso acts as a **Context Manager**. It will ask you for the problem statement and constraints, then generate an initial PRD.
-
-### For Existing Projects
-Enso acts as an **Analyst**. It will scan your existing code, infer the architecture, and retroactively generate the documentation needed for future coding tasks.
 
 ## License
 
