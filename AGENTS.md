@@ -89,6 +89,14 @@ mkdir -p docs/{core,stories,reference/completed,skills,logs}
 touch docs/reference/LESSONS.md
 ```
 
+**Step 1b: Add retrieval-led reasoning instruction**
+Add to root `AGENTS.md` (or equivalent agent config file):
+```
+IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning 
+for framework-specific and domain-specific tasks. Always consult version-matched 
+documentation in docs/ before implementing APIs or patterns.
+```
+
 **Step 2: Gather context**
 Prompt the human for:
 - What problem are we solving?
@@ -169,25 +177,38 @@ Every story declares its context boundaries:
 
 ## 8. Skills
 
-Skills are discoverable, on-demand capabilities. They follow the [Agent Skills specification](https://agentskills.io/specification).
+Skills are discoverable, on-demand capabilities for **vertical, action-specific workflows** 
+(e.g., migrations, upgrades, explicit transformations). They follow the [Agent Skills specification](https://agentskills.io/specification).
+
+**When to use Skills vs. Documentation:**
+- **Skills**: One-time actions (migrate to App Router, upgrade framework version, apply refactoring)
+- **AGENTS.md + docs/core/**: Always-available framework knowledge and patterns
+
+Note: Skills require agent decision to invoke and are only triggered ~56% of the time by default. 
+For knowledge that must be consistently applied across tasks, use persistent context in AGENTS.md instead.
 
 **Location:** `docs/skills/`
 
 **Structure:**
 ```
 docs/skills/
-  skill-name/
-    SKILL.md           # Required: frontmatter + instructions
+  duckdb-sql/          # Example: data analysis and querying skill
+    SKILL.md           # Required: frontmatter + when to use
     scripts/           # Optional: executable code
+      analyze_schema.py
+      query_runner.py
     references/        # Optional: additional docs
+      optimization_tips.md
     assets/            # Optional: templates, data files
 ```
 
 **Required frontmatter:**
 ```yaml
 ---
-name: skill-name
-description: What this does and when to use it.
+name: duckdb-sql
+description: Query and analyze DuckDB databases with SQL. Use for data exploration, 
+             schema introspection, and analytical queries. For general SQL patterns, 
+             consult docs/core/framework/ instead.
 ---
 ```
 
@@ -198,6 +219,36 @@ description: What this does and when to use it.
 4. Agent loads `scripts/`, `references/`, `assets/` only when needed
 
 **Skills may reference other skills.** Agent follows references as needed.
+
+## 8.1. Framework Documentation Index
+
+For framework-specific knowledge (APIs, patterns, conventions), add a documentation index to root `AGENTS.md`:
+
+**Setup:**
+1. Store version-matched docs in `docs/core/framework/`
+2. Add index section to root `AGENTS.md` with links to relevant doc files
+3. Agent reads specific files from the index as needed
+
+**Example format:**
+```markdown
+## Framework Documentation
+Location: docs/core/framework/
+
+| Section | Files |
+|---------|-------|
+| Routing | routing.md, navigation.md |
+| Caching | cache-directives.md, cache-lifecycle.md |
+| Data Fetching | connection.md, suspense.md |
+| Authentication | auth-setup.md, session.md |
+```
+
+**Why this works:**
+- **Always present** (no invocation decision needed)
+- **Available on every turn** (included in system prompt)
+- **Standard Markdown** (no custom formats or compression)
+- **Retrieval-led**: Agent consults docs rather than relying on training data
+
+This approach achieves 100% accuracy on framework-specific tasks compared to 79% with on-demand skills.
 
 ## 9. Compaction
 
@@ -313,6 +364,26 @@ High-level implementation strategy and how to verify success (automated tests, m
 (Fill during/after implementation)
 ```
 
+### Framework Documentation Index
+
+Create when your project uses a framework with evolving APIs (Next.js, React, etc.):
+
+```markdown
+## Framework Documentation
+Location: docs/core/framework/
+
+| Section | Files |
+|---------|-------|
+| [Section Name] | file1.md, file2.md |
+| [Section Name] | file3.md, file4.md |
+```
+
+**Guidelines:**
+- Keep this table concise; link to actual doc files in `docs/core/framework/`
+- Include version info in AGENTS.md if maintaining multiple versions
+- Update table when adding new framework docs
+- Agent will consult relevant files when working on framework tasks
+
 ### Session Summary
 
 ```markdown
@@ -339,7 +410,9 @@ What was accomplished this session.
 
 **Search first.** Exhaust search tools (grep, glob, LSP) before asking for file paths or context.
 
-**Tool Selection.** Use `docs/skills/` for repo-specific capabilities (build, test, lint). Use external tools (MCP, LSP) for general language reference and code navigation.
+**Tool Selection.** Use `docs/skills/` for vertical, action-specific workflows (migrations, upgrades). Use `docs/core/framework/` and documentation indexes for framework-specific knowledge. Use external tools (MCP, LSP) for general language reference and code navigation.
+
+**Prefer retrieval over training.** Always consult `docs/` for framework-specific implementation details rather than relying on potentially outdated training data.
 
 **Read before writing.** Always consult the Context Scope. Read the Read files before modifying Write files.
 
