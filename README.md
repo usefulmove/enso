@@ -1,4 +1,6 @@
-![enso](assets/enso-logo.png)
+<div align="center">
+  <img src="assets/enso-logo.png" alt="enso" />
+</div>
 
 **a context management structure for agentic coding**
 
