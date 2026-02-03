@@ -4,7 +4,7 @@
 
 **a context management structure for agentic coding**
 
-Enso is a single-file "seed" (`AGENTS.md`) builds out a high-performance environment for agentic development. It replaces ad-hoc prompt engineering with a structured, rigorous protocol for managing context, agentic discovery, and tools.
+Enso is a single-file "seed" (`AGENTS.md`) that builds out a structured environment for agentic development. It replaces ad-hoc prompt engineering with a dynamic context environment and protocols for actively managing context and tools and enabling agentic discovery so that your agents can do more on their own, more accurately.
 
 ## The Problem
 
