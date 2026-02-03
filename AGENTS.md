@@ -1,5 +1,9 @@
 # Context Engineering Protocol
 
+[enso – a context management structure for agentic coding](https://github.com/usefulmove/enso)
+
+enso v0.2.0
+
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
 ## 1. Purpose
