@@ -50,7 +50,7 @@ The agent will:
 
 ## The Six Operations
 
-The context window is like RAM—small, fast, and volatile. These six operations define how to manage that limited working memory effectively.
+The context window is a spotlight—you can illuminate only so much at once. The Six Operations select what is lit, what's just off-stage, and when to change scenes.
 
 | Operation | What It Does | Why It Matters |
 |-----------|--------------|----------------|
