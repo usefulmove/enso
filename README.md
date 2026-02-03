@@ -35,7 +35,7 @@ Download `AGENTS.md` and place it in the root of your project.
 curl -o AGENTS.md https://raw.githubusercontent.com/dedmonds/enso/main/AGENTS.md
 ```
 
-### 2. Activate the Agent
+### 2. Activate an Agent
 Point your agent manager (OpenCode, Cursor, Claude Code, Windsurf) to the file:
 
 > "Read @AGENTS.md and bootstrap this project."
