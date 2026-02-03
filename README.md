@@ -48,17 +48,18 @@ The agent will:
 3.  **Drafts** your `PRD.md` and `ARCHITECTURE.md`.
 4.  **Aligns** with you on the next unit of work.
 
-## The Protocol
+## The Six Operations
 
-Enso operates on five core primitives to manage the finite context window:
+The context window is like RAM—small, fast, and volatile. These six operations define how to manage that limited working memory effectively.
 
-| Operation | Action |
-|-----------|--------|
-| **Write** | Persist information outside the context window |
-| **Select** | Pull relevant information into working context |
-| **Probe** | Actively search (grep/glob/LSP) to discover unknown context |
-| **Compress** | Summarize to retain only essential tokens |
-| **Isolate** | Split context across agents or scopes |
+| Operation | What It Does | Why It Matters |
+|-----------|--------------|----------------|
+| **Write** | Save insights to disk before they're lost | Working memory is temporary; persistence survives sessions |
+| **Select** | Load only what's needed right now | Don't waste tokens on irrelevant context |
+| **Probe** | Actively search (grep, LSP, glob) for answers | Don't assume you know what's in the codebase |
+| **Compress** | Summarize to fit the token budget | When context gets full, condense instead of dropping |
+| **Isolate** | Split work across multiple scopes | Divide complex tasks to stay within limits |
+| **Assign** | Choose the ideal agent for each task | Match task requirements to agent capabilities |
 
 ## Directory Structure
 
