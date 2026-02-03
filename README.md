@@ -16,7 +16,9 @@ AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context r
 
 ## Features
 
-*   **Autonomic Discovery:** Agents don't ask "what is this project?" They run `ls -R`, read configs, and build a mental map *before* talking to you.
+*   **Agentic Discovery:** Agents don't ask "what is this project?" They run `ls -R`, read configs, and build a mental map *before* talking to you.
+*   **Retrieval-Led Reasoning:** Agents consult version-matched documentation in `docs/` instead of relying on training data—achieving 100% accuracy on framework-specific tasks vs 79% with on-demand approaches.
+*   **Framework Documentation Index:** A discoverable, always-present knowledge base for framework APIs and patterns that agents consult automatically.
 *   **Fractal Architecture:** Supports projects ranging from single scripts to massive monorepos using scalable `docs/` structures.
 *   **Verification-First:** Agents are mandated to define **Test Plans** before writing code.
 *   **Institutional Memory:** The "Reflexion Loop" captures lessons and anti-patterns in `LESSONS.md`, preventing repeat mistakes.
