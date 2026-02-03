@@ -1,4 +1,4 @@
-# enso
+![enso](assets/enso-logo.png)
 
 **a context management structure for agentic coding**
 
