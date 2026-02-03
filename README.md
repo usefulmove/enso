@@ -1,6 +1,6 @@
 # enso
 
-**A Context Engineering Structure for Agentic Coding**
+**a context management structure for agentic coding**
 
 Enso is a single-file "seed" (`AGENTS.md`) builds out a high-performance environment for agentic development. It replaces ad-hoc prompt engineering with a structured, rigorous protocol for managing context, agentic discovery, and tools.
 
@@ -32,7 +32,7 @@ curl -o AGENTS.md https://raw.githubusercontent.com/dedmonds/enso/main/AGENTS.md
 ```
 
 ### 2. Activate the Agent
-Point your agent manager (Cursor, Claude Code, OpenCode, Windsurf) to the file:
+Point your agent manager (OpenCode, Cursor, Claude Code, Windsurf) to the file:
 
 > "Read @AGENTS.md and bootstrap this project."
 
