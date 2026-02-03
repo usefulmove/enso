@@ -6,7 +6,7 @@ Enso is a single-file "seed" (`AGENTS.md`) builds out a high-performance environ
 
 ## The Problem
 
-AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **Context Rot**.
+AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context rot**.
 - They forget established patterns.
 - They hallucinate details.
 - They write code that conflicts with the architecture.
