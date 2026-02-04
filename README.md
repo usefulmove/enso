@@ -4,7 +4,6 @@
 
 **a context management structure for agentic coding**
 
-```markdown
 # enso
 
 > Context is precious—treat it like RAM, not a hard drive.
@@ -17,7 +16,6 @@ Three key principles:
 3. *Stay current, not historical*: Documents reflect the present state. Git tracks history; docs shouldn't accumulate cruft.
 
 Six operations to manage this scarce resource: Write (persist), Select (load minimally), Probe (search actively), Compress (summarize when full), Isolate (split tasks), Assign (right agent for the job).
-```
 
 Enso is a single-file "seed" (`AGENTS.md`) that builds out a structured environment for agentic development. It replaces ad-hoc prompt engineering with protocols for managing context and tools. Enso treats context as data—each action is a unary transformation (context → context)—enabling recursive, discoverable, and versioned agentic workflows.
 
