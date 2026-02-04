@@ -92,3 +92,5 @@ docs/
 ## License
 
 MIT
+
+## Current Favorite Orchestrator: OpenCode (agent interface) with Kimi K2.5 (model)
