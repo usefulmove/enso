@@ -6,6 +6,17 @@
 
 Enso is a single-file "seed" (`AGENTS.md`) that builds out a structured environment for agentic development. It replaces ad-hoc prompt engineering with protocols for managing context and tools. Enso treats context as data—each action is a unary transformation (context → context)—enabling recursive, discoverable, and versioned agentic workflows.
 
+```
+nobody:
+how would you explain yourself to someone else?
+
+enso:
+imagine your context window as a briefcase with exactly six compartments.
+every thought, every file, every unfinished thing needs some space. six is all you get. enso is this: choosing what you put in the briefcase wisely.
+keep what you need. focus on what serves you now. search when lost. compress when crowded. break big things into smaller pieces. the right thing in the right place.
+the room breathes. the work flows.
+```
+
 ## The Problem
 
 AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context rot**.
