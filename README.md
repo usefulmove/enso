@@ -4,18 +4,22 @@
 
 **a context management structure for agentic coding**
 
+```markdown
+# enso
+
+> Context is precious—treat it like RAM, not a hard drive.
+
+The framework sees an LLM's context window as finite working memory. Every token competes for attention, so the goal is to keep only the smallest set of high-signal tokens needed for the next step.
+
+Three key principles:
+1. *Separate concerns*: Working context (what you're thinking now), Persistent context (docs that survive sessions), Reference context (codebase/external sources you search on-demand)
+2. *Progressive disclosure*: Load only what you need, when you need it. Summaries before details. Don't assume—search first.
+3. *Stay current, not historical*: Documents reflect the present state. Git tracks history; docs shouldn't accumulate cruft.
+
+Six operations to manage this scarce resource: Write (persist), Select (load minimally), Probe (search actively), Compress (summarize when full), Isolate (split tasks), Assign (right agent for the job).
+```
+
 Enso is a single-file "seed" (`AGENTS.md`) that builds out a structured environment for agentic development. It replaces ad-hoc prompt engineering with protocols for managing context and tools. Enso treats context as data—each action is a unary transformation (context → context)—enabling recursive, discoverable, and versioned agentic workflows.
-
-```
-nobody:
-how would you explain yourself to someone else?
-
-enso:
-imagine your context window as a briefcase with exactly six compartments.
-every thought, every file, every unfinished thing needs some space. six is all you get. enso is this: choosing what you put in the briefcase wisely.
-keep what you need. focus on what serves you now. search when lost. compress when crowded. break big things into smaller pieces. the right thing in the right place.
-the room breathes. the work flows.
-```
 
 ## The Problem
 
