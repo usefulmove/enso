@@ -93,4 +93,4 @@ docs/
 
 MIT
 
-## Current Favorite Orchestrator: OpenCode (agent interface) with Kimi K2.5 (model)
+## (current) favorite orchestration environment: OpenCode (agent interface: tui) running Kimi K2.5 (model: fast, mixture-of-experts, "agent swarm")
