@@ -2,11 +2,11 @@
   <img src="assets/enso-logo.png" alt="enso" />
 </div>
 
-**a context management structure for agentic coding**
+**a context management structure for agent-assisted coding**
 
 # enso
 
-> Context is precious—treat it like RAM, not a hard drive.
+> "[Context engineering is ...] the delicate art and science of filling the context window with just the right information for the next step." Andrej Karpathy
 
 The framework sees an LLM's context window as finite working memory. Every token competes for attention, so the goal is to keep only the smallest set of high-signal tokens needed for the next step.
 
