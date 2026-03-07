@@ -2,7 +2,7 @@
 
 [enso – a context management structure for agentic coding](https://github.com/usefulmove/enso)
 
-enso v0.2.1
+enso v0.3.0
 
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
@@ -163,6 +163,25 @@ assets/       # Optional: templates, data files
 ```
 
 **Discovery:** Agent scans directories at session start, reads frontmatter (~100 tokens) for discovery, loads full skill only when needed.
+
+## 8.2. Tool-Building as a First-Class Output
+
+When solving a task requires a script, transformation, or repeatable procedure, **capture it as a skill**. Don't discard tools after single use.
+
+**The build-and-capture loop:**
+1. Encounter a repeatable need
+2. Build the minimal tool to address it
+3. Capture it in `docs/skills/<tool-name>/`
+4. It becomes discoverable for future sessions
+
+**Before writing new code:** Scan `docs/skills/` for existing tools. Reuse and extend before rebuilding.
+
+**When to capture:**
+- Any script written to transform, migrate, or automate
+- Any multi-step procedure that took real effort to derive
+- Any workaround that will likely recur
+
+Skills compound. A tool built today saves derivation cost in every future session.
 
 ## 8.1. Framework Documentation Index
 
