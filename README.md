@@ -6,6 +6,8 @@
 
 # enso
 
+Enso is an agentOS — an orchestration layer that gives AI agents the structure, memory, and operational protocols to behave as reliable, persistent collaborators across any complex domain.
+
 > "[Context engineering is ...] the delicate art and science of filling the context window with just the right information for the next step." Andrej Karpathy
 
 The framework sees an LLM's context window as finite working memory. Every token competes for attention, so the goal is to keep only the smallest set of high-signal tokens needed for the next step.
