@@ -28,7 +28,7 @@ AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context r
 ## Features
 
 *   **Agentic Discovery:** Agents don't ask "what is this project?" They run `ls -R`, read configs, and build a mental map *before* talking to you.
-*   **Retrieval-Led Reasoning:** Agents consult version-matched documentation in `docs/` instead of relying on training data—achieving 100% accuracy on framework-specific tasks vs 79% with on-demand approaches.
+*   **Retrieval-Led Reasoning:** Agents consult version-matched documentation in `docs/` instead of relying on training data. This is a structured form of RAG — retrieval-augmented generation — where retrieval is deterministic and file-based rather than probabilistic and vector-based, keeping latency low and accuracy high. Vercel's agent evals found that always-present context achieved a 100% pass rate vs. 79% for on-demand skill retrieval — even with explicit instructions to use skills. ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals))
 *   **Framework Documentation Index:** A discoverable, always-present knowledge base for framework APIs and patterns that agents consult automatically.
 *   **Fractal Architecture:** Supports projects ranging from single scripts to massive monorepos using scalable `docs/` structures.
 *   **Adaptive Scaffolding:** Automatically detects project type (React, Python, Node.js, etc.) and tailors documentation structure, conventions, and templates to match the ecosystem.
@@ -43,7 +43,7 @@ AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context r
 Download `AGENTS.md` and place it in the root of your project.
 
 ```bash
-curl -o AGENTS.md https://raw.githubusercontent.com/dedmonds/enso/main/AGENTS.md
+curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
 ```
 
 ### 2. Activate an Agent
