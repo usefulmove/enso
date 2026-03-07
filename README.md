@@ -1,7 +1,3 @@
-<div align="center">
-  <img src="assets/enso-logo.png" alt="enso" />
-</div>
-
 # enso
 
 Enso is an agentOS — an orchestration layer that gives AI agents the structure, memory, and operational protocols to behave as reliable, persistent collaborators across any complex domain.
