@@ -34,6 +34,7 @@ AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context r
 *   **Adaptive Scaffolding:** Automatically detects project type (React, Python, Node.js, etc.) and tailors documentation structure, conventions, and templates to match the ecosystem.
 *   **Verification-First:** Agents are mandated to define **Test Plans** before writing code.
 *   **Institutional Memory:** The "Reflexion Loop" captures lessons and anti-patterns in `LESSONS.md`, preventing repeat mistakes.
+*   **Compounding Skill Library:** Agents capture scripts, transformations, and procedures as discoverable skills during normal work — building project-specific tooling that future sessions reuse instead of re-derive.
 *   **MCP-Ready:** Designed to work seamlessly with (or without) the Model Context Protocol.
 
 ## Usage
