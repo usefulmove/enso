@@ -74,7 +74,7 @@ docs/
 | PRD | requirements |
 | Stories | work breakdown |
 | Reference | system architecture, notes, standards & conventions |
-| Skills | additional tools, procedures |
+| Skills | compounding tool library — scripts and procedures captured during work, discoverable and reusable across sessions |
 | Lessons | things learned the hard way |
 | Logs | session notes, updates |
 
@@ -99,6 +99,9 @@ memory into persistent storage before it's lost.
 Docs evolve as work unfolds. They're living artifacts, not write-once documents.
 
 - Lessons get captured in `LESSONS.md` as they're discovered
+- Tools built during work get captured as skills — scripts, migrations, and
+  procedures persist in `docs/skills/` and become discoverable for future
+  sessions instead of being discarded
 - Stale context gets pruned — if it's not useful, it's noise
 - Core docs get updated in place — git preserves history, so the docs always
   reflect current state
