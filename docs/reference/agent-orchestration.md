@@ -1,4 +1,4 @@
-# Goal: Better orchestration
+# Goal: Effective agent orchestration
 
 [agent orchestration flow :: diagram](../../assets/agent-orchestration-flow.png)
 
@@ -28,14 +28,15 @@ An agent fixes this:
 a. model          # claude-sonnet-4-6, kimi-k2
 b. shaping        # specialization: coding, planning, research
 c. tools
-    - web search
-    - bash
-    - files, git
-    - mcp servers, lsp
-    - linter, formatter
-    - unit/regression tests
-    - custom skills (Anthropic agent skills specification)
-    - custom tools
+   - web search
+   - bash
+   - files, git
+   - mcp servers, lsp
+   - compliler, static analysis (linter), type checker, formatter
+   - unit/regression tests
+   - custom skills (Anthropic agent skills specification)
+   - custom tools
+d. agentic loop   # self-directed execution pattern
 
 # Context Engineering
 
@@ -66,9 +67,9 @@ Three layers:
    sessions and evolves with the project. This is what enables:
    - session-to-session continuity
    - agent-to-agent coordination (hand-offs)
-   - iterating on the codebase, plan, and custom tools across sessions
-   - plan-build-test lifecycles at scale
-
+   - iterating on a plan, codebase, knowledgebase, custom tools across sessions
+   - plan-build-test lifecycles and task decomposition
+ 
 With a persistent context layer, agents can iterate to build solutions to
 bigger problems than any single session allows.
 
