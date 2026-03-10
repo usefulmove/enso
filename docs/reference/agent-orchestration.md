@@ -1,12 +1,12 @@
 # Goal: Better orchestration
 
-[:agent orchestration flow diagram:](../../IMG_0854.jpeg)
+[agent orchestration flow :: diagram](../../assets/agent-orchestration-flow.png)
 
-Agent orchestration: the coordination of multiple agents acting on the same
-set of files (codebase, communication, plan, documentation, custom tools) in a common
-environment.
+Agent orchestration: the coordination of the actions of multiple agents acting
+on a common set of files (codebase, communication, plan, documentation, custom
+tools) in a common environment.
 
-How do you get there?
+> So, how do you get there?
 
 # Model
 
@@ -75,6 +75,8 @@ bigger problems than any single session allows.
 # Agent Orchestration
 
 An agent can be used for context transformation:
+
+[agent orchestration flow :: diagram](../../assets/visual-flow.svg)
 
 ```
 new:context = agent(orig:context)
