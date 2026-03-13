@@ -34,8 +34,7 @@ c. tools
    - mcp servers, lsp
    - compliler, static analysis (linter), type checker, formatter
    - unit/regression tests
-   - custom skills (Anthropic agent skills spec)
-   - custom tools # database, etc.
+   - custom tools # databases, api's, skills (Anthropic agent skills specification)
 d. agentic loop   # self-directed execution pattern
 
 # Context Engineering
