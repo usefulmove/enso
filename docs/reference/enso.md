@@ -42,7 +42,8 @@ can't act in the world on its own. No tools. No memory. No persistence.
 
 An agent fixes this:
 
-**agent**
+```
+agent
   a. model          # Claude Sonnet 4.6, GPT 5.3, Kimi K2.5, ...
   b. shaping        # specialization: coding, planning, research, ...
   c. tools          # bridges between layers, tools make the layers dynamic
@@ -54,6 +55,7 @@ An agent fixes this:
      - unit/regression tests
      - custom tools # databases, api's, skills (Anthropic agent skills)
   d. agentic loop   # self-directed execution pattern
+```
 
 (agent vs. model coding example)
 
