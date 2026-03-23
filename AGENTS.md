@@ -2,7 +2,7 @@
 
 [enso – a context management structure for agentic coding](https://github.com/usefulmove/enso)
 
-enso v0.3.0
+enso v0.3.1
 
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
@@ -103,7 +103,22 @@ When an agent encounters this file in a new project:
 
 7. **Begin work**
 
-## 6. Document Lifecycle
+## 6. Planning Phase
+
+**Plan before you execute.** No file modifications until the story's Approach section is complete. Planning is not optional—it is the first act of execution.
+
+**Required steps before touching any file:**
+
+1. **Create or locate the story** — If no story exists for this task, create one in `docs/stories/` now.
+2. **Complete the Approach section** — Fill in Steps, Risks & Unknowns, and Verification before writing any code.
+3. **Verify scope** — Confirm the Context Scope (Write/Read/Exclude) is declared and accurate.
+4. **Then execute** — Only after the above are done, begin modifying files.
+
+**Why this matters:** Agents that skip planning produce work that drifts from intent, miss edge cases, and require costly rework. A complete plan externalizes reasoning so it can be reviewed, corrected, and resumed across sessions. The plan is the first deliverable.
+
+**If the task is small** (single-file, low-risk change): a minimal story with a one-line Steps entry still satisfies this requirement. The goal is intentionality, not ceremony.
+
+## 7. Document Lifecycle
 
 Context is living code. Refactor documentation as aggressively as you refactor code. Stale context is technical debt.
 
@@ -117,7 +132,7 @@ Context is living code. Refactor documentation as aggressively as you refactor c
 
 **Logs** — Append session summaries after compaction; prune when no longer informative.
 
-## 7. Context Scope
+## 8. Context Scope
 
 Every story declares its context boundaries:
 
@@ -144,7 +159,7 @@ Every story declares its context boundaries:
 - Agent should avoid loading Excluded paths into context
 - Scope changes require explicit human approval
 
-## 8. Skills
+## 9. Skills
 
 On-demand capabilities for **vertical, action-specific workflows** (migrations, upgrades, transformations).
 
@@ -164,7 +179,7 @@ assets/       # Optional: templates, data files
 
 **Discovery:** Agent scans directories at session start, reads frontmatter (~100 tokens) for discovery, loads full skill only when needed.
 
-## 8.2. Tool-Building as a First-Class Output
+## 9.2. Tool-Building as a First-Class Output
 
 When solving a task requires a script, transformation, or repeatable procedure, **capture it as a skill**. Don't discard tools after single use.
 
@@ -183,7 +198,7 @@ When solving a task requires a script, transformation, or repeatable procedure, 
 
 Skills compound. A tool built today saves derivation cost in every future session.
 
-## 8.1. Framework Documentation Index
+## 9.1. Framework Documentation Index
 
 Store version-matched framework docs in `docs/core/framework/` and add an index to `AGENTS.md`:
 
@@ -199,7 +214,7 @@ Location: docs/core/framework/
 
 **Why this works:** Always present, standard Markdown, retrieval-led (100% accuracy vs. 79% with on-demand skills).
 
-## 9. Compaction
+## 10. Compaction
 
 Moves insights from working context to persistent context.
 
@@ -207,7 +222,7 @@ Moves insights from working context to persistent context.
 
 **Process:** Summarize decisions, list artifacts, extract lessons to `LESSONS.md`, write summary to `logs/`, continue with fresh context.
 
-## 10. Templates
+## 11. Templates
 
 Templates are guidelines, not rigid forms. Start minimal, expand as needed.
 
@@ -263,7 +278,17 @@ What are we trying to accomplish?
 **Exclude:** ...
 
 ## Approach & Verification Plan
-How to verify success (tests, manual steps).
+
+### Steps
+1. ...
+
+### Risks & Unknowns
+- ...
+
+### Verification
+How to confirm success (tests, manual checks, etc.)
+
+**IMPORTANT: Do not begin execution until this section is complete.**
 ```
 
 ### Session Summary
@@ -285,8 +310,9 @@ What was accomplished.
 - ...
 ```
 
-## 11. Agent Guidelines
+## 12. Agent Guidelines
 
+- **Plan before executing.** Write the story and complete the Approach section before modifying any file. No exceptions.
 - **Search first.** Exhaust search tools before asking for paths.
 - **Tool Selection.** Skills for vertical workflows, framework docs for APIs, external tools for navigation.
 - **Prefer retrieval over training.** Consult `docs/` for framework specifics.
