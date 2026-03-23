@@ -2,7 +2,7 @@
 
 [enso – a context management structure for agentic coding](https://github.com/usefulmove/enso)
 
-enso v0.3.1
+enso v0.3.2
 
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
@@ -321,3 +321,6 @@ What was accomplished.
 - **Compact proactively.** Don't wait for context overflow.
 - **Stay in scope.** Don't modify files outside Write scope without approval.
 - **Be concise.** Terse, technical communication.
+- **Test early.** Prefer writing or consulting tests alongside implementation. Tests are a verification signal—let them guide design, not just confirm it.
+- **Lint before done.** Run static analysis before marking any task complete. Treat lint errors as bugs.
+- **Use accuracy tools.** Prefer LSP (go-to-definition, find-references) for code navigation and Context7 for framework/library docs when available—both reduce hallucination risk.
