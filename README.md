@@ -1,10 +1,24 @@
 # enso
 
-Enso is an agentOS — an orchestration layer that gives AI agents the structure, memory, and operational protocols to behave as reliable, persistent collaborators across any complex domain.
+Enso is an **agent harness** — the infrastructure layer that constrains, informs, verifies, and corrects AI agents in production. The harness encompasses everything between user intent and model output that is not the language model itself: context assembly, tool orchestration, verification loops, cost controls, and observability.
+
+> *"The model is the horse—powerful but directionless. The harness is the tack, reins, and training that channels that power toward useful work without letting it run wild."*
+
+The harness sees an LLM's context window as finite working memory. Every token competes for attention, so the goal is to keep only the smallest set of high-signal tokens needed for the next step.
+
+## What is an Agent Harness?
+
+An agent harness is everything between user intent and model output that is not the language model itself. It provides:
+
+- **Context engineering** — what the agent knows and when
+- **Architectural constraints** — boundaries, allowed tools, dependency rules
+- **Verification loops** — tests, linters, output validation
+- **Feedback mechanisms** — retries, self-correction, entropy management
+- **Lifecycle management** — state, memory across sessions, task orchestration
+
+The harness is the "80% factor" in agent reliability. Same model with a better harness can dramatically improve performance. The discipline of building these systems is **harness engineering**—the evolution beyond prompt engineering and context engineering.
 
 > "[Context engineering is ...] the delicate art and science of filling the context window with just the right information for the next step." Andrej Karpathy
-
-The framework sees an LLM's context window as finite working memory. Every token competes for attention, so the goal is to keep only the smallest set of high-signal tokens needed for the next step.
 
 Three key principles:
 1. *Separate concerns*: Working context (what you're thinking now), Persistent context (docs that survive sessions), Reference context (codebase/external sources you search on-demand)
@@ -23,7 +37,16 @@ AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context r
 - They write code that conflicts with the architecture.
 - They lose "lessons learned" between sessions.
 
-**Enso solves this by giving the agent an Operating System.**
+**Enso solves this by giving the agent a harness.**
+
+## Why Harness Engineering Matters
+
+The harness is the "80% factor" in agent reliability. Research shows:
+
+- **Vercel**: Using AGENTS.md as persistent context achieved a **100% pass rate** vs. **79%** for on-demand skill retrieval — a **+21 percentage point improvement** ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals))
+- **LangChain**: Same model (Claude Opus 4.6), different harness: improved from **Top 30 to Top 5** on Terminal Bench 2.0 by optimizing the harness alone ([source](https://blog.langchain.dev/the-anatomy-of-an-agent-harness/))
+
+> *"Agent = Model + Harness. The model contains the intelligence; the harness makes that intelligence useful."* — LangChain
 
 ## Features
 

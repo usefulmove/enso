@@ -62,7 +62,7 @@ Chain them together — or run them in parallel — and you have an ensemble: a 
 
 ## Enso
 
-Enso is a context management and agent orchestration framework — an agentic operating system (agentOS).
+Enso is an agent harness — the infrastructure layer that constrains, informs, verifies, and corrects AI agents in production.
 
 An agent bootstraps a structured environment. Every agent, every session, reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
 

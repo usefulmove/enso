@@ -1,8 +1,8 @@
-# Context Engineering Protocol
+# Agent Harness Protocol
 
-[enso – a context management structure for agentic coding](https://github.com/usefulmove/enso)
+[enso – an agent harness for reliable, persistent AI collaboration](https://github.com/usefulmove/enso)
 
-enso v0.3.2
+enso v0.4.0
 
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
@@ -16,7 +16,7 @@ This protocol defines how to manage context when working with LLM agents on soft
 4. Agent creates a PRD from conversation with human
 5. Documents evolve as work unfolds, staying compact and focused
 
-The goal: maintain the smallest set of high-signal tokens needed for the next step. Enso treats context as data—each operation transforms the current context into a new context, enabling recursive, verifiable workflows.
+The goal: maintain the smallest set of high-signal tokens needed for the next step. The harness treats context as data—each operation transforms the current context into a new context, enabling recursive, verifiable workflows.
 
 ## 2. The Six Operations
 

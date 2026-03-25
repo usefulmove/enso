@@ -82,8 +82,8 @@ context engineering layer is what makes that coordination reliable.
 ## Enso
 
 What is enso?
-- a context management / agent orchestration framework
-- an agentic operating system (agentOS)
+- an agent harness for context management and agent orchestration
+- the infrastructure layer between user intent and model output
 
 An agent bootstraps a structured environment — PRD, architecture, stories, lessons, skills, session logs. Every agent, every session, reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
 
