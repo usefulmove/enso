@@ -2,7 +2,7 @@
 
 [enso – an agent harness for reliable, persistent AI collaboration](https://github.com/usefulmove/enso)
 
-enso v0.4.0
+enso v0.5.0
 
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
@@ -15,8 +15,11 @@ This protocol defines how to manage context when working with LLM agents on soft
 3. Agent bootstraps the directory structure
 4. Agent creates a PRD from conversation with human
 5. Documents evolve as work unfolds, staying compact and focused
+6. **Agent builds its own tools—extending its capabilities over time**
 
-The goal: maintain the smallest set of high-signal tokens needed for the next step. The harness treats context as data—each operation transforms the current context into a new context, enabling recursive, verifiable workflows.
+**The goal:** maintain the smallest set of high-signal tokens needed for the next step. The harness treats context as data—each operation transforms the current context into a new context, enabling recursive, verifiable workflows.
+
+**The philosophy:** Software building software. Agents improve by becoming authors of their own tooling.
 
 ## 2. The Six Operations
 
@@ -34,6 +37,23 @@ The goal: maintain the smallest set of high-signal tokens needed for the next st
 **Keep current, not historical.** Documents reflect the present state. Git preserves history. Don't accumulate cruft in docs.
 
 **Progressive disclosure.** Load context only when needed. Frontmatter before full docs. Summaries before details.
+
+## 2.1 Self-Improvement: The "Seventh Operation"
+
+**Agents improve by building their own tools.**
+
+Just as a skilled engineer develops custom scripts and workflows, an agent should extend its own capabilities during normal work. When you encounter friction—repetitive tasks, complex procedures, or missing functionality—don't just push through. Build a tool.
+
+This is the essence of *software building software*: the agent writes code that the agent itself will use. Every tool you build becomes part of your persistent capabilities, compounding over time.
+
+**The self-extension loop:**
+1. **Encounter friction** — a task you do repeatedly, a complex procedure, a missing capability
+2. **Build the minimal solution** — a script, a skill, a helper
+3. **Capture it** — persist to `docs/skills/` so it's discoverable
+4. **Use it** — your future self benefits from your past work
+5. **Iterate** — improve the tool as you use it
+
+**Key insight:** The agent IS the tool builder. Not a user of downloaded skills—an author of its own capabilities.
 
 ## 3. Terminology
 
@@ -179,24 +199,32 @@ assets/       # Optional: templates, data files
 
 **Discovery:** Agent scans directories at session start, reads frontmatter (~100 tokens) for discovery, loads full skill only when needed.
 
-## 9.2. Tool-Building as a First-Class Output
+## 9.2. Self-Extension: Building Your Own Tools
 
-When solving a task requires a script, transformation, or repeatable procedure, **capture it as a skill**. Don't discard tools after single use.
+**The agent is the tool builder.**
 
-**The build-and-capture loop:**
-1. Encounter a repeatable need
-2. Build the minimal tool to address it
-3. Capture it in `docs/skills/<tool-name>/`
-4. It becomes discoverable for future sessions
+When solving a task requires a script, transformation, or repeatable procedure, **build it yourself**. Don't download it. Don't discard it after single use. Extend your own capabilities.
 
-**Before writing new code:** Scan `docs/skills/` for existing tools. Reuse and extend before rebuilding.
+This is how agents truly improve over time—not by accumulating external dependencies, but by becoming authors of their own tooling.
 
-**When to capture:**
-- Any script written to transform, migrate, or automate
-- Any multi-step procedure that took real effort to derive
+**The self-extension loop:**
+1. **Encounter friction** — a task you'll do again, a complex procedure, a missing capability
+2. **Build the minimal tool** — a script, skill, or helper that solves YOUR specific need
+3. **Capture it** — persist to `docs/skills/<tool-name>/` with documentation
+4. **Use it** — your future sessions benefit from your past work
+5. **Iterate** — improve it as you use it
+
+**Before building:** Scan `docs/skills/` for your own existing tools. Reuse and extend your own work before rebuilding.
+
+**Build when:**
+- Any task you'll do more than once
+- Any procedure that took real effort to figure out
 - Any workaround that will likely recur
+- Any gap between what you need and what's available
 
-Skills compound. A tool built today saves derivation cost in every future session.
+**The compounding effect:** A tool built today saves derivation cost in every future session. After months of work, an agent should have dozens of custom tools tailored to its specific workflows and codebase.
+
+**Pi Principle:** Software building software. The agent extends itself.
 
 ## 9.1. Framework Documentation Index
 
@@ -324,3 +352,22 @@ What was accomplished.
 - **Test early.** Prefer writing or consulting tests alongside implementation. Tests are a verification signal—let them guide design, not just confirm it.
 - **Lint before done.** Run static analysis before marking any task complete. Treat lint errors as bugs.
 - **Use accuracy tools.** Prefer LSP (go-to-definition, find-references) for code navigation and Context7 for framework/library docs when available—both reduce hallucination risk.
+- **Extend yourself.** When you encounter repetitive work, build a tool. The agent is the tool builder—don't just use capabilities, create them. Software building software.
+- **Capture your own wisdom.** Skills are not downloaded, they're authored. Every tool you build should be discoverable for your future sessions.
+- **Compound your capabilities.** A month of work should leave you with dozens of custom tools. Your future self should be significantly more capable than your past self.
+
+## 13. The Pi Principle
+
+This harness draws inspiration from [Pi](https://github.com/badlogic/pi-mono/), a minimal coding agent with a powerful philosophy: **agents should extend themselves**.
+
+Rather than downloading pre-built tools or skills, Pi agents write their own extensions. When they need new functionality, they build it. The result is software that writes more software—an agent that becomes increasingly capable over time by authoring its own tooling.
+
+**Key insight:** The most powerful agents are not those with the most downloaded dependencies, but those that have built the most custom tools for their specific workflows.
+
+**In practice:**
+- Extensions are authored, not installed
+- Tools are tailored to YOUR codebase and workflows
+- Capabilities compound session over session
+- The agent becomes uniquely capable for its specific domain
+
+This is the essence of self-improvement: the agent as tool author.
