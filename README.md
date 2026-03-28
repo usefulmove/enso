@@ -53,11 +53,13 @@ The harness is the "80% factor" in agent reliability. Research shows:
 *   **Agentic Discovery:** Agents don't ask "what is this project?" They run `ls -R`, read configs, and build a mental map *before* talking to you.
 *   **Retrieval-Led Reasoning:** Agents consult version-matched documentation in `docs/` instead of relying on training data. This is a structured form of RAG — retrieval-augmented generation — where retrieval is deterministic and file-based rather than probabilistic and vector-based, keeping latency low and accuracy high. Vercel's agent evals found that always-present context achieved a 100% pass rate vs. 79% for on-demand skill retrieval — even with explicit instructions to use skills. ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals))
 *   **Framework Documentation Index:** A discoverable, always-present knowledge base for framework APIs and patterns that agents consult automatically.
+*   **Plan-Before-Execute:** Agents are required to create a story and complete the Approach section—Steps, Risks, and Verification—before modifying any file. Planning is not optional; it is the first act of execution.
+*   **Context Scope:** Every story declares explicit Write/Read/Exclude file boundaries. Agents cannot modify files outside their declared scope without explicit approval, keeping changes focused and reviewable.
 *   **Fractal Architecture:** Supports projects ranging from single scripts to massive monorepos using scalable `docs/` structures.
 *   **Adaptive Scaffolding:** Automatically detects project type (React, Python, Node.js, etc.) and tailors documentation structure, conventions, and templates to match the ecosystem.
 *   **Verification-First:** Agents are mandated to define **Test Plans** before writing code.
 *   **Institutional Memory:** The "Reflexion Loop" captures lessons and anti-patterns in `LESSONS.md`, preventing repeat mistakes.
-*   **Compounding Skill Library:** Agents capture scripts, transformations, and procedures as discoverable skills during normal work — building project-specific tooling that future sessions reuse instead of re-derive.
+*   **Self-Extending Agents:** When agents encounter friction—repetitive tasks, complex procedures, missing capabilities—they build tools. Scripts and skills are persisted to `docs/skills/` and reused across sessions. Capabilities compound over time; the agent becomes uniquely capable for its specific domain.
 *   **MCP-Ready:** Designed to work seamlessly with (or without) the Model Context Protocol.
 
 ## Usage
@@ -109,6 +111,23 @@ docs/
   skills/         # Local Capabilities (Scripts, Tests)
   logs/           # Session History
 ```
+
+## The Pi Principle
+
+Enso draws inspiration from [Pi](https://github.com/badlogic/pi-mono/), a minimal coding agent built around one core idea: **agents should extend themselves**.
+
+Rather than downloading pre-built tools, Pi agents write their own extensions. When they need new functionality, they build it. The result is software that writes more software—an agent that becomes increasingly capable over time by authoring its own tooling.
+
+**The self-extension loop:**
+1. **Encounter friction** — a task you'll do again, a complex procedure, a missing capability
+2. **Build the minimal tool** — a script, skill, or helper that solves the specific need
+3. **Capture it** — persist to `docs/skills/` so it's discoverable in future sessions
+4. **Use it** — future sessions benefit from past work
+5. **Iterate** — improve the tool as you use it
+
+The compounding effect: a tool built today saves derivation cost in every future session. After months of work, an agent should have dozens of custom tools tailored to its specific workflows and codebase—not downloaded dependencies, but authored capabilities.
+
+> *"The most powerful agents are not those with the most downloaded dependencies, but those that have built the most custom tools for their specific workflows."*
 
 ## License
 
