@@ -50,6 +50,31 @@ Defer loading source files until the story that needs them is executing. Don't a
 or content — probe first. This keeps the harness lean and prevents stale assumptions from
 polluting context.
 
+## 2026-03-28 — Public Presence Integration
+
+### On Framing and Messaging
+
+"The emacs of agent orchestrators" works because it:
+- Communicates self-extensibility in one phrase
+- References a system technical audiences respect
+- Creates immediate curiosity ("what does that mean?")
+
+Supporting phrase "software building software" reinforces the recursive nature without jargon.
+
+### On Multi-Property Integration
+
+Four properties, one message — but different tones:
+- **Website**: Terminal aesthetic, embedded in HIGHLIGHTS
+- **GitHub README**: Hero tagline, immediate impact
+- **Resume**: Hybrid strategy (ATS-friendly + visionary)
+- **LinkedIn**: Founder voice, emacs parallel as narrative anchor
+
+Key insight: Same core message, adapted to medium constraints and audience expectations.
+
+### On Content Creation Workflow
+
+Draft → Review → Approve → Execute works well for founder-facing content. Presenting multiple options (Draft 1/2/3) lets the founder choose voice and angle. Final deliverable includes posting instructions and verification checklist.
+
 ### Open Questions
 
 - How do agents discover each other's capabilities in a multi-agent team?

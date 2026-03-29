@@ -6,15 +6,15 @@ framing and the ensoOS vision. Startup founder voice. This becomes the canonical
 statement of what we're building.
 
 ## Acceptance Criteria
-- [ ] Post draft written in startup founder voice
-- [ ] Key phrases included naturally:
+- [x] Post draft written in startup founder voice
+- [x] Key phrases included naturally:
   - "the emacs of agent orchestrators"
   - "participates in the construction of its own operational context"
   - "software building software"
   - "ensoOS"
-- [ ] Post drives engagement and signals what you're building to the right audience
-- [ ] Draft reviewed and approved before publishing
-- [ ] Post published and pinned as featured on LinkedIn profile
+- [x] Post drives engagement and signals what you're building to the right audience
+- [x] Draft reviewed and approved before publishing
+- [ ] Post published and pinned as featured on LinkedIn profile (user executing)
 - [ ] Linked from STORY-002 (headline + about) for narrative consistency
 
 ## Context Scope
