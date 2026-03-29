@@ -1,5 +1,7 @@
 # enso
 
+**The emacs of agent orchestrators.** Software that builds software.
+
 Enso is an **agent harness** — the infrastructure layer that constrains, informs, verifies, and corrects AI agents in production. The harness encompasses everything between user intent and model output that is not the language model itself: context assembly, tool orchestration, verification loops, cost controls, and observability.
 
 > *"The model is the horse—powerful but directionless. The harness is the tack, reins, and training that channels that power toward useful work without letting it run wild."*
