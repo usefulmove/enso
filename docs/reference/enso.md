@@ -77,6 +77,10 @@ Careful bite-sizing and context management — a detailed plan before building,
 one story (task) at a time — significantly increase agent accuracy. The
 context engineering layer is what makes that coordination reliable.
 
+### The Six Operations
+
+The harness defines six primitives — Write, Select, Probe, Compress, Isolate, Assign — for managing context as a scarce resource. Together they cover the full lifecycle: persist what matters, load only what's needed, search before assuming, condense when full, divide what's too big, and match the right agent to the right task.
+
 ---
 
 ## Enso
@@ -86,6 +90,23 @@ What is enso?
 - the infrastructure layer between user intent and model output
 
 An agent bootstraps a structured environment — PRD, architecture, stories, lessons, skills, session logs. Every agent, every session, reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
+
+---
+
+## The Pi Principle
+
+> "Software building software. The agent extends itself."
+
+The harness draws from [Pi](https://github.com/badlogic/pi-mono/), a minimal agent with a powerful idea: agents should write their own extensions. When an agent encounters friction — a task done repeatedly, a missing capability — it doesn't push through. It builds a tool.
+
+**The self-extension loop:**
+1. **Encounter friction** — a task you do repeatedly, a complex procedure, a missing capability
+2. **Build the minimal solution** — a script, a skill, a helper
+3. **Capture it** — persist to `docs/skills/` so it's discoverable
+4. **Use it** — your future self benefits from your past work
+5. **Iterate** — improve the tool as you use it
+
+The most powerful agents aren't those with the most downloaded dependencies — they're the ones that have built the most custom tools for their specific workflows. Capabilities compound.
 
 ```
 docs/

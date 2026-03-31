@@ -58,6 +58,10 @@ context:new = agent(context:orig)
 
 Chain them together — or run them in parallel — and you have an ensemble: a team of agents operating on a shared environment. Careful bite-sizing and context management (detailed plan upfront, one story at a time) significantly increase accuracy. Context engineering is what makes that coordination reliable.
 
+### The Six Operations
+
+Write · Select · Probe · Compress · Isolate · Assign — six primitives for managing context as a scarce resource.
+
 ---
 
 ## Enso
@@ -65,6 +69,14 @@ Chain them together — or run them in parallel — and you have an ensemble: a 
 Enso is an agent harness — the infrastructure layer that constrains, informs, verifies, and corrects AI agents in production.
 
 An agent bootstraps a structured environment. Every agent, every session, reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
+
+---
+
+## The Pi Principle
+
+> "Software building software. The agent extends itself."
+
+Inspired by [Pi](https://github.com/badlogic/pi-mono/): when an agent encounters friction, it builds a tool. Captures it to `docs/skills/`. Reuses it. Iterates. Capabilities compound — a month of work should leave an agent significantly more capable than when it started.
 
 ```
 docs/
