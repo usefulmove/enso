@@ -1,8 +1,27 @@
+IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for framework-specific and domain-specific tasks.
+
+---
+
+## Codebase (Optional — fill in during bootstrapping for larger projects)
+
+| Path | Contents |
+|------|----------|
+| | |
+
+## Docs Index
+
+| Doc | Path |
+|-----|------|
+| PRD | `docs/core/PRD.md` |
+| Architecture | `docs/core/architecture/ARCHITECTURE.md` |
+
+---
+
 # Agent Harness Protocol
 
 [enso – an agent harness for reliable, persistent AI collaboration](https://github.com/usefulmove/enso)
 
-enso v0.5.0
+enso v0.5.1
 
 A single-file seed for managing context across LLM agents, sessions, and tools.
 
@@ -54,6 +73,20 @@ This is the essence of *software building software*: the agent writes code that 
 5. **Iterate** — improve the tool as you use it
 
 **Key insight:** The agent IS the tool builder. Not a user of downloaded skills—an author of its own capabilities.
+
+## 2.2 Agentic Discovery
+
+**Architecture documentation is not a blueprint to read—it's a map you draw as you explore.**
+
+Modern agentic systems (see Anthropic's [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)) succeed when agents can dynamically discover and document system structure through active exploration. Rather than requiring comprehensive upfront documentation, this harness embraces **agentic discovery**: the agent probes the codebase using `grep`, LSP, and file exploration to understand structure, then persists those discoveries into `docs/core/architecture/`.
+
+**Key principles:**
+- **Discover through action:** Use tool calls (`Read`, `Grep`, `Glob`) to map the codebase as you work
+- **Document as you learn:** When you probe an undocumented subsystem, extend the architecture docs before completing the task
+- **Prefer retrieval over memory:** Don't assume you know the codebase—actively search to verify (see the IMPORTANT notice above)
+- **Environmental feedback:** Use compilation, tests, and tool results as ground truth to validate your mental model
+
+This approach aligns with the agentic pattern of gaining "ground truth" from the environment at each step, treating architecture documentation as an output of the work rather than just an input.
 
 ## 3. Terminology
 
@@ -107,21 +140,37 @@ When an agent encounters this file in a new project:
    touch docs/reference/LESSONS.md
    ```
 
-2. **Add retrieval-led reasoning instruction** to root `AGENTS.md`:
-   ```
-   IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning 
-   for framework-specific and domain-specific tasks.
-   ```
+2. **Optionally fill in Codebase/Docs Index tables** at the top of this file (see Section 5.1 for optional Codebase and Docs Index tables).
 
 3. **Gather context** — Prompt the human for the problem, success criteria, scope, and constraints.
 
 4. **Generate PRD** — Create `docs/core/PRD.md` from the conversation.
 
-5. **System Mapping** — Probe the codebase to create `ARCHITECTURE.md`, identify capabilities, and document conventions.
+5. **System Mapping** — Create a minimal `ARCHITECTURE.md` with high-level structure only. Architecture docs are *living documents* that grow through [agentic discovery](#22-agentic-discovery)—when a story requires probing a subsystem not yet documented, extend `docs/core/architecture/` before marking the story complete. Incompleteness is expected; undocumented work is not.
 
 6. **First story** — Create the initial story in `docs/stories/`.
 
 7. **Begin work**
+
+### 5.1 Optional: Codebase and Docs Index Tables
+
+For larger projects, add these tables at the top of AGENTS.md (after the IMPORTANT notice) to provide quick orientation:
+
+```markdown
+## Codebase (Optional — fill in during bootstrapping for larger projects)
+
+| Path | Contents |
+|------|----------|
+| `src/` | Source code |
+| `tests/` | Test files |
+
+## Docs Index
+
+| Doc | Path |
+|-----|------|
+| PRD | `docs/core/PRD.md` |
+| Architecture | `docs/core/architecture/ARCHITECTURE.md` |
+```
 
 ## 6. Planning Phase
 
@@ -316,6 +365,8 @@ What are we trying to accomplish?
 ### Verification
 How to confirm success (tests, manual checks, etc.)
 
+- [ ] If this story required probing subsystems not previously documented, update `docs/core/architecture/` before marking complete.
+
 **IMPORTANT: Do not begin execution until this section is complete.**
 ```
 
@@ -352,6 +403,7 @@ What was accomplished.
 - **Test early.** Prefer writing or consulting tests alongside implementation. Tests are a verification signal—let them guide design, not just confirm it.
 - **Lint before done.** Run static analysis before marking any task complete. Treat lint errors as bugs.
 - **Use accuracy tools.** Prefer LSP (go-to-definition, find-references) for code navigation and Context7 for framework/library docs when available—both reduce hallucination risk.
+- **Grow/update architecture incrementally.** Document/update subsystems as you touch them.
 - **Extend yourself.** When you encounter repetitive work, build a tool. The agent is the tool builder—don't just use capabilities, create them. Software building software.
 - **Capture your own wisdom.** Skills are not downloaded, they're authored. Every tool you build should be discoverable for your future sessions.
 - **Compound your capabilities.** A month of work should leave you with dozens of custom tools. Your future self should be significantly more capable than your past self.
@@ -371,3 +423,13 @@ Rather than downloading pre-built tools or skills, Pi agents write their own ext
 - The agent becomes uniquely capable for its specific domain
 
 This is the essence of self-improvement: the agent as tool author.
+
+## 14. References and Further Reading
+
+### Agentic Systems
+- **[Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)** - Anthropic's comprehensive guide to agentic patterns (Dec 2024). Key insight: Start with simple, composable patterns and add complexity only when needed.
+- **[Claude Code: Best practices](https://www.anthropic.com/engineering/claude-code-best-practices)** - Patterns for working effectively with agentic coding tools.
+
+### Related Concepts
+- **The "Augmented LLM"** - The basic building block of agentic systems: an LLM enhanced with retrieval, tools, and memory that can actively use these capabilities.
+- **Agent-Computer Interface (ACI)** - The discipline of designing tool interfaces and documentation that agents can use effectively. As important as HCI for human users.
