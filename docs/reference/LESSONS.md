@@ -1,5 +1,25 @@
 # Lessons Learned
 
+## 2026-03-31 — Bootstrap Safety
+
+### On Guarding Destructive Bootstrap Operations
+
+Bootstrap operations must never overwrite user-modified files without an explicit guard. `curl -o` (and similar write operations) are only safe on first write. Always check existence before overwriting — a customized seed file is irreplaceable if the user hasn't committed it. The pattern: `[ -f ./file ] && echo "OK" || (fetch_or_fail)`.
+
+## 2026-03-31 — Slash Command Refresh
+
+### On Command Discovery
+OpenCode slash commands auto-discover from `~/.config/opencode/commands/` — no explicit registration in `opencode.json` required. Files just need to exist in that directory with `.md` extension.
+
+### On Silent Failures
+`@file` references in slash commands fail silently if the file is missing. Use `!` shell commands to detect and report missing files explicitly rather than relying on `@` references alone.
+
+### On Bootstrap Design
+Bootstrap should fetch canonical seed files from remote source (GitHub) rather than copying local files. This ensures new projects always get the latest version and avoids confusion between tool config files (e.g., `~/.config/opencode/AGENTS.md`) and project seed files (enso `AGENTS.md`). Hard-fail on network errors — no silent fallback.
+
+### On Eating Your Own Dog Food
+Using the harness to improve itself surfaces real friction fast. The first `/enso-start` run revealed the missing AGENTS.md copy step and the silent `@file` failure — neither would have been caught otherwise.
+
 ## 2026-03-27 — Founding Session
 
 ### On Agent Orchestration Metaphors
