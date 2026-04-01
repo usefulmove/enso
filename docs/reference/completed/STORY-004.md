@@ -14,8 +14,8 @@ statement of what we're building.
   - "ensoOS"
 - [x] Post drives engagement and signals what you're building to the right audience
 - [x] Draft reviewed and approved before publishing
-- [ ] Post published and pinned as featured on LinkedIn profile (user executing)
-- [ ] Linked from STORY-002 (headline + about) for narrative consistency
+- [x] Post published and pinned as featured on LinkedIn profile (user executing)
+- [x] Linked from STORY-002 (headline + about) for narrative consistency
 
 ## Context Scope
 

@@ -5,12 +5,12 @@ Update LinkedIn headline and about section to include "the emacs of agent orches
 framing in startup founder voice. Speak to both technical and business audiences.
 
 ## Acceptance Criteria
-- [ ] Current LinkedIn headline and about section reviewed (if available as source files)
-- [ ] Headline draft written (≤220 characters)
-- [ ] About section draft written (≤2,600 characters)
-- [ ] Both written in startup founder voice — visionary, grounded, authentic
-- [ ] Draft reviewed and approved before posting
-- [ ] Changes verified live on LinkedIn
+- [x] Current LinkedIn headline and about section reviewed (if available as source files)
+- [x] Headline draft written (≤220 characters)
+- [x] About section draft written (≤2,600 characters)
+- [x] Both written in startup founder voice — visionary, grounded, authentic
+- [x] Draft reviewed and approved before posting
+- [x] Changes verified live on LinkedIn
 
 ## Context Scope
 

@@ -5,12 +5,12 @@ Update dedmonds.co and the enso GitHub repository (github.com/usefulmove/enso) t
 "the emacs of agent orchestrators" framing, in startup founder voice.
 
 ## Acceptance Criteria
-- [ ] dedmonds.co source files located and reviewed
-- [ ] enso GitHub README located and reviewed
-- [ ] Content drafted for both properties separately
-- [ ] Startup founder voice applied (visionary, confident, slightly provocative)
-- [ ] Draft reviewed and approved before any changes pushed
-- [ ] Changes verified live after publish
+- [x] dedmonds.co source files located and reviewed
+- [x] enso GitHub README located and reviewed
+- [x] Content drafted for both properties separately
+- [x] Startup founder voice applied (visionary, confident, slightly provocative)
+- [x] Draft reviewed and approved before any changes pushed
+- [x] Changes verified live after publish
 
 ## Context Scope
 

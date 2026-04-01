@@ -5,12 +5,12 @@ Integrate "the emacs of agent orchestrators" into the resume in startup founder 
 in the appropriate section (summary, projects, or experience).
 
 ## Acceptance Criteria
-- [ ] Resume source file located and reviewed (lazy load)
-- [ ] Appropriate section(s) identified for the phrase
-- [ ] Draft written that contextualizes ensoOS work concisely
-- [ ] Startup founder voice balanced with resume conventions
-- [ ] Draft reviewed and approved before modifying source file
-- [ ] Final output verified for formatting and correctness
+- [x] Resume source file located and reviewed (lazy load)
+- [x] Appropriate section(s) identified for the phrase
+- [x] Draft written that contextualizes ensoOS work concisely
+- [x] Startup founder voice balanced with resume conventions
+- [x] Draft reviewed and approved before modifying source file
+- [x] Final output verified for formatting and correctness
 
 ## Context Scope
 
