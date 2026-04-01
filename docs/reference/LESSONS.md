@@ -101,3 +101,21 @@ Draft → Review → Approve → Execute works well for founder-facing content. 
 - What is the minimal viable harness that still enables full self-extension?
 - What is the "elisp" of ensoOS — the primitive language agents use to reshape their own environment?
 - Where does the harness/agent distinction fully dissolve?
+
+## 2026-03-31 — Agent-Only Documentation
+
+### On Documentation Audience
+
+When documentation targets agents exclusively, remove:
+- Explanations of "why" (agents execute, don't need persuasion)
+- Analogies and rhetorical framing
+- Conversational language and motivational text
+- "How to use this" instructions (implied by structure)
+
+Keep:
+- Declarative commands and constraints
+- Machine-readable metadata (YAML frontmatter)
+- Reference links for deeper reading
+- Templates with structure only (no narrative prompts)
+
+Result: 40%+ token reduction, higher signal-to-noise ratio.
