@@ -119,3 +119,17 @@ Keep:
 - Templates with structure only (no narrative prompts)
 
 Result: 40%+ token reduction, higher signal-to-noise ratio.
+
+## 2026-04-01 — QA Pattern + Context Reset
+
+### On QA as a Separate Evaluator Pass
+
+Agents self-evaluate poorly — they tend to be overly positive about their own work (Anthropic harness article). A dedicated QA step that reviews acceptance criteria after implementation catches gaps the generator misses. QA should assess both correctness (did the agent do what was specified?) and coverage (are the ACs themselves complete and testable?). Human only needs to intervene on disagreements.
+
+### On Compact + Restart as a Reset Pattern
+
+The `/enso-compact` → `/enso-start` flow is a valid implementation of the "full context reset" pattern. Compact first ensures nothing is lost; restart reloads only the essential structured state. The gap between the two steps is a good time to commit to git.
+
+### On Workflow Templates vs Persona Prompts
+
+Canned role personas (e.g., "You are a senior architect...") are less durable than workflow templates. As models improve, personas become unnecessary scaffolding. Workflow templates (the sequence of steps for a task type) remain useful regardless of model capability. Keep the model choice with the human; make the process explicit in the template.

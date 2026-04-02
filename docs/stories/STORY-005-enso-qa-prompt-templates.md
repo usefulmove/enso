@@ -66,3 +66,22 @@ Add `/enso-qa` command and prompt templates (workflows) to enso harness.
 - [ ] Update `docs/core/architecture/ARCHITECTURE.md` if new subsystems discovered.
 
 **Do not begin execution until this section is complete.**
+
+## Progress Update: 2026-04-01
+
+### Completed
+- Reviewed `agent-research-2026-03-30.md` and `anthropic-harness-article-takeaways.md`
+- Discussed all four candidate improvements with human
+- Created and scoped this story
+
+### Key Decisions
+- `/enso-qa` acts as the evaluator pass: reviews ACs on the active story, confirms or flags with QA comments. Human only reviews disagreements.
+- Keep `/enso-compact` → `/enso-start` as the context-reset pattern; no `/enso-reset` command.
+- Prompt templates = workflow templates (not persona prompts); model selection stays with human.
+- Story contracts deferred (not in scope for this story).
+
+### In Progress
+- No implementation yet; story is planned and approved.
+
+### Remaining
+- All steps in Approach & Verification Plan above.
