@@ -2,134 +2,120 @@
 
 **The emacs of agent orchestrators.** Software that builds software.
 
-Enso is an **agent harness** — the infrastructure layer that constrains, informs, verifies, and corrects AI agents in production. The harness encompasses everything between user intent and model output that is not the language model itself: context assembly, tool orchestration, verification loops, cost controls, and observability.
+Enso is a single markdown file (`AGENTS.md`) that turns any AI coding agent into a disciplined software engineer. Drop it into a repo, tell the agent to read it, and watch it bootstrap a full context management system from one seed. No dependencies. No CLI. No SaaS. One file that grows.
 
-> *"The model is the horse—powerful but directionless. The harness is the tack, reins, and training that channels that power toward useful work without letting it run wild."*
-
-The harness sees an LLM's context window as finite working memory. Every token competes for attention, so the goal is to keep only the smallest set of high-signal tokens needed for the next step.
-
-## What is an Agent Harness?
-
-An agent harness is everything between user intent and model output that is not the language model itself. It provides:
-
-- **Context engineering** — what the agent knows and when
-- **Architectural constraints** — boundaries, allowed tools, dependency rules
-- **Verification loops** — tests, linters, output validation
-- **Feedback mechanisms** — retries, self-correction, entropy management
-- **Lifecycle management** — state, memory across sessions, task orchestration
-
-The harness is the "80% factor" in agent reliability. Same model with a better harness can dramatically improve performance. The discipline of building these systems is **harness engineering**—the evolution beyond prompt engineering and context engineering.
-
-> "[Context engineering is ...] the delicate art and science of filling the context window with just the right information for the next step." Andrej Karpathy
-
-Three key principles:
-1. *Separate concerns*: Working context (what you're thinking now), Persistent context (docs that survive sessions), Reference context (codebase/external sources you search on-demand)
-2. *Progressive disclosure*: Load only what you need, when you need it. Summaries before details. Don't assume—search first.
-3. *Stay current, not historical*: Documents reflect the present state. Git tracks history; docs shouldn't accumulate cruft.
-
-Six operations to manage this scarce resource: Write (persist), Select (load minimally), Probe (search actively), Compress (summarize when full), Isolate (split tasks), Assign (right agent for the job).
-
-Enso is a single-file "seed" (`AGENTS.md`) that builds out a structured environment for agentic development. It replaces ad-hoc prompt engineering with protocols for managing context and tools. Enso treats context as data—each action is a unary transformation (context → context)—enabling recursive, discoverable, and versioned agentic workflows.
+> *"The model is the horse — powerful but directionless. The harness is the tack, reins, and training that channels that power toward useful work without letting it run wild."*
 
 ## The Problem
 
-AI agents (Claude, Codex, Gemini) are powerful, but they suffer from **context rot**.
-- They forget established patterns.
-- They hallucinate details.
+AI agents are powerful. They are also forgetful, overconfident, and careless.
+
+- They forget patterns established two sessions ago.
+- They hallucinate details they could have searched for.
 - They write code that conflicts with the architecture.
-- They lose "lessons learned" between sessions.
+- They lose lessons learned between sessions.
+- They touch files they shouldn't, miss files they should, and treat every task like the first time.
 
-**Enso solves this by giving the agent a harness.**
+This is **context rot** — the slow decay of coherence as an agent loses track of what it knows, what it's done, and what it's supposed to be doing. The model isn't the bottleneck. The context is.
 
-## Why Harness Engineering Matters
+## The Solution: Harness Engineering
 
-The harness is the "80% factor" in agent reliability. Research shows:
+An agent harness is everything between user intent and model output that is *not* the language model itself — context assembly, tool orchestration, verification loops, feedback mechanisms, and lifecycle management.
 
-- **Vercel**: Using AGENTS.md as persistent context achieved a **100% pass rate** vs. **79%** for on-demand skill retrieval — a **+21 percentage point improvement** ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals))
-- **LangChain**: Same model (Claude Opus 4.6), different harness: improved from **Top 30 to Top 5** on Terminal Bench 2.0 by optimizing the harness alone ([source](https://blog.langchain.dev/the-anatomy-of-an-agent-harness/))
+The harness is the 80% factor in agent reliability. Same model, better harness, dramatically better results.
+
+| Evidence | Result |
+|----------|--------|
+| **Vercel** agent evals | Persistent context via AGENTS.md achieved a **100% pass rate** vs. **79%** for on-demand skill retrieval — a +21 percentage point improvement ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)) |
+| **LangChain** Terminal Bench 2.0 | Same model (Claude Opus 4.6), different harness: improved from **Top 30 to Top 5** by optimizing the harness alone ([source](https://blog.langchain.dev/the-anatomy-of-an-agent-harness/)) |
 
 > *"Agent = Model + Harness. The model contains the intelligence; the harness makes that intelligence useful."* — LangChain
 
-## Features
+Enso treats context as a scarce resource. Every token competes for attention. Three principles govern the protocol:
 
-*   **Agentic Discovery:** Agents don't ask "what is this project?" They run `ls -R`, read configs, and build a mental map *before* talking to you.
-*   **Retrieval-Led Reasoning:** Agents consult version-matched documentation in `docs/` instead of relying on training data. This is a structured form of RAG — retrieval-augmented generation — where retrieval is deterministic and file-based rather than probabilistic and vector-based, keeping latency low and accuracy high. Vercel's agent evals found that always-present context achieved a 100% pass rate vs. 79% for on-demand skill retrieval — even with explicit instructions to use skills. ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals))
-*   **Framework Documentation Index:** A discoverable, always-present knowledge base for framework APIs and patterns that agents consult automatically.
-*   **Plan-Before-Execute:** Agents are required to create a story and complete the Approach section—Steps, Risks, and Verification—before modifying any file. Planning is not optional; it is the first act of execution.
-*   **Context Scope:** Every story declares explicit Write/Read/Exclude file boundaries. Agents cannot modify files outside their declared scope without explicit approval, keeping changes focused and reviewable.
-*   **Fractal Architecture:** Supports projects ranging from single scripts to massive monorepos using scalable `docs/` structures.
-*   **Adaptive Scaffolding:** Automatically detects project type (React, Python, Node.js, etc.) and tailors documentation structure, conventions, and templates to match the ecosystem.
-*   **Verification-First:** Agents are mandated to define **Test Plans** before writing code.
-*   **Institutional Memory:** The "Reflexion Loop" captures lessons and anti-patterns in `LESSONS.md`, preventing repeat mistakes.
-*   **Self-Extending Agents:** When agents encounter friction—repetitive tasks, complex procedures, missing capabilities—they build tools. Scripts and skills are persisted to `docs/skills/` and reused across sessions. Capabilities compound over time; the agent becomes uniquely capable for its specific domain.
-*   **MCP-Ready:** Designed to work seamlessly with (or without) the Model Context Protocol.
+1. **Separate concerns.** Working context (ephemeral thought), persistent context (durable docs that survive sessions), and reference context (codebase and external sources searched on demand).
+2. **Progressive disclosure.** Load only what you need, when you need it. Summaries before details. Search before assuming.
+3. **Stay current, not historical.** Documents reflect the present state. Git tracks history. Docs don't accumulate cruft.
 
-## Usage
+## How It Works
+
+### The Six Operations
+
+The context window is a spotlight — you can illuminate only so much at once. Six operations control what's lit, what's just off-stage, and when to change scenes.
+
+| Operation | Action | Why |
+|-----------|--------|-----|
+| **Write** | Persist insights to disk | Working memory is temporary; persistence survives sessions |
+| **Select** | Load only what's needed now | Don't waste tokens on irrelevant context |
+| **Probe** | Search actively (grep, LSP, glob) | Don't assume — discover |
+| **Compress** | Summarize to fit the token budget | Condense instead of dropping |
+| **Isolate** | Split work across scopes | Divide complex tasks to stay within limits |
+| **Assign** | Match task to the right agent | Not every hand suits every clay |
+
+### The Directory Structure
+
+Enso creates a standard, predictable hierarchy that agents can navigate without guidance:
+
+```
+docs/
+  core/           # Source of truth — PRD, Architecture
+  stories/        # Active units of work
+  reference/      # Long-term memory — lessons, conventions
+  skills/         # Self-authored tools and capabilities
+  logs/           # Session history
+```
+
+**Core** holds the vision — updated in place, never duplicated. **Stories** hold active work — each one scoped, planned, and verified before execution begins. **Reference** holds earned knowledge — completed work and the living `LESSONS.md` where every hard-won insight is recorded. **Skills** hold self-authored tools. **Logs** hold compressed session summaries.
+
+### The Self-Extension Loop
+
+Enso draws from the [Pi Principle](https://github.com/badlogic/pi-mono/): **agents extend themselves by authoring tools, not downloading them.**
+
+When an agent encounters friction — a repetitive task, a complex procedure, a missing capability — it doesn't wait. It builds the minimal tool, persists it to `docs/skills/`, and moves on. The next session inherits the capability. The session after that refines it.
+
+The compounding effect: a tool built today saves derivation cost in every future session. After months of work, an agent has dozens of custom tools tailored to its codebase — not downloaded dependencies, but authored capabilities. Software building software.
+
+> *"The most powerful agents are not those with the most downloaded dependencies, but those that have built the most custom tools for their specific workflows."*
+
+## Key Capabilities
+
+- **Plan-before-execute.** Agents create a story with Steps, Risks, and Verification before modifying any file. Planning is not optional — it is the first act of execution.
+- **Context scope.** Every story declares explicit Write/Read/Exclude file boundaries. No modifications outside declared scope without approval.
+- **Retrieval-led reasoning.** Agents consult version-matched documentation in `docs/` instead of relying on stale training data. Deterministic, file-based RAG — low latency, high accuracy.
+- **Agentic discovery.** Agents don't ask "what is this project?" They probe the codebase, read configs, and build a mental map before talking to you. Architecture docs are maps drawn through exploration, not blueprints to read.
+- **Institutional memory.** Lessons and anti-patterns are captured in `LESSONS.md`, preventing repeat mistakes across sessions.
+- **Self-extending agents.** Capabilities compound over time. The agent becomes uniquely capable for its specific domain.
+
+## Quick Start
 
 ### 1. Plant the Seed
-Download `AGENTS.md` and place it in the root of your project.
 
 ```bash
 curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
 ```
 
-### 2. Activate an Agent
-Point your agent manager (OpenCode, Cursor, Claude Code, Windsurf) to the file:
+### 2. Activate
+
+Point your agent (OpenCode, Cursor, Claude Code, Windsurf) to the file:
 
 > "Read @AGENTS.md and bootstrap this project."
 
-### 3. Watch it Grow
-
-Enso acts as a Context Manager. It will ask you for the problem statement and constraints, then build out the context management structure.
+### 3. Grow
 
 The agent will:
-1.  **Bootstraps** the `docs/` directory structure.
-2.  **Probes** your codebase to understand the architecture.
-3.  **Drafts** your `PRD.md` and `ARCHITECTURE.md`.
-4.  **Aligns** with you on the next unit of work.
+1. **Bootstrap** the `docs/` directory structure
+2. **Probe** your codebase to map the architecture
+3. **Draft** your `PRD.md` and `ARCHITECTURE.md`
+4. **Align** with you on the first unit of work
 
-## The Six Operations
+From there, the cycle repeats: plan, execute, capture, extend. Each session leaves the harness sharper than the last.
 
-The context window is a spotlight—you can illuminate only so much at once. The Six Operations select what is lit, what's just off-stage, and when to change scenes.
+## What Enso Is Not
 
-| Operation | What It Does | Why It Matters |
-|-----------|--------------|----------------|
-| **Write** | Save insights to disk before they're lost | Working memory is temporary; persistence survives sessions |
-| **Select** | Load only what's needed right now | Don't waste tokens on irrelevant context |
-| **Probe** | Actively search (grep, LSP, glob) for answers | Don't assume you know what's in the codebase |
-| **Compress** | Summarize to fit the token budget | When context gets full, condense instead of dropping |
-| **Isolate** | Split work across multiple scopes | Divide complex tasks to stay within limits |
-| **Assign** | Choose the ideal agent for each task | Match task requirements to agent capabilities |
-
-## Directory Structure
-
-Enso creates a standard, predictable hierarchy that agents can navigate blindly:
-
-```text
-docs/
-  core/           # Source of Truth (PRD, Architecture)
-  stories/        # Active Units of Work (The "Ticket" system)
-  reference/      # Long-term Memory (Lessons, Conventions)
-  skills/         # Local Capabilities (Scripts, Tests)
-  logs/           # Session History
-```
-
-## The Pi Principle
-
-Enso draws inspiration from [Pi](https://github.com/badlogic/pi-mono/), a minimal coding agent built around one core idea: **agents should extend themselves**.
-
-Rather than downloading pre-built tools, Pi agents write their own extensions. When they need new functionality, they build it. The result is software that writes more software—an agent that becomes increasingly capable over time by authoring its own tooling.
-
-**The self-extension loop:**
-1. **Encounter friction** — a task you'll do again, a complex procedure, a missing capability
-2. **Build the minimal tool** — a script, skill, or helper that solves the specific need
-3. **Capture it** — persist to `docs/skills/` so it's discoverable in future sessions
-4. **Use it** — future sessions benefit from past work
-5. **Iterate** — improve the tool as you use it
-
-The compounding effect: a tool built today saves derivation cost in every future session. After months of work, an agent should have dozens of custom tools tailored to its specific workflows and codebase—not downloaded dependencies, but authored capabilities.
-
-> *"The most powerful agents are not those with the most downloaded dependencies, but those that have built the most custom tools for their specific workflows."*
+- **Not a CLI or library.** It's a protocol — a single markdown file that any agent can read.
+- **Not a framework.** There's nothing to install, configure, or maintain. Drop a file, start working.
+- **Not model-specific.** It works with any agent that can read a file and follow instructions.
+- **Not rigid.** The protocol is a starting point. Adapt it to your codebase, your workflow, your domain.
 
 ## License
 
