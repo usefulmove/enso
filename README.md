@@ -1,5 +1,7 @@
 # enso
 
+![Strategic model routing](assets/strategic-model-routing.gif)
+
 **The emacs of agent orchestrators.** Software that builds software.
 
 Enso is a single markdown file (`AGENTS.md`) that turns any AI coding agent into a disciplined software engineer. Drop it into a repo, tell the agent to read it, and watch it bootstrap a full context management system from one seed. No dependencies. No CLI. No SaaS. One file that grows.
