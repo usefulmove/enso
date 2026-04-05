@@ -6,7 +6,7 @@
 
 Enso is a single markdown file (`AGENTS.md`) that turns any AI coding agent into a disciplined software engineer. Drop it into a repo, tell the agent to read it, and watch it bootstrap a full context management system from one seed. No dependencies. No CLI. No SaaS. One file that grows.
 
-> *"The model is the horse — powerful but directionless. The harness is the tack, reins, and training that channels that power toward useful work without letting it run wild."*
+> Intelligence is in the model. Control is in the harness.
 
 ## The Problem
 
