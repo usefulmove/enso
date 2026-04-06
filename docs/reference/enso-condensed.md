@@ -27,7 +27,7 @@ The context window is working memory — finite, and every token competes for at
 
 **Working Context** — what's in the context window right now. Ephemeral and expensive.
 
-**Near Context** — discoverable. Docs on disk, search results. One tool call away.
+**Reference Context** — discoverable. Docs on disk, search results. One tool call away.
 
 **Persistent Context** — structured information that survives sessions and evolves with the project. Planning docs, architecture, active stories, lessons learned. Long-term memory.
 
