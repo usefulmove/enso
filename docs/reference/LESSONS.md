@@ -133,3 +133,13 @@ The `/enso-compact` → `/enso-start` flow is a valid implementation of the "ful
 ### On Workflow Templates vs Persona Prompts
 
 Canned role personas (e.g., "You are a senior architect...") are less durable than workflow templates. As models improve, personas become unnecessary scaffolding. Workflow templates (the sequence of steps for a task type) remain useful regardless of model capability. Keep the model choice with the human; make the process explicit in the template.
+
+## 2026-04-09 — Mode Safety Needs Enforcement
+
+### On Prompt Intent vs Tool Permissions
+
+If a mode is supposed to be review-only, prompt text is not enough. The mode config must explicitly deny mutating tools like `write` and `edit`, otherwise behavior can drift based on fallback permissions or model initiative.
+
+### On Safe Exploration in Planning Modes
+
+Planning and reasoning modes still benefit from shell access, but it should be a tightly scoped allowlist of read-only inspection commands. Treat safe bash as a first-class capability separate from implementation authority.
