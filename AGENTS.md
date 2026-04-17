@@ -217,6 +217,8 @@ assets/       # Optional
 
 **Discovery:** Scan directories at session start, read frontmatter (~100 tokens).
 
+**Priority:** Local skills (`docs/skills/`) take precedence over global skills. When a local and global skill serve the same purpose, load the local one.
+
 ## 9.2 Tool Building
 
 **When:** Recurring tasks, complex procedures, capability gaps
