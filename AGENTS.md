@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.5.3
+version: 0.5.4
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -85,7 +85,11 @@ REFERENCE (queryable)
 ## 2.1 Self-Improvement
 
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
-**Action:** Build minimal tool/script/skill — see [§7 Skills](#7-skills)
+**Process:** Build minimal tool → test it → persist to `docs/skills/` → iterate
+
+**Verify before trusting:** Test tool output before relying on it. If it fails, fix or discard.
+
+**See:** [§7 Skills](#7-skills)
 
 ## 2.2 Agentic Discovery
 
@@ -150,13 +154,25 @@ No file modifications until story Approach section is complete.
 
 **Core Docs** — Update in place. Don't preserve history—git does.
 
-**Stories** — Create when planning, move to `reference/completed/` when done.
+**Stories** — Create when planning, update during execution.
+- **Planning stories** (deliverable = decision/breakdown): move when downstream execution stories are created.
+- **Execution stories** (deliverable = code): move when acceptance criteria are met and code is merged.
+
+Don't move execution stories until the code is actually done.
 
 **Reference** — Read-only during execution. **Update `LESSONS.md` with new learnings.**
 
 **Skills** — Add/remove as needed.
 
 **Logs** — Append session summaries.
+
+**Verification passes:** Run a verification pass on architecture docs when:
+- Major work lands (new subsystem, protocol change, architectural shift)
+- Quarterly (whichever comes first)
+- A lesson reveals a doc was wrong (update immediately)
+
+Verification = probe source, confirm line counts, remove hallucinated symbols,
+update state lists, verify package descriptions from source not package.xml.
 
 ## 6. Context Scope
 
@@ -205,6 +221,12 @@ Move insights from working → persistent context.
 **Triggers:** ~80% token utilization, story completion, session end.
 
 **Process:** Summarize decisions, list artifacts, extract lessons to `LESSONS.md`, write to `logs/`.
+
+**Session exit gate:** Do not end a session without:
+- Writing a session summary to `docs/logs/`
+- Updating `LESSONS.md` if new lessons were learned
+
+Compaction is not optional cleanup — it's how the harness accumulates wisdom.
 
 ## 9. Templates
 
@@ -303,12 +325,26 @@ Move insights from working → persistent context.
 - Grow architecture incrementally
 - Extend yourself — see Pi Principle
 
-## 11. Pi Principle
+## 11. Git Boundaries
+
+**The user owns the repository.**
+
+**Read-only (always safe):** `git status`, `git log`, `git diff`, `git show`, `git branch`
+
+**Requires explicit permission:** `git add`, `git commit`, `git push`, `git checkout`, `git reset`, `git revert`, `git stash`
+
+**Never run without warning:** destructive commands (`--force`, `--hard`, `--amend` after push)
+
+**Story identifiers:** STORY-XXX are internal harness artifacts. Use external ticket IDs (Jira, GitHub Issues) for commit messages, PRs, and external artifacts.
+
+**Philosophy:** Your work product is code and docs, not commit history. Let the user control when changes land.
+
+## 12. Pi Principle
 
 Agents extend themselves by authoring tools, not downloading them.
 Source: https://github.com/badlogic/pi-mono/
 
-## 12. References
+## 13. References
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Claude Code: Best practices](https://www.anthropic.com/engineering/claude-code-best-practices)
