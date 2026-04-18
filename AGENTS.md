@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.5.2
+version: 0.5.3
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -49,6 +49,22 @@ Context management protocol for agentic software development.
 
 **Principle:** Software building software.
 
+**Context hierarchy:**
+
+```
+WORKING (ephemeral)
+  ↓ Write / ↑ Select
+PERSISTENT (durable)
+  - Core (PRD, Architecture)
+  - Stories (active tasks)
+  - Reference (conventions)
+  - Skills (capabilities)
+  - Logs (summaries)
+REFERENCE (queryable)
+  - Codebase (LSP, grep)
+  - Web, APIs
+```
+
 ## 2. The Six Operations
 
 **Context is finite.** Treat tokens as a scarce resource.
@@ -69,8 +85,7 @@ Context management protocol for agentic software development.
 ## 2.1 Self-Improvement
 
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
-**Action:** Build minimal tool/script/skill
-**Location:** `docs/skills/`
+**Action:** Build minimal tool/script/skill — see [§7 Skills](#7-skills)
 
 ## 2.2 Agentic Discovery
 
@@ -81,45 +96,7 @@ Architecture docs are maps drawn through exploration, not blueprints to read.
 - Persist discoveries to `docs/core/architecture/`
 - Validate against compilation, tests, tool results
 
-## 3. Terminology
-
-| Term | Definition |
-|------|------------|
-| **Working Context** | Ephemeral tokens in current call |
-| **Persistent Context** | Durable markdown documents |
-| **Reference Context** | Queryable sources (codebase, web) |
-| **Compaction** | Summarize working → persistent |
-| **Context Budget** | Token limit |
-| **Context Scope** | Write/Read/Exclude boundaries |
-
-**Hierarchy:**
-
-```
-WORKING (ephemeral)
-  ↓ Write / ↑ Select
-PERSISTENT (durable)
-  - Core (PRD, Architecture)
-  - Stories (active tasks)
-  - Reference (conventions)
-  - Skills (capabilities)
-  - Logs (summaries)
-REFERENCE (queryable)
-  - Codebase (LSP, grep)
-  - Web, APIs
-```
-
-## 4. Directory Structure
-
-```
-docs/
-  core/
-  stories/
-  reference/
-  skills/
-  logs/
-```
-
-## 5. Bootstrapping
+## 3. Bootstrapping
 
 1. **Create structure**
    ```bash
@@ -127,7 +104,7 @@ docs/
    touch docs/reference/LESSONS.md
    ```
 
-2. **Optionally fill in Codebase/Docs Index tables** (see Section 5.1)
+2. **Optionally fill in Codebase/Docs Index tables** (see Section 3.1)
 
 3. **Request user input** for problem, success criteria, scope, constraints
 
@@ -139,7 +116,7 @@ docs/
 
 7. **Begin work**
 
-### 5.1 Optional: Codebase and Docs Index Tables
+### 3.1 Optional: Codebase and Docs Index Tables
 
 ```markdown
 ## Codebase
@@ -157,7 +134,7 @@ docs/
 | Architecture | `docs/core/architecture/ARCHITECTURE.md` |
 ```
 
-## 6. Planning Phase
+## 4. Planning Phase
 
 No file modifications until story Approach section is complete.
 
@@ -169,7 +146,7 @@ No file modifications until story Approach section is complete.
 
 **Small tasks:** Minimal story with one-line Steps is acceptable.
 
-## 7. Document Lifecycle
+## 5. Document Lifecycle
 
 **Core Docs** — Update in place. Don't preserve history—git does.
 
@@ -181,7 +158,7 @@ No file modifications until story Approach section is complete.
 
 **Logs** — Append session summaries.
 
-## 8. Context Scope
+## 6. Context Scope
 
 ```markdown
 ## Context Scope
@@ -201,7 +178,7 @@ No file modifications until story Approach section is complete.
 - Read files are seeds; Probe for related context
 - Scope changes require user approval
 
-## 9. Skills
+## 7. Skills
 
 On-demand capabilities for vertical workflows (migrations, upgrades, refactor).
 
@@ -219,30 +196,9 @@ assets/       # Optional
 
 **Priority:** Local skills (`docs/skills/`) take precedence over global skills. When a local and global skill serve the same purpose, load the local one.
 
-## 9.2 Tool Building
+**Building:** Scan existing skills first, build minimal solution, persist to `docs/skills/<tool-name>/`, iterate.
 
-**When:** Recurring tasks, complex procedures, capability gaps
-
-**Process:**
-1. Scan `docs/skills/` for existing tools
-2. Build minimal solution
-3. Persist to `docs/skills/<tool-name>/`
-4. Iterate
-
-## 9.1 Framework Documentation Index
-
-Store version-matched docs in `docs/core/framework/`:
-
-```markdown
-## Framework Documentation
-Location: docs/core/framework/
-
-| Section | Files |
-|---------|-------|
-| Routing | routing.md |
-```
-
-## 10. Compaction
+## 8. Compaction
 
 Move insights from working → persistent context.
 
@@ -250,7 +206,7 @@ Move insights from working → persistent context.
 
 **Process:** Summarize decisions, list artifacts, extract lessons to `LESSONS.md`, write to `logs/`.
 
-## 11. Templates
+## 9. Templates
 
 ### PRD
 
@@ -306,6 +262,7 @@ Move insights from working → persistent context.
 
 ### Verification
 
+- [ ] How will you know this is correct? (tests, commands, expected output)
 - [ ] Update `docs/core/architecture/` if new subsystems discovered.
 
 **Do not begin execution until this section is complete.**
@@ -329,7 +286,7 @@ Move insights from working → persistent context.
 -
 ```
 
-## 12. Agent Guidelines
+## 10. Agent Guidelines
 
 - Plan before executing
 - Search before asking
@@ -344,16 +301,14 @@ Move insights from working → persistent context.
 - Lint before done
 - Use LSP, Context7 for accuracy
 - Grow architecture incrementally
-- Extend yourself
-- Capture wisdom in skills
-- Compound capabilities
+- Extend yourself — see Pi Principle
 
-## 13. Pi Principle
+## 11. Pi Principle
 
 Agents extend themselves by authoring tools, not downloading them.
 Source: https://github.com/badlogic/pi-mono/
 
-## 14. References
+## 12. References
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Claude Code: Best practices](https://www.anthropic.com/engineering/claude-code-best-practices)
