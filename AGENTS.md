@@ -87,6 +87,8 @@ REFERENCE (queryable)
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
 **Process:** Build minimal tool → test it → persist to `docs/skills/` → iterate
 
+**Curation:** Periodically promote insights from LESSONS.md into protocol updates using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
+
 **Verify before trusting:** Test tool output before relying on it. If it fails, fix or discard.
 
 **See:** [§7 Skills](#7-skills)
@@ -170,6 +172,8 @@ Don't move execution stories until the code is actually done.
 - Major work lands (new subsystem, protocol change, architectural shift)
 - Quarterly (whichever comes first)
 - A lesson reveals a doc was wrong (update immediately)
+
+**Curation:** Run Curator mode when 5+ lessons accumulate since last curation, or during quarterly verification. Curation applies delta edits to AGENTS.md — never rewrite entire sections.
 
 Verification = probe source, confirm line counts, remove hallucinated symbols,
 update state lists, verify package descriptions from source not package.xml.
@@ -287,6 +291,12 @@ Compaction is not optional cleanup — it's how the harness accumulates wisdom.
 - [ ] How will you know this is correct? (tests, commands, expected output)
 - [ ] Update `docs/core/architecture/` if new subsystems discovered.
 
+### Reflection
+- [ ] Encountered recurring friction → create skill?
+- [ ] Discovered new pattern → update architecture doc?
+- [ ] Lesson learned → add to LESSONS.md?
+- [ ] No new insights → proceed
+
 **Do not begin execution until this section is complete.**
 ```
 
@@ -308,6 +318,27 @@ Compaction is not optional cleanup — it's how the harness accumulates wisdom.
 -
 ```
 
+### Curation Proposal
+
+```markdown
+## Curation: YYYY-MM-DD
+
+### Promote to Protocol
+| Lesson Date | Lesson Summary | Target Section | Delta Type | Proposed Text |
+|-------------|----------------|----------------|------------|---------------|
+| | | | Add/Modify | |
+
+### Deprecate
+| Section | Current Text | Replacement | Rationale |
+|---------|--------------|-------------|-----------|
+| | | | |
+
+### No Action
+| Lesson | Rationale |
+|--------|-----------|
+| | |
+```
+
 ## 10. Agent Guidelines
 
 - Plan before executing
@@ -317,6 +348,9 @@ Compaction is not optional cleanup — it's how the harness accumulates wisdom.
 - Read before writing
 - Update, don't accumulate
 - Compact proactively
+- Notice friction — if you do the same thing twice, build a tool
+- After story verification, ask: "What should be captured?"
+- Skills for patterns, lessons for insights, docs for discoveries
 - Stay in scope
 - Be concise
 - Test early
