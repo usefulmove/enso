@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.6.2
+version: 0.6.3
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -108,6 +108,8 @@ Architecture docs are maps drawn through exploration, not blueprints to read.
    ```bash
    mkdir -p docs/{core,stories,reference/completed,skills,logs}
    touch docs/reference/LESSONS.md
+   mkdir -p .opencode
+   ln -s ../docs/skills .opencode/skills
    ```
 
 2. **Optionally fill in Codebase/Docs Index tables** (see Section 3.1)
@@ -208,15 +210,38 @@ On-demand capabilities for vertical workflows (migrations, upgrades, refactor).
 
 **Structure:**
 ```
-SKILL.md      # Required
+SKILL.md      # Required — must include YAML frontmatter
 scripts/      # Optional
 references/   # Optional
 assets/       # Optional
 ```
 
-**Discovery:** Scan directories at session start, read frontmatter (~100 tokens).
+**Discovery:** OpenCode does NOT discover skills in `docs/skills/`. Create a symlink:
+```bash
+ln -s ../docs/skills .opencode/skills
+```
 
-**Priority:** Local skills (`docs/skills/`) take precedence over global skills. When a local and global skill serve the same purpose, load the local one.
+This makes `docs/skills/` discoverable while keeping skills collocated with documentation.
+
+**Frontmatter (Required):** Each SKILL.md must start with:
+```yaml
+---
+name: <skill-name>              # Required: matches directory name, 1-64 chars
+description: <one sentence>     # Required: what it does AND when to use it
+license: MIT                    # Required
+compatibility: opencode         # Required
+---
+```
+
+Without frontmatter, skills will NOT appear in discovery.
+
+**Bootstrap:** Run this once when setting up a new project:
+```bash
+mkdir -p .opencode
+ln -s ../docs/skills .opencode/skills
+```
+
+**Priority:** Local skills (`.opencode/skills/` → `docs/skills/`) take precedence over global skills.
 
 **Building:** Scan existing skills first, build minimal solution, persist to `docs/skills/<tool-name>/`, iterate.
 
