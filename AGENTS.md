@@ -87,7 +87,7 @@ REFERENCE (queryable)
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
 **Process:** Build minimal tool → test it → persist to `docs/skills/` → iterate
 
-**Curation:** Periodically promote insights from LESSONS.md into protocol updates using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
+**Curation:** Periodically promote insights from LESSONS.md into harness improvements using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
 
 **Verify before trusting:** Test tool output before relying on it. If it fails, fix or discard.
 
@@ -164,6 +164,8 @@ Don't move execution stories until the code is actually done.
 
 **Reference** — Read-only during execution. **Update `LESSONS.md` with new learnings.**
 
+**LESSONS.md** — A living queue of actionable insights. Format: flat checklist. Check items when integrated into the harness. Remove checked items on cleanup. Unchecked = pending review.
+
 **Skills** — Add/remove as needed.
 
 **Logs** — Append session summaries.
@@ -173,7 +175,7 @@ Don't move execution stories until the code is actually done.
 - Quarterly (whichever comes first)
 - A lesson reveals a doc was wrong (update immediately)
 
-**Curation:** Run Curator mode when 5+ lessons accumulate since last curation, or during quarterly verification. Curation applies delta edits to AGENTS.md — never rewrite entire sections.
+**Curation:** Run Curator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness improvements as delta edits — never rewrite entire sections.
 
 Verification = probe source, confirm line counts, remove hallucinated symbols,
 update state lists, verify package descriptions from source not package.xml.
@@ -224,7 +226,7 @@ Move insights from working → persistent context.
 
 **Triggers:** ~80% token utilization, story completion, session end.
 
-**Process:** Summarize decisions, list artifacts, extract lessons to `LESSONS.md`, write to `logs/`.
+**Process:** Summarize decisions, list artifacts, extract lessons to `LESSONS.md` (append as unchecked checklist items), write to `logs/`.
 
 **Session exit gate:** Do not end a session without:
 - Writing a session summary to `docs/logs/`
@@ -323,10 +325,10 @@ Compaction is not optional cleanup — it's how the harness accumulates wisdom.
 ```markdown
 ## Curation: YYYY-MM-DD
 
-### Promote to Protocol
-| Lesson Date | Lesson Summary | Target Section | Delta Type | Proposed Text |
-|-------------|----------------|----------------|------------|---------------|
-| | | | Add/Modify | |
+### Promote to Harness
+| Lesson | Harness Target | Delta Type | Proposed Text |
+|--------|---------------|------------|---------------|
+| | AGENTS.md §___ / skill / architecture | Add/Modify | |
 
 ### Deprecate
 | Section | Current Text | Replacement | Rationale |
