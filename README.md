@@ -8,6 +8,8 @@
 
 Enso is a single markdown file (`AGENTS.md`) that turns any AI coding agent into a disciplined software engineer. Drop it into a repo, tell the agent to read it, and watch it bootstrap a full context management system from one seed. No dependencies. No CLI. No SaaS. One file that grows.
 
+**The `AGENTS.md` file anchors the harness.** It must exist in your repo — not just be read once — to persist context across sessions. Agents without `AGENTS.md` on disk lose the protocol between runs.
+
 ## The Problem
 
 AI agents are powerful. They are also forgetful, overconfident, and careless.
@@ -101,6 +103,8 @@ curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.
 Point your agent (OpenCode, Cursor, Claude Code, Windsurf) to the file:
 
 > "Read @AGENTS.md and bootstrap this project."
+
+> **Why this file matters:** `AGENTS.md` is not documentation — it's the seed that anchors your harness. The file must exist in your repo to persist context across sessions. Without it, agents lose the protocol between runs.
 
 ### 3. Grow
 
