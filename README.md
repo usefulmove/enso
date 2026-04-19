@@ -119,6 +119,14 @@ From there, the cycle repeats: plan, execute, capture, extend. Each session leav
 - **Not model-specific.** It works with any agent that can read a file and follow instructions.
 - **Not rigid.** The protocol is a starting point. Adapt it to your codebase, your workflow, your domain.
 
+## References
+
+- **Pi Principle** — Agents extend themselves by authoring tools. [pi-mono](https://github.com/badlogic/pi-mono/)
+- **Sisyphus Orchestration Loop** — Multi-step task execution with verification gates. [oh-my-opencode ecosystem](https://github.com/topics/sisyphus)
+- **Agentic Context Engineering** — Research on context management for AI agents. [arXiv:2510.04618](https://arxiv.org/pdf/2510.04618)
+- **Vercel Agent Evals** — Persistent context via AGENTS.md achieved 100% pass rate vs. 79% for skill retrieval. [Blog](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)
+- **LangChain Terminal Bench 2.0** — Harness optimization improved agent ranking from Top 30 to Top 5. [Blog](https://blog.langchain.dev/the-anatomy-of-an-agent-harness/)
+
 ## License
 
 MIT
