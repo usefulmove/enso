@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.6.0
+version: 0.6.2
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -220,9 +220,12 @@ assets/       # Optional
 
 **Building:** Scan existing skills first, build minimal solution, persist to `docs/skills/<tool-name>/`, iterate.
 
-## 8. Compaction
+## 8. Persistence
 
-Move insights from working → persistent context.
+Move insights from working → durable context. This is not lossy compression —
+nothing is discarded. Working state persists to logs, lessons, and stories.
+
+**Command:** `/enso-persist`
 
 **Triggers:** ~80% token utilization, story completion, session end.
 
@@ -232,7 +235,7 @@ Move insights from working → persistent context.
 - Writing a session summary to `docs/logs/`
 - Updating `LESSONS.md` if new lessons were learned
 
-Compaction is not optional cleanup — it's how the harness accumulates wisdom.
+Persistence is not optional cleanup — it's how the harness accumulates wisdom.
 
 ## 9. Templates
 
@@ -349,7 +352,7 @@ Compaction is not optional cleanup — it's how the harness accumulates wisdom.
 - Prefer retrieval over training
 - Read before writing
 - Update, don't accumulate
-- Compact proactively
+- Persist proactively
 - Notice friction — if you do the same thing twice, build a tool
 - After story verification, ask: "What should be captured?"
 - Skills for patterns, lessons for insights, docs for discoveries

@@ -17,7 +17,7 @@ AI agent sessions are ephemeral. Context windows are finite. Without a system fo
 **In scope:**
 - Harness protocol (AGENTS.md) — the six operations, document lifecycle, bootstrapping
 - Directory structure (`docs/core`, `stories`, `reference`, `skills`, `logs`)
-- Slash commands (`/enso-start`, `/enso-close`, `/enso-compact`, `/enso-log`, `/enso-help`)
+- Slash commands (`/enso-start`, `/enso-persist`, `/enso-log`, `/enso-help`)
 - Self-extension model — agents author their own skills and tools
 - Bootstrap flow for new projects
 

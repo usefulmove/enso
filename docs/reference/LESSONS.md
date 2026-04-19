@@ -17,7 +17,7 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] Draft → Review → Approve → Execute works for founder-facing content — multiple drafts let the founder choose voice
 - [ ] Agent-facing docs: remove persuasion, analogy, and "how to use" — keep declarative commands, frontmatter, and structured templates (40%+ token reduction)
 - [ ] Agents self-evaluate poorly — dedicated QA pass after implementation catches gaps; human intervenes only on disagreements
-- [ ] `/enso-compact` → `/enso-start` is a valid full context reset — gap between steps is a good time to commit to git
+- [ ] `/enso-persist` → `/enso-start` is a valid full context reset — gap between steps is a good time to commit to git
 - [ ] Workflow templates outlast persona prompts — as models improve, personas become unnecessary scaffolding; keep model choice with the human
 - [ ] Review-only modes must deny mutating tools via config, not just prompt text — behavior drifts based on fallback permissions
 - [ ] Planning/reasoning modes need shell access scoped to a read-only allowlist — treat safe bash as a first-class capability separate from implementation authority
