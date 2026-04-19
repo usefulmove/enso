@@ -21,3 +21,4 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] Workflow templates outlast persona prompts — as models improve, personas become unnecessary scaffolding; keep model choice with the human
 - [ ] Review-only modes must deny mutating tools via config, not just prompt text — behavior drifts based on fallback permissions
 - [ ] Planning/reasoning modes need shell access scoped to a read-only allowlist — treat safe bash as a first-class capability separate from implementation authority
+- [ ] Agent modes defined solely by model choice are unnecessary scaffolding — model routing is a reference concern, not a mode concern
