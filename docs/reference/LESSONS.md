@@ -12,11 +12,11 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] The recursive loop `Harness_t → Agent → Harness_{t+1}` is the core primitive — each session's output is the next session's input
 - [ ] The human is the God agent — technical program manager who sets vision, hires specialists, delegates work
 - [ ] Cold-start cost is the primary friction target — warm starts (resuming with full context) are significantly more productive
-- [ ] Defer loading source files until the story that needs them is executing — probe first, assume nothing
+- [x] Defer loading source files until the story that needs them is executing — probe first, assume nothing → Integrated into AGENTS.md §10.1 and §4 cross-reference
 - [ ] Same core message, adapted to medium constraints and audience expectations
-- [ ] Draft → Review → Approve → Execute works for founder-facing content — multiple drafts let the founder choose voice
+- [x] Draft → Review → Approve → Execute works for founder-facing content — multiple drafts let the founder choose voice → Integrated into `convert-request-to-story` skill Step 4
 - [ ] Agent-facing docs: remove persuasion, analogy, and "how to use" — keep declarative commands, frontmatter, and structured templates (40%+ token reduction)
-- [ ] Agents self-evaluate poorly — dedicated QA pass after implementation catches gaps; human intervenes only on disagreements
+- [x] Agents self-evaluate poorly — dedicated QA pass after implementation catches gaps; human intervenes only on disagreements → Integrated into `review-before-commit` skill (§10.4) and AGENTS.md §10.4
 - [ ] `/enso-persist` → `/enso-start` is a valid full context reset — gap between steps is a good time to commit to git
 - [ ] Workflow templates outlast persona prompts — as models improve, personas become unnecessary scaffolding; keep model choice with the human
 - [ ] Review-only modes must deny mutating tools via config, not just prompt text — behavior drifts based on fallback permissions
