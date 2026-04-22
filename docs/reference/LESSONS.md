@@ -22,3 +22,9 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] Review-only modes must deny mutating tools via config, not just prompt text — behavior drifts based on fallback permissions
 - [ ] Planning/reasoning modes need shell access scoped to a read-only allowlist — treat safe bash as a first-class capability separate from implementation authority
 - [ ] Agent modes defined solely by model choice are unnecessary scaffolding — model routing is a reference concern, not a mode concern
+- [ ] Grounding beats reasoning — external oracles (tests, linters, git diffs) consistently outperform LLM self-verification; the LLM-Modulo framework proves LLMs are "universal approximate knowledge sources" incapable of reliable self-verification
+- [ ] Interface design matters as much as model capability — simple context interfaces (ACI) can improve accuracy 3-4× over raw shell; but with strong models, minimal scaffolds (100 lines) match complex systems
+- [ ] The winning granularity is "resolve this specific issue in this function/file" — coarse (whole features) produces scope creep, fine-grained (single lines) produces orchestration overhead; mid-grained + iteration loops wins
+- [ ] Constraint drift is caused by summarization — every context compression step loses constraints; pass original task spec to every subagent as a non-summarizable field
+- [ ] Compounding errors are the most dangerous failure mode — wrong assumption in step 1 propagates undetected; intermediate verification loops are required, not optional
+- [ ] Compression is lossy — every summarization loses information; minimize necessary compression by keeping structured state external (git, typed state) and compress only conversational context
