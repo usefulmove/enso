@@ -82,6 +82,8 @@ REFERENCE (queryable)
 
 **Progressive disclosure.** Frontmatter before details.
 
+**Instruction economy.** If a rule in this file doesn't prevent a real mistake, it's noise. Over-specified instructions obscure critical ones.
+
 ## 2.1 Self-Improvement
 
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
@@ -152,6 +154,8 @@ No file modifications until story Approach section is complete.
 3. Verify Context Scope (Write/Read/Exclude)
 4. Then execute
 
+Apply §10.1 during planning: state assumptions, present tradeoffs, and stop if confused.
+
 **Small tasks:** Minimal story with one-line Steps is acceptable.
 
 ## 5. Document Lifecycle
@@ -201,6 +205,8 @@ update state lists, verify package descriptions from source not package.xml.
 - Do not modify outside Write scope
 - Read files are seeds; Probe for related context
 - Scope changes require user approval
+
+See §10.3 for the behavioral habit of surgical editing.
 
 ## 7. Skills
 
@@ -318,7 +324,7 @@ Persistence is not optional cleanup — it's how the harness accumulates wisdom.
 
 ### Verification
 
-- [ ] How will you know this is correct? (tests, commands, expected output)
+- [ ] How will you know this is correct? Define verifiable success criteria (tests, commands, expected output). See §10.4.
 - [ ] Update `docs/core/architecture/` if new subsystems discovered.
 
 ### Reflection
@@ -369,25 +375,64 @@ Persistence is not optional cleanup — it's how the harness accumulates wisdom.
 | | |
 ```
 
-## 10. Agent Guidelines
+## 10. Behavioral Principles
 
-- Plan before executing
-- Search before asking
-- Skills for workflows, framework docs for APIs
-- Prefer retrieval over training
-- Read before writing
-- Update, don't accumulate
-- Persist proactively
-- Notice friction — if you do the same thing twice, build a tool
-- After story verification, ask: "What should be captured?"
-- Skills for patterns, lessons for insights, docs for discoveries
-- Stay in scope
-- Be concise
-- Test early
-- Lint before done
-- Use LSP, Context7 for accuracy
-- Grow architecture incrementally
-- Extend yourself — see Pi Principle
+These principles govern *how* you work. They reduce the "agentic drift" that structure alone cannot catch.
+
+**Tradeoff:** These bias toward caution over speed. For trivial tasks, use judgment.
+
+### 10.1 Think Before Coding
+
+Don't assume. Don't hide confusion. Surface tradeoffs.
+
+- **Probe first.** Search the codebase (grep, LSP, glob) before asking the user or deciding on an approach.
+- **State assumptions explicitly.** If uncertain, ask rather than guess.
+- **Present multiple interpretations.** Don't pick silently when ambiguity exists.
+- **Push back when warranted.** If a simpler approach exists, say so before implementing.
+- **Stop when confused.** Name what's unclear and ask for clarification.
+
+### 10.2 Simplicity First
+
+Minimum code that solves the problem. Nothing speculative.
+
+- No features beyond what was asked.
+- No abstractions for single-use code.
+- No "flexibility" that wasn't requested.
+- No error handling for impossible scenarios.
+- If you write 200 lines and it could be 50, rewrite it.
+- Grow architecture incrementally.
+
+### 10.3 Surgical Changes
+
+Touch only what you must. Clean up only your own mess.
+
+- **Stay in scope.** Do not modify outside the Write scope.
+- **Trace every line.** Every changed line should map directly to the user's request.
+- **Match existing style**, even if you'd do it differently.
+- **Don't improve adjacent code.** Don't refactor, reformat, or delete unrelated code.
+- **Clean up your own orphans.** Remove imports/variables/functions that YOUR changes made unused.
+- **Don't remove pre-existing dead code** unless explicitly asked.
+
+### 10.4 Goal-Driven Execution
+
+Define success criteria. Loop until verified.
+
+- **Transform vague requests into verifiable goals.**
+  - "Add validation" → "Write tests for invalid inputs, then make them pass."
+  - "Fix the bug" → "Write a test that reproduces it, then make it pass."
+  - "Refactor X" → "Ensure tests pass before and after."
+- **Write verification into the story.** Acceptance criteria must be checkable.
+- **Give yourself a way to verify.** Tests, builds, linters, manual checks — this is the highest-leverage habit.
+- **Test early. Lint before done.**
+- **State a brief plan for multi-step tasks:**
+  ```
+  1. [Step] → verify: [check]
+  2. [Step] → verify: [check]
+  ```
+
+---
+
+**These principles are working if:** diffs show only requested changes, code is simple the first time, and clarifying questions come before implementation.
 
 ## 11. Git Boundaries
 
@@ -412,3 +457,4 @@ Source: https://github.com/badlogic/pi-mono/
 
 - [Building effective agents](https://www.anthropic.com/engineering/building-effective-agents)
 - [Claude Code: Best practices](https://www.anthropic.com/engineering/claude-code-best-practices)
+- [Karpathy-Inspired Coding Guidelines](https://github.com/forrestchang/andrej-karpathy-skills)
