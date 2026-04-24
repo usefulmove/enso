@@ -2,25 +2,25 @@
 
 > Intelligence is in the model. Control is in the harness.
 
-![Strategic model routing](assets/strategic-model-routing.gif)
-
 **The emacs of agent orchestration.** Software that builds software.
 
-Enso is a single markdown file (`AGENTS.md`) that turns any AI coding agent into a disciplined software engineer. Drop it into a repo, tell the agent to read it, and watch it bootstrap a full context management system from one seed. No dependencies. No CLI. No SaaS. One file that grows.
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
+```
 
-**The `AGENTS.md` file anchors the harness.** It must exist in your repo — not just be read once — to persist context across sessions. Agents without `AGENTS.md` on disk lose the protocol between runs.
+One file. No dependencies. No CLI. Drop it in your repo and your agent becomes a disciplined engineer.
+
+---
 
 ## The Problem
 
-AI agents are powerful. They are also forgetful, overconfident, and careless.
+If you code with agents, you know this fatigue.
 
-- They forget patterns established two sessions ago.
-- They hallucinate details they could have searched for.
-- They write code that conflicts with the architecture.
-- They lose lessons learned between sessions.
-- They touch files they shouldn't, miss files they should, and treat every task like the first time.
+You explain the architecture to an agent that *built* it three sessions ago. You find bugs reintroduced because last week's lesson evaporated. You watch a brilliant model behave like an amnesiac — writing code that contradicts its own conventions, touching files it promised to avoid, treating every task like opening night with no rehearsal.
 
-This is **context rot** — the slow decay of coherence as an agent loses track of what it knows, what it's done, and what it's supposed to be doing. The model isn't the bottleneck. The context is.
+The model is not the problem. The model is magnificent. The problem is **context rot** — the slow decay of coherence as an agent loses track of what it knows, what it's done, and what it's supposed to be doing. Intelligence without memory is chaos.
+
+---
 
 ## The Solution: Harness Engineering
 
@@ -41,20 +41,57 @@ Enso treats context as a scarce resource. Every token competes for attention. Th
 2. **Progressive disclosure.** Load only what you need, when you need it. Summaries before details. Search before assuming.
 3. **Stay current, not historical.** Documents reflect the present state. Git tracks history. Docs don't accumulate cruft.
 
+---
+
+## Quick Start
+
+### 1. Plant the Seed
+
+```bash
+curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
+```
+
+`AGENTS.md` is not documentation — it is the seed that anchors your harness. The file must exist in your repo to persist context across sessions. Without it, agents lose the protocol between runs.
+
+### 2. Activate
+
+Paste exactly this into your agent:
+
+| Tool | Prompt |
+|------|--------|
+| **Claude Code** | `/read AGENTS.md` then `/project "Bootstrap this project using the enso protocol."` |
+| **Cursor** | `@AGENTS.md` in chat, then type `Bootstrap this project with enso.` |
+| **OpenCode** | `Read @AGENTS.md and bootstrap this project.` |
+| **Windsurf** | Add `AGENTS.md` to Cascade context, prompt: `Bootstrap using the enso protocol.` |
+
+### 3. Watch It Grow
+
+**00:00** — `> Read @AGENTS.md and bootstrap this project.`  
+**00:03** — `Bootstrapping docs/ structure...`  
+**00:08** — `Probing codebase — found 14 source files, 2 test suites.`  
+**00:18** — `Mapping architecture...`  
+**00:35** — `Drafting PRD.md and ARCHITECTURE.md.`  
+**00:52** — `First story template ready at docs/stories/STORY-001.md.`  
+**00:59** — `Harness active. What should we build first?`
+
+From there, the cycle repeats: plan, execute, capture, extend. Each session leaves the harness sharper than the last.
+
+---
+
 ## How It Works
 
 ### The Six Operations
 
 The context window is a spotlight — you can illuminate only so much at once. Six operations control what's lit, what's just off-stage, and when to change scenes.
 
-| Operation | Action | Why |
-|-----------|--------|-----|
-| **Write** | Persist insights to disk | Working memory is temporary; persistence survives sessions |
-| **Select** | Load only what's needed now | Don't waste tokens on irrelevant context |
-| **Probe** | Search actively (grep, LSP, glob) | Don't assume — discover |
-| **Compress** | Summarize to fit the token budget | Condense instead of dropping |
-| **Isolate** | Split work across scopes | Divide complex tasks to stay within limits |
-| **Assign** | Match task to the right agent | Not every hand suits every clay |
+| Operation | Action |
+|-----------|--------|
+| **Write** | Persist insights to disk |
+| **Select** | Load only what's needed now |
+| **Probe** | Search actively — don't assume, discover |
+| **Compress** | Summarize to fit the token budget |
+| **Isolate** | Split work across scopes |
+| **Assign** | Match task to the right agent |
 
 ### The Directory Structure
 
@@ -81,47 +118,34 @@ The compounding effect: a tool built today saves derivation cost in every future
 
 > *"The most powerful agents are not those with the most downloaded dependencies, but those that have built the most custom tools for their specific workflows."*
 
+---
+
 ## Key Capabilities
 
-- **Plan-before-execute.** Agents create a story with Steps, Risks, and Verification before modifying any file. Planning is not optional — it is the first act of execution.
-- **Context scope.** Every story declares explicit Write/Read/Exclude file boundaries. No modifications outside declared scope without approval.
-- **Retrieval-led reasoning.** Agents consult version-matched documentation in `docs/` instead of relying on stale training data. Deterministic, file-based RAG — low latency, high accuracy.
-- **Agentic discovery.** Agents don't ask "what is this project?" They probe the codebase, read configs, and build a mental map before talking to you. Architecture docs are maps drawn through exploration, not blueprints to read.
-- **Institutional memory.** Lessons and anti-patterns are captured in `LESSONS.md`, preventing repeat mistakes across sessions.
-- **Self-extending agents.** Capabilities compound over time. The agent becomes uniquely capable for its specific domain.
+| Capability | Payoff |
+|------------|--------|
+| **Plan-before-execute** | No file changes without a verified story |
+| **Context scope** | Explicit Write/Read/Exclude boundaries on every task |
+| **Retrieval-led reasoning** | Version-matched docs in `docs/` instead of stale training data |
+| **Agentic discovery** | Agents probe the codebase and build a mental map before talking to you |
+| **Institutional memory** | Lessons and anti-patterns captured in `LESSONS.md`, preventing repeat mistakes |
+| **Self-extending agents** | Capabilities compound over time — the agent becomes uniquely capable for its domain |
 
-## Quick Start
-
-### 1. Plant the Seed
-
-```bash
-curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
-```
-
-### 2. Activate
-
-Point your agent (OpenCode, Cursor, Claude Code, Windsurf) to the file:
-
-> "Read @AGENTS.md and bootstrap this project."
-
-> **Why this file matters:** `AGENTS.md` is not documentation — it's the seed that anchors your harness. The file must exist in your repo to persist context across sessions. Without it, agents lose the protocol between runs.
-
-### 3. Grow
-
-The agent will:
-1. **Bootstrap** the `docs/` directory structure
-2. **Probe** your codebase to map the architecture
-3. **Draft** your `PRD.md` and `ARCHITECTURE.md`
-4. **Align** with you on the first unit of work
-
-From there, the cycle repeats: plan, execute, capture, extend. Each session leaves the harness sharper than the last.
+---
 
 ## What Enso Is Not
+
+<details>
+<summary>Is enso a CLI, framework, or model-specific tool?</summary>
 
 - **Not a CLI or library.** It's a protocol — a single markdown file that any agent can read.
 - **Not a framework.** There's nothing to install, configure, or maintain. Drop a file, start working.
 - **Not model-specific.** It works with any agent that can read a file and follow instructions.
 - **Not rigid.** The protocol is a starting point. Adapt it to your codebase, your workflow, your domain.
+
+</details>
+
+---
 
 ## References
 
