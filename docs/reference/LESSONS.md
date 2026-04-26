@@ -28,3 +28,9 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] Constraint drift is caused by summarization — every context compression step loses constraints; pass original task spec to every subagent as a non-summarizable field
 - [ ] Compounding errors are the most dangerous failure mode — wrong assumption in step 1 propagates undetected; intermediate verification loops are required, not optional
 - [ ] Compression is lossy — every summarization loses information; minimize necessary compression by keeping structured state external (git, typed state) and compress only conversational context
+- [ ] Rejected SQLite for story indexing — breaks the plain-text principle; SQLite is the right choice only at the registry layer, not the project layer
+- [ ] The OS analogy taken literally reveals real gaps: the scheduler primitive is missing from enso
+- [ ] Formalizing the execution model (fold) makes missing primitives obvious
+- [ ] Stories as `context → context` transformations validates the existing Context Scope template and reveals what Acceptance Criteria really are
+- [ ] Top-down writing (why → what → how → implications) works for architectural docs more than bottom-up feature lists
+- [ ] The right architecture question is "what primitive is missing?" not "what technology should we use?"
