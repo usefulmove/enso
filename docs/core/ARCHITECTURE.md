@@ -4,6 +4,18 @@
 
 enso is a single-file seed protocol (`AGENTS.md`) that bootstraps a context management system for AI agent collaboration. Drop it into any project, point an agent to it, and the agent creates the persistent context structure. The harness is minimal by design — it grows through use.
 
+## The Three-Layer Model
+
+enso separates concerns into three distinct layers, each with a single responsibility:
+
+| Layer | Role | Function |
+|-------|------|----------|
+| **Kernel** (`opencode`) | The runtime | Raw execution: tool calls, file I/O, process lifecycle. The minimal substrate. |
+| **Operating System** (`enso`) | The harness | Context management, scope enforcement, story scheduling, tool orchestration. Turns primitives into a usable workspace. |
+| **Interpreter** (the model) | The evaluator | Reads intent, reasons, generates action. Does not manage memory or files—it executes logic within the OS it finds. |
+
+This is the GNU/Linux model applied to agentic systems. The kernel provides the raw system calls, but without the OS layer, there is no coherent environment—just a process with no file system. The interpreter runs *inside* the OS; it does not *become* it. The harness is what persists, scopes, and schedules. The model just interprets.
+
 ## Components
 
 | Component | Responsibility |

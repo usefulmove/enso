@@ -43,6 +43,20 @@ Enso treats context as a scarce resource. Every token competes for attention. Th
 
 ---
 
+## The Three-Layer Stack
+
+enso is the operating system in a three-layer agent architecture:
+
+| Layer | Role | Function |
+|-------|------|----------|
+| **Kernel** (opencode, pi, claude) | The runtime | Raw execution: tool calls, file I/O, process lifecycle |
+| **Operating System** (enso) | The harness | Context management, scope enforcement, story scheduling, tool orchestration |
+| **Interpreter** (the model) | The evaluator | Reads intent, reasons, generates action |
+
+This is the GNU/Linux model applied to agents. The kernel provides the raw system calls, but without the OS layer, there is no coherent environment. The interpreter runs *inside* the OS; it does not *become* it. The harness is what persists, scopes, and schedules. The model just interprets.
+
+---
+
 ## Quick Start
 
 ### 1. Plant the Seed
