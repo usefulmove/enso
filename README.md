@@ -2,6 +2,8 @@
 
 > Intelligence is in the model. Control is in the harness.
 
+![Strategic Model Routing](assets/strategic-model-routing.gif)
+
 **The emacs of agent orchestration.** Software that builds software.
 
 ```bash
