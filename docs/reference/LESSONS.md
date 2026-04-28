@@ -34,3 +34,4 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] Stories as `context → context` transformations validates the existing Context Scope template and reveals what Acceptance Criteria really are
 - [ ] Top-down writing (why → what → how → implications) works for architectural docs more than bottom-up feature lists
 - [ ] The right architecture question is "what primitive is missing?" not "what technology should we use?"
+- [ ] The QMS audit of AGENTS.md found zero gaps — existing §4 (Planning Phase), §5 (Document Lifecycle), §10 (Behavioral Principles), and the `review-before-commit` skill already cover all Phase 1 quality gates. Good process design converges with good behavioral design.
