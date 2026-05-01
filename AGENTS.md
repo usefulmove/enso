@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.6.5
+version: 0.6.6
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -205,6 +205,7 @@ update state lists, verify package descriptions from source not package.xml.
 - Do not modify outside Write scope
 - Read files are seeds; Probe for related context
 - Scope changes require user approval
+- For branch stories using worktrees, Write paths are relative to the story's `**Worktree:**` path, not the base branch
 
 See §10.3 for the behavioral habit of surgical editing.
 
@@ -303,6 +304,8 @@ Persistence is not optional cleanup — it's how the harness accumulates wisdom.
 
 ```markdown
 # [STORY-ID] [Title]
+**Branch:** `{ticket-id}-{slug}` *(omit for harness-only stories)*
+**Worktree:** `~/repos/{ticket-id}-{slug}/` *(omit for harness-only stories; use "not yet created" until worktree exists)*
 
 ## Goal
 
@@ -445,6 +448,8 @@ Define success criteria. Loop until verified.
 **Never run without warning:** destructive commands (`--force`, `--hard`, `--amend` after push)
 
 **Story identifiers:** STORY-XXX are internal harness artifacts. Use external ticket IDs (Jira, GitHub Issues) for commit messages, PRs, and external artifacts.
+
+**Worktree model (optional):** Projects using git worktrees can add a `**Worktree:**` field to each branch story pointing to that branch's worktree path (e.g. `~/repos/{ticket-id}-{slug}/`). Use the story's worktree path for all reads and writes on that branch. The base branch is for reference only. `git worktree list` is always read-only and safe. When a worktree doesn't exist yet, the field reads "not yet created".
 
 **Philosophy:** Your work product is code and docs, not commit history. Let the user control when changes land.
 
