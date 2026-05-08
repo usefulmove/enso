@@ -80,7 +80,7 @@ Use the `question` tool:
 - Options:
   - "Yes, proceed" (recommended)
   - One option per other story in docs/stories/
-  - "No active story / create a new one"
+  - "No active story / create a new story or work without one"
 
 If a different story is selected, load it in full.
 
