@@ -4,17 +4,20 @@
 
 enso is a single-file seed protocol (`AGENTS.md`) that bootstraps a context management system for AI agent collaboration. Drop it into any project, point an agent to it, and the agent creates the persistent context structure. The harness is minimal by design — it grows through use.
 
-## The Three-Layer Model
+## The Stack
 
-enso separates concerns into three distinct layers, each with a single responsibility:
+enso separates concerns into distinct layers:
 
-| Layer | Role | Function |
-|-------|------|----------|
-| **Kernel** (`opencode`) | The runtime | Raw execution: tool calls, file I/O, process lifecycle. The minimal substrate. |
-| **Operating System** (`enso`) | The harness | Context management, scope enforcement, story scheduling, tool orchestration. Turns primitives into a usable workspace. |
-| **Interpreter** (the model) | The evaluator | Reads intent, reasons, generates action. Does not manage memory or files—it executes logic within the OS it finds. |
+| Layer | Role | Example |
+|-------|------|---------|
+| **Model** | Token generator / reasoning engine | Claude Sonnet, GPT-5, Kimi K2.6 |
+| **Runtime** | Loop execution, tool dispatch, session host | OpenCode, Claude Code, Cursor, Codex |
+| **Harness protocol** | Rules and artifact schema for agentic work | `enso` |
+| **Harness instance** | Configured runtime + protocol + project state | This project's `AGENTS.md`, docs, skills, logs |
+| **Agent instantiation** | Ephemeral task process summoned by the runtime | Each prompt loop execution |
+| **Substrate** | Durable environment being read and transformed | Codebase, docs, configs, harness artifacts |
 
-This is the GNU/Linux model applied to agentic systems. The kernel provides the raw system calls, but without the OS layer, there is no coherent environment—just a process with no file system. The interpreter runs *inside* the OS; it does not *become* it. The harness is what persists, scopes, and schedules. The model just interprets.
+The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace, not external infrastructure. Agent instantiations do not persist; the harness and substrate do.
 
 ---
 
@@ -24,7 +27,7 @@ This is the GNU/Linux model applied to agentic systems. The kernel provides the 
 
 AI agent sessions are ephemeral. Each session starts cold. Without a system for persisting and selecting context, every session re-derives what the last one already knew. The human becomes the memory. That doesn't scale.
 
-enso exists to make context durable — to give the model a persistent substrate it can read from and write to across sessions. But that framing undersells it. The deeper insight is this:
+enso exists to make context durable — to give agent instantiations a persistent substrate they can read from and write to across sessions. But that framing undersells it. The deeper insight is this:
 
 **enso is a recursive fold-forward(story, context).**
 
@@ -78,15 +81,15 @@ This is already in the story template. The north star makes it explicit: the Con
 
 ### The curried form (advanced)
 
-`context_new = story(context_old)` is the user-facing interface — the curried function that every session calls. The story file itself is the partial application. It binds the goal (specification) and identity (agent) to produce a function that accepts only `context`.
+`context_new = story(context_old)` is the user-facing interface — the curried function that every session calls. The story file itself is the partial application. It binds the goal (specification) to produce a function that accepts only `context`.
 
 The full, uncurried primitive lives beneath:
 
 ```
-eval :: story_spec → agent → context → context
+eval :: story_spec → agent_instantiation → context → context
 ```
 
-A story is `eval` partially applied. The story template is the partial application syntax. The agent reading it completes the call.
+A story is `eval` partially applied. The story template is the partial application syntax. The runtime completes the call with an agent instantiation.
 
 ### The logical conclusion
 

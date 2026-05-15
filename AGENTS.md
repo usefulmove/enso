@@ -30,7 +30,7 @@ IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for fr
 | Doc | Path |
 |-----|------|
 | PRD | `docs/core/PRD.md` |
-| Architecture | `docs/core/architecture/ARCHITECTURE.md` |
+| Architecture | `docs/core/ARCHITECTURE.md` |
 
 ---
 
@@ -48,6 +48,18 @@ Context management protocol for agentic software development.
 **Goal:** Minimize tokens while maintaining verifiable, recursive workflows.
 
 **Principle:** Software building software.
+
+**enso is a harness protocol.**
+The harness instance (this project) and substrate (codebase, docs, harness files) persist. Agent instantiations (each task execution) do not.
+
+- **Model**: The LLM — token generator, reasoning engine
+- **Runtime**: Executable host — OpenCode, Claude Code, etc.
+- **Harness protocol**: Rules and schema — enso
+- **Harness instance**: Configured protocol for this project
+- **Agent instantiation**: Ephemeral task process
+- **Substrate**: Durable environment being transformed
+
+The harness is **coupled to** the substrate — adjacent and coextensive with the workspace.
 
 **Context hierarchy:**
 

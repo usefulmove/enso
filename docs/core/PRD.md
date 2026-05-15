@@ -8,7 +8,7 @@ AI agent sessions are ephemeral. Context windows are finite. Without a system fo
 
 1. Enable reliable, persistent AI collaboration across sessions and tools
 2. Treat context as a scarce resource — load only what's needed, persist before it's lost
-3. Give agents a self-extending substrate — the harness reshapes itself through use
+3. Make the harness self-extending through agent instantiations — the harness reshapes itself through use
 4. Reduce cold-start cost through structured persistent context (PRD, stories, logs, lessons)
 5. Make the harness usable by any agent in any project via a single-file seed (AGENTS.md)
 

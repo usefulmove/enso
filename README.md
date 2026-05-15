@@ -35,7 +35,7 @@ The harness is the 80% factor in agent reliability. Same model, better harness, 
 | **Vercel** agent evals | Persistent context via AGENTS.md achieved a **100% pass rate** vs. **79%** for on-demand skill retrieval — a +21 percentage point improvement ([source](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)) |
 | **LangChain** Terminal Bench 2.0 | Same model (Claude Opus 4.6), different harness: improved from **Top 30 to Top 5** by optimizing the harness alone ([source](https://blog.langchain.dev/the-anatomy-of-an-agent-harness/)) |
 
-> *"Agent = Model + Harness. The model contains the intelligence; the harness makes that intelligence useful."* — LangChain
+> *"The model contains the intelligence. The harness makes that intelligence useful."* — LangChain
 
 Enso treats context as a scarce resource. Every token competes for attention. Three principles govern the protocol:
 

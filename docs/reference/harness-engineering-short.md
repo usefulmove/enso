@@ -6,9 +6,9 @@
 
 ## The Core Idea
 
-**Agent = Model + Harness.** If you're not the model, you're the harness.
+The harness is everything around the model — system prompts, tools, orchestration logic, execution environment, state management. A raw model is just text in, text out. The harness produces agent instantiations that actually do work.
 
-The harness is everything around the model — system prompts, tools, orchestration logic, execution environment, state management. A raw model is just text in, text out. The harness turns it into something that actually does work.
+Agent instantiations are ephemeral. The harness persists.
 
 ---
 

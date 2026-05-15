@@ -33,29 +33,32 @@ The context window is working memory, and it's finite. Every token competes for 
 
 **Persistent Context** — structured information that survives across sessions and evolves with the project. The harness. A structure with planning and architecture docs, active stories, lessons learned. This is the long-term memory layer.
 
-### Agents
+### The Harness
 
 > "Models can't act"
 
 A raw model can reason — it can write code, answer questions, plan. But it
 can't act in the world on its own. No tools. No memory. No persistence.
 
-An agent fixes this:
+A harness fixes this:
 
 ```
-agent
-  a. model          # Claude Sonnet 4.6, GPT 5.3, Kimi K2.5, ...
-  b. shaping        # specialization: coding, planning, research, ...
-  c. tools          # bridges between layers, tools make the layers dynamic
+harness
+  a. runtime        # OpenCode, Claude Code, Codex, Cursor...
+  b. protocol       # enso: rules, document schema, lifecycle
+  c. instance       # This project's configured AGENTS.md, docs, skills
+  d. tools          # bridges between layers
      - web search
      - command shell (bash)
      - files, git (version control)
      - mcp servers, language server protocol (lsp)
      - compiler/interpreter, static analysis (linter), type checker, formatter
      - unit/regression tests
-     - custom tools # databases, api's, skills (Anthropic agent skills)
-  d. agentic loop   # self-directed execution pattern
+     - custom tools # databases, api's, skills
+  e. agent instantiation # ephemeral task process summoned by runtime
 ```
+
+Agent instantiations do not persist. The harness and substrate do.
 
 (agent vs. model coding example)
 
@@ -63,18 +66,18 @@ agent
 
 ### Agent Orchestration
 
-An agent can be used for context transformation:
+An agent instantiation can be used for context transformation:
 
 ```
-context:new = agent(context:orig)
+context:new = agent_instantiation(context:orig)
 ```
 
-Each agent receives context, does work, and returns an updated context. Chain
+Each agent instantiation receives context, does work, and returns an updated context. Chain
 them together — or run them in parallel — and you have an ensemble: a team of
-agents operating on a shared environment.
+agent instantiations operating on a shared environment.
 
 Careful bite-sizing and context management — a detailed plan before building,
-one story (task) at a time — significantly increase agent accuracy. The
+one story (task) at a time — significantly increase agent instantiation accuracy. The
 context engineering layer is what makes that coordination reliable.
 
 ### The Six Operations
