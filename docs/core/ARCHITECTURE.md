@@ -2,7 +2,7 @@
 
 ## Overview
 
-enso is a single-file seed protocol (`AGENTS.md`) that bootstraps a context management system for AI agent collaboration. Drop it into any project, point an agent to it, and the agent creates the persistent context structure. The harness is minimal by design — it grows through use.
+enso is a single-file seed protocol (`AGENTS.md`) that bootstraps a context management system for AI agent collaboration. Drop it into any project, point an agent to it, and the agent creates the persistent context structure. The harness protocol is minimal by design — it grows through use.
 
 ## The Stack
 
@@ -17,7 +17,7 @@ enso separates concerns into distinct layers:
 | **Agent instantiation** | Ephemeral task process summoned by the runtime | Each prompt loop execution |
 | **Substrate** | Durable environment being read and transformed | Codebase, docs, configs, harness artifacts |
 
-The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace, not external infrastructure. Agent instantiations do not persist; the harness and substrate do.
+The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace, not external infrastructure. Agent instantiations do not persist; the harness instance and substrate do.
 
 ---
 

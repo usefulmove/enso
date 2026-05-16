@@ -31,32 +31,31 @@ The context window is working memory — finite, and every token competes for at
 
 **Persistent Context** — structured information that survives sessions and evolves with the project. Planning docs, architecture, active stories, lessons learned. Long-term memory.
 
-### Agents
+### The Canonical Stack
 
-A raw model can reason but can't act — no tools, no memory, no persistence. An agent adds:
+A model alone can reason but can't act. The full stack separates concerns so each layer does one thing well:
 
 ```
-agent
-  a. model          # Claude Sonnet 4.6, GPT 5.3, Kimi K2.5, ...
-  b. shaping        # specialization: coding, planning, research, ...
-  c. tools          # bridges between layers
-     - web search, command shell, files, git
-     - mcp servers, lsp, compiler, linter, tests
-     - custom tools: databases, apis, skills
-  d. agentic loop   # self-directed execution pattern
+model              # token generator / reasoning engine — Claude, GPT, Kimi, ...
+runtime            # executable host that exposes tools — OpenCode, Claude Code, ...
+  └─ tools         # bridges between layers: web search, shell, files, git, MCP, LSP, tests, ...
+harness protocol   # rules and schema — enso
+harness instance   # configured protocol for this project
+agent instantiation # ephemeral task process running on the runtime
+substrate          # durable environment being transformed (codebase, docs, infra)
 ```
 
-*But giving a model tools doesn't fix the context problem. That requires something else.*
+The runtime exposes tools; the harness protocol defines *how* to use them. The harness instance lives on the substrate and persists context across agent instantiations.
 
 ### Agent Orchestration
 
-An agent can be used for context transformation:
+An agent instantiation transforms context through a harness instance on a substrate:
 
 ```
-context:new = agent(context:orig)
+context:new = agent_instantiation(context:orig)
 ```
 
-Chain them together — or run them in parallel — and you have an ensemble: a team of agents operating on a shared environment. Careful bite-sizing and context management (detailed plan upfront, one story at a time) significantly increase accuracy. Context engineering is what makes that coordination reliable.
+Chain them together — or run them in parallel — and you have an ensemble: multiple agent instantiations operating on a shared substrate through the same harness instance. Careful bite-sizing and context management (detailed plan upfront, one story at a time) significantly increase accuracy. Context engineering is what makes that coordination reliable.
 
 ### The Six Operations
 
@@ -66,9 +65,9 @@ Write · Select · Probe · Compress · Isolate · Assign — six primitives for
 
 ## Enso
 
-Enso is an agent harness — the infrastructure layer that constrains, informs, verifies, and corrects AI agents in production.
+Enso is a harness protocol — the rules and schema that constrain, inform, verify, and correct agent instantiations in production.
 
-An agent bootstraps a structured environment. Every agent, every session, reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
+A harness instance bootstraps a structured substrate. Every agent instantiation reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
 
 ---
 
@@ -76,7 +75,7 @@ An agent bootstraps a structured environment. Every agent, every session, reads 
 
 > "Software building software. The agent extends itself."
 
-Inspired by [Pi](https://github.com/badlogic/pi-mono/): when an agent encounters friction, it builds a tool. Captures it to `docs/skills/`. Reuses it. Iterates. Capabilities compound — a month of work should leave an agent significantly more capable than when it started.
+Inspired by [Pi](https://github.com/badlogic/pi-mono/): when an agent instantiation encounters friction, it builds a tool. Captures it to `docs/skills/`. Reuses it. Iterates. Capabilities compound — a month of work should leave the harness instance significantly more capable than when it started.
 
 ```
 docs/

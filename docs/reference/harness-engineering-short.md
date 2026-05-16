@@ -46,6 +46,23 @@ Key insight: **holdout sets are critical**. Without them you optimize for the ev
 
 ---
 
+## In enso Terms
+
+This document uses generic industry language. In the enso stack, that maps as follows:
+
+| Generic Term | enso Term |
+|--------------|-----------|
+| model | intelligence |
+| runtime | executable host |
+| harness protocol | enso's rules/schema |
+| harness instance | repo-local installed form |
+| agent instantiation | ephemeral worker |
+| substrate | durable environment |
+
+The harness protocol is the schema and behavioral rules. The harness instance is the configured form of that protocol installed in a specific repository. The agent instantiation is the ephemeral worker process that executes tasks against the substrate (the durable environment being transformed).
+
+---
+
 ## Bottom Line
 
 A well-configured environment, the right tools, durable state, and verification loops make any model more effective — regardless of its base intelligence. Harness engineering is where the compounding returns are.

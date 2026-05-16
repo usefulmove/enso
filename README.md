@@ -1,6 +1,6 @@
 # enso
 
-> Intelligence is in the model. Control is in the harness.
+> Intelligence lives in the model. Control lives in the runtime and harness. Continuity lives in the substrate.
 
 ![Strategic Model Routing](assets/strategic-model-routing.gif)
 
@@ -10,7 +10,7 @@
 curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
 ```
 
-One file. No dependencies. No CLI. Drop it in your repo and your agent becomes a disciplined engineer.
+One file. No dependencies. No CLI. Drop it in your repo and your agent becomes a more disciplined engineer.
 
 ---
 
@@ -26,7 +26,7 @@ The model is not the problem. The model is magnificent. The problem is **context
 
 ## The Solution: Harness Engineering
 
-An agent harness is everything between user intent and model output that is *not* the language model itself — context assembly, tool orchestration, verification loops, feedback mechanisms, and lifecycle management.
+An agent harness is everything between user intent and model output that is *not* the language model itself — runtime behavior, context assembly, tool orchestration, verification loops, feedback mechanisms, and lifecycle management.
 
 The harness is the 80% factor in agent reliability. Same model, better harness, dramatically better results.
 
@@ -37,25 +37,55 @@ The harness is the 80% factor in agent reliability. Same model, better harness, 
 
 > *"The model contains the intelligence. The harness makes that intelligence useful."* — LangChain
 
-Enso treats context as a scarce resource. Every token competes for attention. Three principles govern the protocol:
-
-1. **Separate concerns.** Working context (ephemeral thought), persistent context (durable docs that survive sessions), and reference context (codebase and external sources searched on demand).
-2. **Progressive disclosure.** Load only what you need, when you need it. Summaries before details. Search before assuming.
-3. **Stay current, not historical.** Documents reflect the present state. Git tracks history. Docs don't accumulate cruft.
+Enso is a way to make that harness explicit, durable, and project-local.
 
 ---
 
-## The Three-Layer Stack
+## The Canonical Stack
 
-enso is the operating system in a three-layer agent architecture:
+Enso works by separating what reasons, what executes, what governs, what persists, and what gets changed.
 
-| Layer | Role | Function |
-|-------|------|----------|
-| **Kernel** (opencode, pi, claude) | The runtime | Raw execution: tool calls, file I/O, process lifecycle |
-| **Operating System** (enso) | The harness | Context management, scope enforcement, story scheduling, tool orchestration |
-| **Interpreter** (the model) | The evaluator | Reads intent, reasons, generates action |
+| Layer | What it is | Example |
+|-------|------------|---------|
+| **Model** | The LLM that reasons and generates output | GPT, Claude, Gemini |
+| **Runtime** | The executable host that runs loops and dispatches tools | OpenCode, Claude Code, Cursor, Codex |
+| **Harness protocol** | The rules, schema, and workflow for disciplined agent work | `enso` |
+| **Harness instance** | A project-local realization of the protocol | `AGENTS.md`, `docs/`, `skills/`, `logs/` |
+| **Agent instantiation** | One ephemeral task process running inside the runtime | the current session or task |
+| **Substrate** | The durable environment being read and transformed | codebase, docs, configs, repo state |
 
-This is the GNU/Linux model applied to agents. The kernel provides the raw system calls, but without the OS layer, there is no coherent environment. The interpreter runs *inside* the OS; it does not *become* it. The harness is what persists, scopes, and schedules. The model just interprets.
+This is the core idea:
+
+- the **model** reasons
+- the **runtime** executes
+- the **harness protocol** defines how work should happen
+- the **harness instance** is that protocol installed in a specific project
+- the **agent instantiation** is the current ephemeral worker
+- the **substrate** is the durable environment being transformed
+
+Enso is **not** the model and **not** the runtime. Enso is the **harness protocol**. When you drop `AGENTS.md` into a repo and bootstrap the supporting structure, you create a **harness instance** that future agent instantiations can reuse against the same substrate.
+
+---
+
+## What Persists — and What Doesn't
+
+Agent instantiations are ephemeral. They start, do work, and disappear.
+
+Harness instances and substrates persist.
+
+That distinction is the whole game. Without a persistent harness instance attached to a persistent substrate, every agent run starts cold. Decisions vanish. Lessons evaporate. The human becomes the memory system.
+
+Enso fixes that by giving each agent instantiation a durable project context to read from and write back to.
+
+---
+
+## Core Principles
+
+Enso treats context as a scarce resource. Every token competes for attention. Three principles govern the protocol:
+
+- **Separate concerns.** Working context is ephemeral, persistent context survives sessions, and reference context is retrieved on demand.
+- **Progressive disclosure.** Load only what you need, when you need it. Summaries before details. Search before assuming.
+- **Stay current, not historical.** Documents reflect the present state. Git tracks history. Docs don't accumulate cruft.
 
 ---
 
@@ -67,7 +97,7 @@ This is the GNU/Linux model applied to agents. The kernel provides the raw syste
 curl -o AGENTS.md https://raw.githubusercontent.com/usefulmove/enso/main/AGENTS.md
 ```
 
-`AGENTS.md` is not documentation — it is the seed that anchors your harness. The file must exist in your repo to persist context across sessions. Without it, agents lose the protocol between runs.
+`AGENTS.md` is not just documentation — it is the seed of the harness protocol inside your repo. Once bootstrapped, it becomes part of a project-local harness instance that future agent instantiations can reuse. Without it, the protocol disappears between runs.
 
 ### 2. Activate
 
@@ -88,13 +118,15 @@ Paste exactly this into your agent:
 **00:18** — `Mapping architecture...`  
 **00:35** — `Drafting PRD.md and ARCHITECTURE.md.`  
 **00:52** — `First story template ready at docs/stories/STORY-001.md.`  
-**00:59** — `Harness active. What should we build first?`
+**00:59** — `Harness instance active. What should we build first?`
 
-From there, the cycle repeats: plan, execute, capture, extend. Each session leaves the harness sharper than the last.
+From there, the cycle repeats: plan, execute, capture, extend. Each session leaves the harness instance sharper than the last.
 
 ---
 
 ## How It Works
+
+Each agent instantiation runs inside a runtime, follows the enso protocol, and operates against the same substrate through the project's harness instance. The result is simple but powerful: ephemeral workers, durable context, and a repo that gets easier for future agents to understand.
 
 ### The Six Operations
 
@@ -111,7 +143,7 @@ The context window is a spotlight — you can illuminate only so much at once. S
 
 ### The Directory Structure
 
-Enso creates a standard, predictable hierarchy that agents can navigate without guidance:
+Enso creates a standard, predictable structure that becomes part of the project's harness instance:
 
 ```
 docs/
@@ -122,13 +154,13 @@ docs/
   logs/           # Session history
 ```
 
-**Core** holds the vision — updated in place, never duplicated. **Stories** hold active work — each one scoped, planned, and verified before execution begins. **Reference** holds earned knowledge — completed work and the living `LESSONS.md` where every hard-won insight is recorded. **Skills** hold self-authored tools. **Logs** hold compressed session summaries.
+**Core** holds the source of truth. **Stories** hold active scoped work. **Reference** holds earned knowledge. **Skills** hold self-authored capabilities. **Logs** hold compressed session memory.
 
 ### The Self-Extension Loop
 
 Enso draws from the [Pi Principle](https://github.com/badlogic/pi-mono/): **agents extend themselves by authoring tools, not downloading them.**
 
-When an agent encounters friction — a repetitive task, a complex procedure, a missing capability — it doesn't wait. It builds the minimal tool, persists it to `docs/skills/`, and moves on. The next session inherits the capability. The session after that refines it.
+When an agent encounters friction — a repetitive task, a complex procedure, a missing capability — it doesn't wait. It builds the minimal tool, persists it to `docs/skills/`, and moves on. Those capabilities become part of the harness instance, and future agent instantiations inherit them automatically. Later sessions refine them.
 
 The compounding effect: a tool built today saves derivation cost in every future session. After months of work, an agent has dozens of custom tools tailored to its codebase — not downloaded dependencies, but authored capabilities. Software building software.
 
@@ -152,11 +184,13 @@ The compounding effect: a tool built today saves derivation cost in every future
 ## What Enso Is Not
 
 <details>
-<summary>Is enso a CLI, framework, or model-specific tool?</summary>
+<summary>Is enso a model, runtime, CLI, or framework?</summary>
 
-- **Not a CLI or library.** It's a protocol — a single markdown file that any agent can read.
-- **Not a framework.** There's nothing to install, configure, or maintain. Drop a file, start working.
-- **Not model-specific.** It works with any agent that can read a file and follow instructions.
+- **Not a model.** Enso does not generate tokens or do reasoning.
+- **Not a runtime.** It does not host execution loops or dispatch tools by itself.
+- **Not a CLI or library.** It's a protocol — a markdown seed that agents can read and follow.
+- **Not a framework.** There's nothing heavyweight to install or maintain.
+- **Not model-specific.** It works with any agentic runtime that can read files and follow instructions.
 - **Not rigid.** The protocol is a starting point. Adapt it to your codebase, your workflow, your domain.
 
 </details>

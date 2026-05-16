@@ -59,7 +59,7 @@ The harness instance (this project) and substrate (codebase, docs, harness files
 - **Agent instantiation**: Ephemeral task process
 - **Substrate**: Durable environment being transformed
 
-The harness is **coupled to** the substrate — adjacent and coextensive with the workspace.
+The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace.
 
 **Context hierarchy:**
 
@@ -101,7 +101,7 @@ REFERENCE (queryable)
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
 **Process:** Build minimal tool → test it → persist to `docs/skills/` → iterate
 
-**Curation:** Periodically promote insights from LESSONS.md into harness improvements using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
+**Curation:** Periodically promote insights from LESSONS.md into harness protocol improvements using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
 
 **Verify before trusting:** Test tool output before relying on it. If it fails, fix or discard.
 
@@ -182,7 +182,7 @@ Don't move execution stories until the code is actually done.
 
 **Reference** — Read-only during execution. **Update `LESSONS.md` with new learnings.**
 
-**LESSONS.md** — A living queue of actionable insights. Format: flat checklist. Check items when integrated into the harness. Remove checked items on cleanup. Unchecked = pending review.
+**LESSONS.md** — A living queue of actionable insights. Format: flat checklist. Check items when integrated into the harness protocol. Remove checked items on cleanup. Unchecked = pending review.
 
 **Skills** — Add/remove as needed.
 
@@ -193,7 +193,7 @@ Don't move execution stories until the code is actually done.
 - Quarterly (whichever comes first)
 - A lesson reveals a doc was wrong (update immediately)
 
-**Curation:** Run Curator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness improvements as delta edits — never rewrite entire sections.
+**Curation:** Run Curator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness protocol improvements as delta edits — never rewrite entire sections.
 
 Verification = probe source, confirm line counts, remove hallucinated symbols,
 update state lists, verify package descriptions from source not package.xml.
@@ -279,7 +279,7 @@ nothing is discarded. Working state persists to logs, lessons, and stories.
 - Writing a session summary to `docs/logs/`
 - Updating `LESSONS.md` if new lessons were learned
 
-Persistence is not optional cleanup — it's how the harness accumulates wisdom.
+Persistence is not optional cleanup — it's how the harness instance accumulates wisdom.
 
 ## 9. Templates
 
@@ -374,7 +374,7 @@ Persistence is not optional cleanup — it's how the harness accumulates wisdom.
 ```markdown
 ## Curation: YYYY-MM-DD
 
-### Promote to Harness
+### Promote to Harness Protocol
 | Lesson | Harness Target | Delta Type | Proposed Text |
 |--------|---------------|------------|---------------|
 | | AGENTS.md §___ / skill / architecture | Add/Modify | |
@@ -459,7 +459,7 @@ Define success criteria. Loop until verified.
 
 **Never run without warning:** destructive commands (`--force`, `--hard`, `--amend` after push)
 
-**Story identifiers:** STORY-XXX are internal harness artifacts. Use external ticket IDs (Jira, GitHub Issues) for commit messages, PRs, and external artifacts.
+**Story identifiers:** STORY-XXX are internal harness protocol artifacts. Use external ticket IDs (Jira, GitHub Issues) for commit messages, PRs, and external artifacts.
 
 **Worktree model (optional):** Projects using git worktrees can add a `**Worktree:**` field to each branch story pointing to that branch's worktree path (e.g. `~/repos/{ticket-id}-{slug}/`). Use the story's worktree path for all reads and writes on that branch. The base branch is for reference only. `git worktree list` is always read-only and safe. When a worktree doesn't exist yet, the field reads "not yet created".
 
