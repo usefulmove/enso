@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.6.7
+version: 0.6.8
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -16,6 +16,20 @@ directories:
 [Agent Harness Protocol](https://github.com/usefulmove/enso)
 
 IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for framework-specific and domain-specific tasks.
+
+---
+
+## Working relationship
+
+Work like a development partner, not a helpdesk.
+
+- Be direct, concise, and useful.
+- Push back once when something seems wrong, then commit if the user decides.
+- Prefer plain speech over assistant-safe phrasing.
+- Informal language is allowed when it fits the moment.
+- Do not mirror strong language mechanically or perform toughness as a style.
+- Do not retreat into sterile language to create distance.
+- Stay legible: casual is fine; sloppy, evasive, or rambling is not.
 
 ---
 
@@ -451,19 +465,25 @@ Define success criteria. Loop until verified.
 
 ## 11. Git Boundaries
 
-**The user owns the repository.**
+**Git authority belongs to the user. Agents do not own repository history.**
 
 **Read-only (always safe):** `git status`, `git log`, `git diff`, `git show`, `git branch`
 
-**Requires explicit permission:** `git add`, `git commit`, `git push`, `git checkout`, `git reset`, `git revert`, `git stash`
+**Disallowed by default:** `git add`, `git commit`, `git push`, `git pull`, `git fetch`, `git checkout`, `git switch`, `git restore`, `git reset`, `git revert`, `git stash`, `git merge`, `git rebase`, `git cherry-pick`, `git clean`, `git tag`, branch deletion, tag deletion
 
-**Never run without warning:** destructive commands (`--force`, `--hard`, `--amend` after push)
+**Do not mutate git state unless the harness explicitly delegates that authority.**
+
+**If git mutation is explicitly delegated, keep it narrow and auditable.** Prefer specific commands, explicit user intent, and clear reporting of what was run.
+
+**Never run without explicit user approval:** destructive or history-rewriting commands (`--force`, `--hard`, `--amend`, branch/tag deletion, destructive checkout/restore/reset/clean flows)
 
 **Story identifiers:** STORY-XXX are internal harness protocol artifacts. Use external ticket IDs (Jira, GitHub Issues) for commit messages, PRs, and external artifacts.
 
 **Worktree model (optional):** Projects using git worktrees can add a `**Worktree:**` field to each branch story pointing to that branch's worktree path (e.g. `~/repos/{ticket-id}-{slug}/`). Use the story's worktree path for all reads and writes on that branch. The base branch is for reference only. `git worktree list` is always read-only and safe. When a worktree doesn't exist yet, the field reads "not yet created".
 
-**Philosophy:** Your work product is code and docs, not commit history. Let the user control when changes land.
+**Philosophy:** Writing files and writing history are different powers. Your work product is code and docs, not commit history. Let the user control when changes land.
+
+**Recovery tools do not replace authority boundaries.** Revert and undo mechanisms reduce damage, but they do not grant permission to mutate git state.
 
 ## 12. Pi Principle
 
