@@ -6,9 +6,9 @@ Display the following reference documentation clearly. Use the dynamic shell out
 
 ---
 
-## enso — Agent Orchestration Surface v0.7.0
+## ENSO - Context Management Framework v0.5.0
 
-A persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Treats context as a scarce resource — load only what's needed, persist before it's lost, compact before overflow.
+A minimal system for managing AI agent context across sessions. Treats context as a scarce resource — load only what's needed, persist before it's lost, compact before overflow.
 
 ---
 
