@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.7.5
+version: 0.7.6
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -64,7 +64,7 @@ The major seams in enso:
 | Ephemeral -> Persistent | Six operations (Write, Select, Probe, Compress, Isolate, Assign) | The agent's explicit choice to invoke Write instead of silently mutating context |
 | Agent -> Codebase | Context Scope (Write / Read / Exclude) | The scoped file list loaded at runtime |
 | Agent -> Capability | SKILL.md frontmatter (name, description, compatibility) | The scripts dropped into `docs/skills/<name>/` |
-| Stance -> Protocol | `SOUL.md` / `AGENTS.md` dual-document structure | Which persona files are injected into the harness; see [toni](https://github.com/usefulmove/toni) for a working example |
+| Stance -> Protocol | `SOUL.md` / `AGENTS.md` dual-document structure | Which persona files are injected into the harness |
 | Human -> Surface | Orchestration surface contract (AOS.md) | The specific tools, context, and voice configured in the harness instance |
 | Self-improvement | Skill bootstrap protocol (§2.1, §7) | The agent authoring a new skill instead of rewriting its system prompt |
 
