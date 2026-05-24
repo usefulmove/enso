@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.7.6
+version: 0.7.7
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -143,7 +143,7 @@ Similarly, the stance → protocol seam means an agent's warmth or intensity liv
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
 **Process:** Build minimal tool → test it → persist to `docs/skills/` → iterate
 
-**Curation:** Periodically promote insights from LESSONS.md into harness protocol improvements using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
+**Curation:** Periodically promote insights from LESSONS.md into harness protocol improvements using the Generator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
 
 **Verify before trusting:** Test tool output before relying on it. If it fails, fix or discard.
 
@@ -235,7 +235,7 @@ Don't move execution stories until the code is actually done.
 - Quarterly (whichever comes first)
 - A lesson reveals a doc was wrong (update immediately)
 
-**Curation:** Run Curator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness protocol improvements as delta edits — never rewrite entire sections.
+**Curation:** Run Generator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness protocol improvements as delta edits — never rewrite entire sections.
 
 Verification = probe source, confirm line counts, remove hallucinated symbols,
 update state lists, verify package descriptions from source not package.xml.
