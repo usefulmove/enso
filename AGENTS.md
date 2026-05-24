@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.7.0
+version: 0.7.1
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -92,6 +92,24 @@ REFERENCE (queryable) — Surface layer: the discoverable substrate
   - Codebase (LSP, grep)
   - Web, APIs
 ```
+
+## 1.1 What enso Means: Seams
+
+enso is a **seam-oriented protocol**. A seam is a boundary where two behaviors meet and where one side can be changed without rewriting the other. Every seam has an **interface** (the contract that both sides agree to) and an **enabling point** (where you plug in a different driver).
+
+The major seams in enso:
+
+| Seam | Interface | Enabling Point |
+|------|-----------|----------------|
+| Planning -> Execution | Story template (Goal, AC, Approach, Verification) | The story doc itself -- reviewed before any code is touched |
+| Ephemeral -> Persistent | Six operations (Write, Select, Probe, Compress, Isolate, Assign) | The agent's explicit choice to invoke Write instead of silently mutating context |
+| Agent -> Codebase | Context Scope (Write / Read / Exclude) | The scoped file list loaded at runtime |
+| Agent -> Capability | SKILL.md frontmatter (name, description, compatibility) | The scripts dropped into `docs/skills/<name>/` |
+| Stance -> Protocol | `SOUL.md` + `AGENTS.md` dual-doc structure (where present) | The specific persona files injected into the harness |
+| Human -> Surface | Orchestration surface contract (AOS.md) | The specific tools, context, and voice configured in the harness instance |
+| Self-improvement | Skill bootstrap protocol (§2.1, §7) | The agent authoring a new skill instead of rewriting its system prompt |
+
+This is why the Pi Principle (§12) works: agents extend themselves by authoring tools **because those tools occupy a seam**.
 
 ## 2. The Six Operations
 
