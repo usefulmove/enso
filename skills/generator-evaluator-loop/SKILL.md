@@ -35,7 +35,7 @@ to the human.
 
 | Role | Mode | Responsibility |
 |------|------|----------------|
-| **Generator** | Coder | Executes story. Produces changes + execution notes. |
+| **Generator** | Generator | Executes story. Produces changes + execution notes. |
 | **Evaluator** | Quality | Reads Verification criteria. Runs tools. Reviews conventions. Produces `evaluation_result`. |
 | **Arbiter** | Human | Resolves Generator/Evaluator disagreements on story intent or design. |
 
@@ -62,7 +62,7 @@ User invokes skill with story path
   to story
          │
          ▼
-  ┌─ GENERATOR (Coder mode) ────────────────────────────┐
+  ┌─ GENERATOR (Generator mode) ────────────────────────────┐
   │  Inputs: story + current context                     │
   │          + prior evaluation_result (if iteration>0)  │
   │  Output: changes applied per Write scope             │
@@ -136,9 +136,9 @@ Append the following block to the story file (after the last existing section):
 Determine which convention docs to load for the Evaluator phase by consulting
 `references/CONVENTIONS_MAP.md` against the story's Write scope file paths.
 
-### Step 3 — Generator phase (Coder mode)
+### Step 3 — Generator phase (Generator mode)
 
-Invoke the Generator as a Coder-mode sub-agent via the `task` tool.
+Invoke the Generator as a Generator-mode sub-agent via the `task` tool.
 
 **Inputs to provide:**
 - Full story file content

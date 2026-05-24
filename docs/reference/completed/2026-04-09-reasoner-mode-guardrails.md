@@ -7,7 +7,7 @@ Make Reasoner mode proposal-only by blocking file edits while still allowing saf
 ## Acceptance Criteria
 - [x] Reasoner mode explicitly denies write and edit access.
 - [x] Reasoner mode allows only read-only bash commands used for inspection.
-- [x] Reasoner prompt clearly states proposal-only behavior and directs implementation to Coder mode.
+- [x] Reasoner prompt clearly states proposal-only behavior and directs implementation to Generator mode.
 
 ## Context Scope
 
