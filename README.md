@@ -47,8 +47,6 @@ The harness is the 80% factor in agent reliability. Same model, better harness, 
 
 ## The Seams
 
-Toni's vocabulary is her seam graph. The critical ones:
-
 | Seam | Interface | Enabling Point |
 |:---|:---|:---|
 | **Planning → Execution** | Story template (Goal, AC, Approach, Verification) | The story document—reviewed before code is touched |
@@ -63,17 +61,9 @@ Every interface is a language. enso's vocabulary is its seam graph.
 
 **Capabilities.** Look at `docs/skills/<name>/`:
 
-```
-docs/skills/reminder/
-├── SKILL.md      # The interface—frontmatter + usage contract
-└── remind.sh     # The enabling point—the actual driver
-```
-
 The agent reads `SKILL.md` to discover what this slot does. The shell script does the work. The script can be rewritten in Python or replaced with a different backend—without changing how the agent discovers or routes to it. The contract is stable. The implementation moves.
 
 **Stance vs. protocol.** When a human-facing agent needs to shift between a debugging session and a reflective conversation, the surface doesn't rewrite its identity. The interface is the dual-document structure (`SOUL.md` for stance, `AGENTS.md` for protocol). The enabling point is which files get injected into the harness. Technical work gets precision; personal weight gets presence. Same surface, different register.
-
-See [toni](https://github.com/usefulmove/toni) for a working example of this seam in practice.
 
 ---
 
