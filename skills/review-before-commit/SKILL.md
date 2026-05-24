@@ -10,7 +10,7 @@ compatibility: opencode
 Load this skill when:
 - A story's implementation is complete and you're about to move/close it
 - Before running `git add`/`git commit` at the end of a story
-- Before `/enso-persist` when code changes have been made
+- Before `session-persist` when code changes have been made
 - You want a final sanity check against behavioral drift
 
 Invoke it explicitly. This is an advisory skill — it does not block execution.

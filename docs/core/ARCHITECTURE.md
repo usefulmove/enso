@@ -58,7 +58,7 @@ This is not a metaphor. It is the execution model.
 | **Story** | A single step function: `context_new = story(context_old)` |
 | **Context Scope** | The function signature: `story :: context → context` — what it reads, what it writes, what it ignores |
 | **Acceptance Criteria** | The postcondition — what must be true about `context_new` |
-| **`/enso-persist`** | A checkpoint — serializes the accumulator between fold steps |
+| **`session-persist`** | A checkpoint — serializes the accumulator between fold steps |
 | **Session logs** | The fold trace — a record of each step's inputs and outputs |
 | **LESSONS.md** | Accumulated invariants — truths that hold across all fold steps |
 | **The scheduler** | Determines the sequence — what `story_n` is at each step |
@@ -75,7 +75,7 @@ enso needs the same thing. The process table is `docs/core/QUEUE.md`:
 backlog → ready → running → blocked → done
 ```
 
-`/enso-start` reads the queue and dispatches the highest-priority `ready` story. The human sets intent (priority, goals). enso manages execution order and state transitions.
+`session-start` reads the queue and dispatches the highest-priority `ready` story. The human sets intent (priority, goals). enso manages execution order and state transitions.
 
 ### Why the story template is a function signature
 
@@ -122,11 +122,11 @@ That is the north star. enso is not a task tracker. It is a structured execution
 | `docs/stories/` | Active work items. One file per story. Each declares goal, acceptance criteria, context scope, and approach before execution begins. | The fold step — context transformation in progress |
 | `docs/reference/` | Long-term memory. LESSONS.md accumulates patterns and gotchas. `completed/` holds finished stories. | Accumulated invariants — truths that hold across all fold steps |
 | `docs/skills/` | Self-extension. Agent-authored scripts and procedures for vertical workflows. Agents build tools here. | Self-extension — the surface becomes more capable over time |
-| `docs/logs/` | Session history. Written by `/enso-persist` after each session. | The fold trace — what happened, when |
-| `/enso-start` | Session entry point. Loads core context, detects active story, bootstraps new projects. | Surface activation — human intent enters the system |
-| `/enso-persist` | Persist working state. Extracts lessons, saves progress, prepares for session handoff (complete or pausing). | Checkpoint — serialize the accumulator |
-| `/enso-log` | Read-only log viewer. Shows recent session summaries and active stories. | Retrospective — inspect the fold trace |
-| `/enso-help` | Quick reference. Shows commands, workflow, and live project status. | Onboarding — orient an agent entering the surface |
+| `docs/logs/` | Session history. Written by `session-persist` after each session. | The fold trace — what happened, when |
+| `session-start` | Session entry point. Loads core context, detects active story, bootstraps new projects. | Surface activation — human intent enters the system |
+| `session-persist` | Persist working state. Extracts lessons, saves progress, prepares for session handoff (complete or pausing). | Checkpoint — serialize the accumulator |
+| `read-session-logs` | Read-only log viewer. Shows recent session summaries and active stories. | Retrospective — inspect the fold trace |
+| `enso-reference` | Quick reference. Shows skills, workflow, and live project status. | Onboarding — orient an agent entering the surface |
 | `agent/` | Specialist definitions — Reasoner, Coder, Curator, Evaluator, etc. Templates for the Assign operation. | Routing layer — who does what on the surface |
 
 ## Key Decisions
@@ -136,6 +136,6 @@ That is the north star. enso is not a task tracker. It is a structured execution
 | Markdown for all persistence | Plain text, git-friendly, readable by any agent or human without tooling |
 | Single-file seed (AGENTS.md) | Minimal adoption friction — one file starts the whole system |
 | Agent-authored skills | Self-extension compounds over time; downloaded tools don't fit specific workflows |
-| Human approves before writing | `/enso-persist` drafts first — human reviews, then confirms |
+| Human approves before writing | `session-persist` drafts first — human reviews, then confirms |
 | Stories declare scope explicitly | Write/Read/Exclude boundaries prevent scope creep and context pollution |
-| Global slash commands | `/enso-xxxx` commands live in `~/.config/opencode/commands/` — available in any project |
+| Skills for session lifecycle | Session skills (`session-start`, `session-persist`, `read-session-logs`, `enso-reference`) use standard `SKILL.md` frontmatter — runtime-agnostic, discoverable by any agent |

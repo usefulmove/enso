@@ -3,8 +3,8 @@
 Unchecked items are pending review. Check items when integrated into the harness. Remove checked items on cleanup.
 
 - [ ] Bootstrap operations must never overwrite user-modified files without an explicit guard — check existence before writing
-- [ ] OpenCode slash commands auto-discover from `~/.config/opencode/commands/` — no registration in `opencode.json` required
-- [ ] `@file` references in slash commands fail silently when files are missing — use `!` shell commands to detect and report
+- [x] OpenCode slash commands auto-discover from `~/.config/opencode/commands/` — no registration in `opencode.json` required → Moot — commands migrated to standard `skills/` in v0.7.7
+- [x] `@file` references in slash commands fail silently when files are missing — use `!` shell commands to detect and report → Moot — commands migrated to standard `skills/` in v0.7.7
 - [ ] Bootstrap should fetch canonical seed files from remote source, not copy local files — hard-fail on network errors
 - [ ] Using the harness to improve itself surfaces real friction fast — dogfooding is essential
 - [ ] Agents as teammates (not tools) shifts interaction from command execution to collaborative delegation — requires persistent identity and handoff mechanisms
@@ -17,7 +17,7 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [x] Draft → Review → Approve → Execute works for founder-facing content — multiple drafts let the founder choose voice → Integrated into `convert-request-to-story` skill Step 4
 - [ ] Agent-facing docs: remove persuasion, analogy, and "how to use" — keep declarative commands, frontmatter, and structured templates (40%+ token reduction)
 - [x] Agents self-evaluate poorly — dedicated QA pass after implementation catches gaps; human intervenes only on disagreements → Integrated into `review-before-commit` skill (§10.4) and AGENTS.md §10.4
-- [ ] `/enso-persist` → `/enso-start` is a valid full context reset — gap between steps is a good time to commit to git
+- [ ] `session-persist` → `session-start` is a valid full context reset — gap between steps is a good time to commit to git
 - [ ] Workflow templates outlast persona prompts — as models improve, personas become unnecessary scaffolding; keep model choice with the human
 - [ ] Review-only modes must deny mutating tools via config, not just prompt text — behavior drifts based on fallback permissions
 - [ ] Planning/reasoning modes need shell access scoped to a read-only allowlist — treat safe bash as a first-class capability separate from implementation authority
@@ -36,3 +36,4 @@ Unchecked items are pending review. Check items when integrated into the harness
 - [ ] The right architecture question is "what primitive is missing?" not "what technology should we use?"
 - [ ] The QMS audit of AGENTS.md found zero gaps — existing §4 (Planning Phase), §5 (Document Lifecycle), §10 (Behavioral Principles), and the `review-before-commit` skill already cover all Phase 1 quality gates. Good process design converges with good behavioral design.
 - [x] "Look before you act" as an explicit behavioral gate — read every file in Write scope before modifying it → Integrated into AGENTS.md §10.1, §6, story template
+- [x] `commands/` directory converted to proper opencode skills in `skills/` — the Agent → Capability seam should use the standard SKILL.md frontmatter interface, not a bespoke macro format. This makes enso runtime-agnostic. → Converted `commands/` to `skills/session-start/`, `skills/session-persist/`, `skills/read-session-logs/`, `skills/enso-reference/`

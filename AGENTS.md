@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.7.7
+version: 0.7.8
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -312,7 +312,7 @@ ln -s ../docs/skills .opencode/skills
 Move insights from working → durable context. This is not lossy compression —
 nothing is discarded. Working state persists to logs, lessons, and stories.
 
-**Command:** `/enso-persist`
+**Skill:** Load the `session-persist` skill when ~80% token utilization is reached, at story completion, or at session end.
 
 **Triggers:** ~80% token utilization, story completion, session end.
 

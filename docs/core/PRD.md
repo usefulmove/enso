@@ -20,7 +20,7 @@ Without an **orchestration surface**, agents cannot coordinate. They cannot hand
 **In scope:**
 - Harness protocol (AGENTS.md) — the six operations, document lifecycle, bootstrapping
 - Directory structure (`docs/core`, `stories`, `reference`, `skills`, `logs`)
-- Slash commands (`/enso-start`, `/enso-persist`, `/enso-log`, `/enso-help`)
+- Session lifecycle skills (`session-start`, `session-persist`, `read-session-logs`, `enso-reference`) loaded as standard opencode skills
 - Self-extension model — agents author their own skills and tools
 - Bootstrap flow for new projects
 - Agent specialist definitions — identity and routing contracts for the Assign operation
