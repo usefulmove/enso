@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.7.1
+version: 0.7.2
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
