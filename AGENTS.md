@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.7.4
+version: 0.7.5
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -16,6 +16,8 @@ directories:
 [Agent Harness Protocol](https://github.com/usefulmove/enso)
 
 IMPORTANT: Prefer retrieval-led reasoning over pre-training-led reasoning for framework-specific and domain-specific tasks.
+
+For the human-readable story of why seams matter, see `README.md`. This document is the protocol specification.
 
 ---
 
@@ -50,9 +52,25 @@ Work like a development partner, not a helpdesk.
 
 ## 1. Purpose
 
-Agent orchestration surface (AOS) protocol.
+**enso is a seam-oriented harness protocol for agentic work.**
 
-The surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Enso is the harness that makes it deterministic, inspectable, and compounding. File-based truth replaces vector-database drift. Context lives in verified docs and explicit state, session over session.
+A seam is a boundary where two behaviors meet and where one side can be changed without rewriting the other. Every seam has an **interface** (the contract that both sides agree to) and an **enabling point** (where you plug in a different driver). enso places intentional seams at every boundary where behavior changes hands in an agent system.
+
+The major seams in enso:
+
+| Seam | Interface | Enabling Point |
+|------|-----------|----------------|
+| Planning -> Execution | Story template (Goal, AC, Approach, Verification) | The story doc itself -- reviewed before any code is touched |
+| Ephemeral -> Persistent | Six operations (Write, Select, Probe, Compress, Isolate, Assign) | The agent's explicit choice to invoke Write instead of silently mutating context |
+| Agent -> Codebase | Context Scope (Write / Read / Exclude) | The scoped file list loaded at runtime |
+| Agent -> Capability | SKILL.md frontmatter (name, description, compatibility) | The scripts dropped into `docs/skills/<name>/` |
+| Stance -> Protocol | `SOUL.md` / `AGENTS.md` dual-document structure | Which persona files are injected into the harness; see [toni](https://github.com/usefulmove/toni) for a working example |
+| Human -> Surface | Orchestration surface contract (AOS.md) | The specific tools, context, and voice configured in the harness instance |
+| Self-improvement | Skill bootstrap protocol (§2.1, §7) | The agent authoring a new skill instead of rewriting its system prompt |
+
+Every interface is a language. enso's vocabulary is its seam graph.
+
+**Agent orchestration surface (AOS).** The surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Enso is the harness that makes it deterministic, inspectable, and compounding. File-based truth replaces vector-database drift. Context lives in verified docs and explicit state, session over session.
 
 **Workflow:**
 1. Bootstrap directory structure
@@ -93,23 +111,13 @@ REFERENCE (queryable) — Surface layer: the discoverable substrate
   - Web, APIs
 ```
 
-## 1.1 What enso Means: Seams
-
-enso is a **seam-oriented protocol**. A seam is a boundary where two behaviors meet and where one side can be changed without rewriting the other. Every seam has an **interface** (the contract that both sides agree to) and an **enabling point** (where you plug in a different driver).
-
-The major seams in enso:
-
-| Seam | Interface | Enabling Point |
-|------|-----------|----------------|
-| Planning -> Execution | Story template (Goal, AC, Approach, Verification) | The story doc itself -- reviewed before any code is touched |
-| Ephemeral -> Persistent | Six operations (Write, Select, Probe, Compress, Isolate, Assign) | The agent's explicit choice to invoke Write instead of silently mutating context |
-| Agent -> Codebase | Context Scope (Write / Read / Exclude) | The scoped file list loaded at runtime |
-| Agent -> Capability | SKILL.md frontmatter (name, description, compatibility) | The scripts dropped into `docs/skills/<name>/` |
-| Stance -> Protocol | `SOUL.md` + `AGENTS.md` dual-doc structure (where present) | The specific persona files injected into the harness |
-| Human -> Surface | Orchestration surface contract (AOS.md) | The specific tools, context, and voice configured in the harness instance |
-| Self-improvement | Skill bootstrap protocol (§2.1, §7) | The agent authoring a new skill instead of rewriting its system prompt |
+## 1.1 Why Seams Work
 
 This is why the Pi Principle (§12) works: agents extend themselves by authoring tools **because those tools occupy a seam**.
+
+When an agent writes a skill, it creates a stable contract (`SKILL.md`) and a swappable driver (the script). Future instantiations discover the contract without re-deriving the capability. The agent grows by extending the seam graph, not by bloating its system prompt.
+
+Similarly, the stance → protocol seam means an agent's warmth or intensity lives in a document, not in weights. The interface is the dual-document structure; the enabling point is which files get loaded. This keeps the protocol legible while allowing the voice to adapt.
 
 ## 2. The Six Operations
 
@@ -135,7 +143,7 @@ This is why the Pi Principle (§12) works: agents extend themselves by authoring
 **Trigger:** Recurring tasks, complex procedures, missing capabilities
 **Process:** Build minimal tool → test it → persist to `docs/skills/` → iterate
 
-**Curation:** Periodically promote insights from LESSONS.md into harness protocol improvements using the Generator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
+**Curation:** Periodically promote insights from LESSONS.md into harness protocol improvements using the Curator mode. Not all lessons require action — classify as Promote, Observe, or Deprecate.
 
 **Verify before trusting:** Test tool output before relying on it. If it fails, fix or discard.
 
@@ -227,7 +235,7 @@ Don't move execution stories until the code is actually done.
 - Quarterly (whichever comes first)
 - A lesson reveals a doc was wrong (update immediately)
 
-**Curation:** Run Generator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness protocol improvements as delta edits — never rewrite entire sections.
+**Curation:** Run Curator mode when 5+ lessons accumulate, or during quarterly verification. Curation proposes harness protocol improvements as delta edits — never rewrite entire sections.
 
 Verification = probe source, confirm line counts, remove hallucinated symbols,
 update state lists, verify package descriptions from source not package.xml.
