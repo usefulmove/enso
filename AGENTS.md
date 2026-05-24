@@ -249,6 +249,7 @@ update state lists, verify package descriptions from source not package.xml.
 
 **Enforcement:**
 - Do not modify outside Write scope
+- Read every file in Write scope before modifying it
 - Read files are seeds; Probe for related context
 - Scope changes require user approval
 - For branch stories using worktrees, Write paths are relative to the story's `**Worktree:**` path, not the base branch
@@ -373,6 +374,7 @@ Persistence is not optional cleanup — it's how the harness instance accumulate
 
 ### Verification
 
+- [ ] Read every file in `Write:` scope before making changes
 - [ ] How will you know this is correct? Define verifiable success criteria (tests, commands, expected output). See §10.4.
 - [ ] Update `docs/core/architecture/` if new subsystems discovered.
 
@@ -430,10 +432,11 @@ These principles govern *how* you work. They reduce the "agentic drift" that str
 
 **Tradeoff:** These bias toward caution over speed. For trivial tasks, use judgment.
 
-### 10.1 Think Before Coding
+### 10.1 Look Before You Act
 
-Don't assume. Don't hide confusion. Surface tradeoffs.
+Never modify what you haven't read. Never decide what you haven't probed.
 
+- **Read before writing.** Open every file in `Write:` scope before modifying it.
 - **Probe first.** Search the codebase (grep, LSP, glob) before asking the user or deciding on an approach.
 - **State assumptions explicitly.** If uncertain, ask rather than guess.
 - **Present multiple interpretations.** Don't pick silently when ambiguity exists.
