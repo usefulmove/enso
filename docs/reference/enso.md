@@ -1,12 +1,16 @@
-# Context Engineering and Agent Orchestration
+# Agent Orchestration Surface
 
-An informal walkthrough and discussion.
+An orchestration surface is the persistent, inspectable contract layer between a
+human and a swarm of agents — and between the agents themselves.
+
+Enso is the harness that makes this surface deterministic, inspectable, and
+compounding. This document walks through the idea.
 
 ---
 
 ## The Problem
 
-When you use an AI model, the results can be inconsistent. Sometimes it nails it, sometimes it hallucinates or makes changes that don't make sense. The question most people as is *"which model is best?"* That's usually the wrong question. A better question is *"what relevant information does the model have when it makes decisions?"* The difference often isn't the model — it's the context that the model runs in.
+When you use an AI model, the results can be inconsistent. Sometimes it nails it, sometimes it hallucinates or makes changes that don't make sense. The question most people ask is *"which model is best?"* That's usually the wrong question. A better question is *"what relevant information does the model have when it makes decisions?"* The difference often isn't the model — it's the context that the model runs in.
 
 **The quality of a model's output depends on how well you manage context.**
 
@@ -15,30 +19,34 @@ Common failure modes:
 - Context rot — forgets what it knew earlier in the session
 - Training lag — doesn't know your codebase, your system architecture, your conventions
 
-All three are context problems. All three are solvable.
+All three are context problems. All three are solvable — by building a surface.
 
 ---
 
-## The Mental Model
+## The Surface
 
-The context window is working memory, and it's finite. Every token competes for attention. Most people don't think about this deliberately. That can be fine for small tasks, but it breaks down for tasks with real complexity.
+Before we talk about context engineering, let's define the surface.
 
-> "Context engineering is the delicate art and science of filling the context window with just the right information for the next step." Andrej Karpathy
+An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without a surface, every session starts cold. Decisions vanish. Lessons evaporate. The human becomes the memory system.
+
+The surface makes three things possible:
+- **Deterministic context** — agents read from and write to the same shared state
+- **Inspectability** — the contract is visible, versioned, and verifiable
+- **Compounding** — each session leaves the surface more capable than the last
 
 ### The Layers
 
 **Working Context** — what's in the context window right now. Ephemeral and expensive.
 
-**Reference Context** — discoverable. Docs on disk, search results. One tool call away from being in the context window.
+**Persistent Context** — structured information that survives across sessions and evolves with the project. The harness instance. A structure with planning and architecture docs, active stories, lessons learned. This is the long-term memory layer — the surface's durable state.
 
-**Persistent Context** — structured information that survives across sessions and evolves with the project. The harness instance. A structure with planning and architecture docs, active stories, lessons learned. This is the long-term memory layer.
+**Reference Context** — discoverable. Docs on disk, search results. One tool call away from being in the context window. The substrate.
 
 ### The Stack
 
 > "Models can't act"
 
-A raw model can reason — it can write code, answer questions, plan. But it
-can't act in the world on its own. No tools. No memory. No persistence.
+A raw model can reason — it can write code, answer questions, plan. But it can't act in the world on its own. No tools. No memory. No persistence.
 
 A harness instance fixes this by coupling a configured protocol to a durable substrate:
 
@@ -47,48 +55,58 @@ canonical stack
   a. model              # Claude Sonnet, GPT-5, Kimi K2.6
   b. runtime            # OpenCode, Claude Code, Codex, Cursor...
   c. harness protocol   # enso: rules, document schema, lifecycle
-  d. harness instance   # This project's configured AGENTS.md, docs, skills
+  d. harness instance   # This project's configured AGENTS.md, docs, skills — the surface
   e. agent instantiation # ephemeral task process summoned by runtime
   f. substrate          # codebase, docs, configs, repo state
 ```
 
-The runtime exposes tools — web search, shell, files, git, mcp, lsp, compiler, linter, tests, and custom integrations — as interfaces between the model and the substrate.
+The runtime exposes tools; the harness protocol defines *how* to use them. The harness instance lives on the substrate and persists context across agent instantiations. The surface is the contract layer between them.
 
-Agent instantiations do not persist. The harness instance and substrate do.
+### Surface Seams
 
-(agent vs. model coding example)
+| Seam | What crosses it | Direction |
+|------|-----------------|-----------|
+| **Human → Surface** | Intent, register, voice | Human enters the surface with goals |
+| **Surface → Agent** | Routing, context handoff, specialization | Surface dispatches to the right specialist via Assign |
+| **Agent → Agent** | Synthesis, verification, continuity | Specialists collaborate through shared context |
+| **Agent → System** | Tools, runtime, mutation | Execution under harness rules |
 
-*But giving a model tools doesn't fix the context problem. That requires something else.*
+---
 
-### Agent Orchestration
+## Agent Orchestration
 
 An agent instantiation is a context transformer:
 
 ```
-context:new = agent_instantiation(context:orig)
+context_new = agent_instantiation(context_orig)
 ```
 
-Each agent instantiation receives context, does work, and returns an updated context. Chain
-them together — or run them in parallel — and you have an ensemble: a team of
-agent instantiations operating through a harness instance on a shared substrate.
+Each agent instantiation receives context through the surface, does work, and returns updated context. Chain them together — or run them in parallel — and you have an ensemble: a team of agent instantiations operating through a harness instance on a shared substrate.
 
-Careful bite-sizing and context management — a detailed plan before building,
-one story (task) at a time — significantly increase agent instantiation accuracy. The
-context engineering layer is what makes that coordination reliable.
+Careful bite-sizing and context management — a detailed plan before building, one story (task) at a time — significantly increase agent instantiation accuracy. The context engineering layer is what makes that coordination reliable. The surface is what makes it persistent.
 
 ### The Six Operations
 
-The harness protocol defines six primitives — Write, Select, Probe, Compress, Isolate, Assign — for managing context as a scarce resource. Together they cover the full lifecycle: persist what matters, load only what's needed, search before assuming, condense when full, divide what's too big, and match the right agent to the right task.
+The harness protocol defines six primitives for managing context as a scarce resource:
+
+- **Write** — Persist to durable storage
+- **Select** — Load only what's needed now
+- **Probe** — Search actively; don't assume
+- **Compress** — Summarize to fit the token budget
+- **Isolate** — Split work across scopes
+- **Assign** — Match task to the right specialist on the surface
+
+Together they cover the full lifecycle: persist what matters, load only what's needed, search before assuming, condense when full, divide what's too big, and match the right agent to the right task.
 
 ---
 
 ## Enso
 
 What is enso?
-- a harness protocol for context management and agent orchestration
+- a harness protocol for an orchestration surface
 - the infrastructure layer between user intent and model output
 
-An agent bootstraps a structured environment — PRD, architecture, stories, lessons, skills, session logs. Every agent, every session, reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
+An agent bootstraps a structured environment — PRD, architecture, stories, lessons, skills, session logs. Every agent, every session, reads from and writes to the same shared surface. They remember. They stay accurate. They improve over time.
 
 ---
 
@@ -116,5 +134,4 @@ docs/
   logs/       # session history
 ```
 
-(demo)
-
+One file. One command. A team of agents that remembers, stays accurate, and gets better over time — because the surface persists.

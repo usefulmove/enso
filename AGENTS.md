@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.6.8
+version: 0.7.0
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -50,7 +50,9 @@ Work like a development partner, not a helpdesk.
 
 ## 1. Purpose
 
-Context management protocol for agentic software development.
+Agent orchestration surface (AOS) protocol.
+
+The surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Enso is the harness that makes it deterministic, inspectable, and compounding. File-based truth replaces vector-database drift. Context lives in verified docs and explicit state, session over session.
 
 **Workflow:**
 1. Bootstrap directory structure
@@ -63,7 +65,7 @@ Context management protocol for agentic software development.
 
 **Principle:** Software building software.
 
-**enso is a harness protocol.**
+**enso is a harness protocol that realizes an orchestration surface.**
 The harness instance (this project) and substrate (codebase, docs, harness files) persist. Agent instantiations (each task execution) do not.
 
 - **Model**: The LLM — token generator, reasoning engine
@@ -75,18 +77,18 @@ The harness instance (this project) and substrate (codebase, docs, harness files
 
 The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace.
 
-**Context hierarchy:**
+**Context hierarchy — the surface layers:**
 
 ```
-WORKING (ephemeral)
+WORKING (ephemeral) — Surface layer: what is active right now
   ↓ Write / ↑ Select
-PERSISTENT (durable)
+PERSISTENT (durable) — Surface layer: the contract that survives sessions
   - Core (PRD, Architecture)
   - Stories (active tasks)
   - Reference (conventions)
   - Skills (capabilities)
   - Logs (summaries)
-REFERENCE (queryable)
+REFERENCE (queryable) — Surface layer: the discoverable substrate
   - Codebase (LSP, grep)
   - Web, APIs
 ```

@@ -20,11 +20,13 @@ If you code with agents, you know this fatigue.
 
 You explain the architecture to an agent that *built* it three sessions ago. You find bugs reintroduced because last week's lesson evaporated. You watch a brilliant model behave like an amnesiac — writing code that contradicts its own conventions, touching files it promised to avoid, treating every task like opening night with no rehearsal.
 
-The model is not the problem. The model is magnificent. The problem is **context rot** — the slow decay of coherence as an agent loses track of what it knows, what it's done, and what it's supposed to be doing. Intelligence without memory is chaos.
+The model is not the problem. The model is magnificent. The problem is **context rot** — the slow decay of coherence as an agent loses track of what it knows, what it's done, and what it's supposed to be doing. Without a persistent **orchestration surface** — a contract layer between you and the agents you work with — every session starts cold.
+
+An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without it, decisions vanish, lessons evaporate, and the human becomes the memory system. That doesn't scale.
 
 ---
 
-## The Solution: Harness Engineering
+## The Solution: The Surface
 
 An agent harness is everything between user intent and model output that is *not* the language model itself — runtime behavior, context assembly, tool orchestration, verification loops, feedback mechanisms, and lifecycle management.
 
@@ -37,20 +39,20 @@ The harness is the 80% factor in agent reliability. Same model, better harness, 
 
 > *"The model contains the intelligence. The harness makes that intelligence useful."* — LangChain
 
-Enso is a way to make that harness explicit, durable, and project-local.
+**Enso is the harness that makes the surface deterministic, inspectable, and compounding.** File-based truth replaces vector-database drift. Context lives in verified architecture docs and explicit cross-package state, session over session. It is a way to make that harness explicit, durable, and project-local.
 
 ---
 
 ## The Canonical Stack
 
-Enso works by separating what reasons, what executes, what governs, what persists, and what gets changed.
+Enso works by separating what reasons, what executes, what governs, what persists, and what gets changed. The surface lives in the middle — the contract layer that coordinates across seams.
 
 | Layer | What it is | Example |
 |-------|------------|---------|
 | **Model** | The LLM that reasons and generates output | GPT, Claude, Gemini |
 | **Runtime** | The executable host that runs loops and dispatches tools | OpenCode, Claude Code, Cursor, Codex |
 | **Harness protocol** | The rules, schema, and workflow for disciplined agent work | `enso` |
-| **Harness instance** | A project-local realization of the protocol | `AGENTS.md`, `docs/`, `skills/`, `logs/` |
+| **Harness instance** | A project-local realization of the protocol — the surface installed in your repo | `AGENTS.md`, `docs/`, `skills/`, `logs/` |
 | **Agent instantiation** | One ephemeral task process running inside the runtime | the current session or task |
 | **Substrate** | The durable environment being read and transformed | codebase, docs, configs, repo state |
 
@@ -59,11 +61,20 @@ This is the core idea:
 - the **model** reasons
 - the **runtime** executes
 - the **harness protocol** defines how work should happen
-- the **harness instance** is that protocol installed in a specific project
+- the **harness instance** is that protocol installed in a specific project — this is the surface
 - the **agent instantiation** is the current ephemeral worker
 - the **substrate** is the durable environment being transformed
 
-Enso is **not** the model and **not** the runtime. Enso is the **harness protocol**. When you drop `AGENTS.md` into a repo and bootstrap the supporting structure, you create a **harness instance** that future agent instantiations can reuse against the same substrate.
+### The Surface's Seams
+
+| Seam | What crosses it |
+|------|-----------------|
+| **Human → Surface** | Intent, register, voice |
+| **Surface → Agent** | Routing, context handoff, specialization |
+| **Agent → Agent** | Synthesis, verification, continuity |
+| **Agent → System** | Tools, runtime, mutation under harness rules |
+
+Enso is **not** the model and **not** the runtime. Enso is the **harness protocol** that realizes the surface. When you drop `AGENTS.md` into a repo and bootstrap the supporting structure, you create a **harness instance** that future agent instantiations can reuse against the same substrate.
 
 ---
 
@@ -126,7 +137,7 @@ From there, the cycle repeats: plan, execute, capture, extend. Each session leav
 
 ## How It Works
 
-Each agent instantiation runs inside a runtime, follows the enso protocol, and operates against the same substrate through the project's harness instance. The result is simple but powerful: ephemeral workers, durable context, and a repo that gets easier for future agents to understand.
+Each agent instantiation runs inside a runtime, follows the enso protocol, and operates against the same substrate through the project's harness instance. The surface is the contract layer that coordinates human intent, agent specialization, and execution.
 
 ### The Six Operations
 
@@ -178,6 +189,7 @@ The compounding effect: a tool built today saves derivation cost in every future
 | **Agentic discovery** | Agents probe the codebase and build a mental map before talking to you |
 | **Institutional memory** | Lessons and anti-patterns captured in `LESSONS.md`, preventing repeat mistakes |
 | **Self-extending agents** | Capabilities compound over time — the agent becomes uniquely capable for its domain |
+| **Multi-agent surface** | Specialists (Coder, Reasoner, Evaluator, Curator) activated by the Assign operation and coordinated through shared context |
 
 ---
 

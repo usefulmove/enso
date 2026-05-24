@@ -2,15 +2,18 @@
 
 ## Problem
 
-AI agent sessions are ephemeral. Context windows are finite. Without a system for persisting and selecting context, every session starts cold — losing decisions, lessons, and momentum. The result is repeated derivation, drift from intent, and high orchestration overhead for the human.
+AI agent sessions are ephemeral. There is no persistent contract layer — no surface — between a human and the agents they work with. Every session starts cold. Decisions vanish. Lessons evaporate. The human becomes the memory system. The result is repeated derivation, drift from intent, and high orchestration overhead.
+
+Without an **orchestration surface**, agents cannot coordinate. They cannot hand off. They cannot compound. They forget what they knew, violate their own conventions, and treat every task like opening night with no rehearsal.
 
 ## Goals
 
-1. Enable reliable, persistent AI collaboration across sessions and tools
+1. Enable reliable, persistent AI collaboration across sessions and tools through a project-local orchestration surface
 2. Treat context as a scarce resource — load only what's needed, persist before it's lost
-3. Make the harness self-extending through agent instantiations — the harness reshapes itself through use
+3. Make the surface self-extending through agent instantiations — agents author capabilities that persist across sessions
 4. Reduce cold-start cost through structured persistent context (PRD, stories, logs, lessons)
-5. Make the harness usable by any agent in any project via a single-file seed (AGENTS.md)
+5. Make the surface usable by any agent in any project via a single-file seed (AGENTS.md)
+6. Enable multi-agent coordination through a shared, inspectable contract layer — specialists (Coder, Reasoner, Evaluator, Curator, etc.) activated by the Assign operation and coordinated through shared context
 
 ## Scope
 
@@ -20,9 +23,9 @@ AI agent sessions are ephemeral. Context windows are finite. Without a system fo
 - Slash commands (`/enso-start`, `/enso-persist`, `/enso-log`, `/enso-help`)
 - Self-extension model — agents author their own skills and tools
 - Bootstrap flow for new projects
+- Agent specialist definitions — identity and routing contracts for the Assign operation
 
 **Out of scope:**
 - IDE plugins or GUI tooling
 - Cloud sync or multi-user collaboration
-- Agent registry or named-agent identity system (future)
 - Distribution/installation tooling for other users (future)

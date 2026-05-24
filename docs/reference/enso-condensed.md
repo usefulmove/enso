@@ -1,6 +1,4 @@
-# Context Engineering and Agent Orchestration
-
----
+# Agent Orchestration Surface
 
 ## The Problem
 
@@ -13,15 +11,13 @@ Common failure modes:
 - **Context rot** — forgets what it knew earlier in the session
 - **Training lag** — doesn't know your codebase, architecture, or conventions
 
-All three are context problems. All three are solvable.
+All three are context problems. All three are solvable by building a surface.
 
 ---
 
-## The Mental Model
+## The Surface
 
-The context window is working memory — finite, and every token competes for attention.
-
-> "Context engineering is the delicate art and science of filling the context window with just the right information for the next step." — Andrej Karpathy
+An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without it, every session starts cold.
 
 ### The Layers
 
@@ -29,7 +25,7 @@ The context window is working memory — finite, and every token competes for at
 
 **Reference Context** — discoverable. Docs on disk, search results. One tool call away.
 
-**Persistent Context** — structured information that survives sessions and evolves with the project. Planning docs, architecture, active stories, lessons learned. Long-term memory.
+**Persistent Context** — structured information that survives sessions and evolves with the project. Planning docs, architecture, active stories, lessons learned. The surface's durable state.
 
 ### The Canonical Stack
 
@@ -40,26 +36,35 @@ model              # token generator / reasoning engine — Claude, GPT, Kimi, .
 runtime            # executable host that exposes tools — OpenCode, Claude Code, ...
   └─ tools         # bridges between layers: web search, shell, files, git, MCP, LSP, tests, ...
 harness protocol   # rules and schema — enso
-harness instance   # configured protocol for this project
+harness instance   # configured protocol for this project — the surface
 agent instantiation # ephemeral task process running on the runtime
 substrate          # durable environment being transformed (codebase, docs, infra)
 ```
 
-The runtime exposes tools; the harness protocol defines *how* to use them. The harness instance lives on the substrate and persists context across agent instantiations.
+The runtime exposes tools; the harness protocol defines *how* to use them. The harness instance lives on the substrate and persists context across agent instantiations. The surface is the contract layer.
+
+### Surface Seams
+
+| Seam | What crosses it |
+|------|-----------------|
+| **Human → Surface** | Intent, register, voice |
+| **Surface → Agent** | Routing, context handoff, specialization |
+| **Agent → Agent** | Synthesis, verification, continuity |
+| **Agent → System** | Tools, runtime, mutation |
 
 ### Agent Orchestration
 
-An agent instantiation transforms context through a harness instance on a substrate:
+An agent instantiation transforms context through the surface:
 
 ```
-context:new = agent_instantiation(context:orig)
+context_new = agent_instantiation(context_orig)
 ```
 
-Chain them together — or run them in parallel — and you have an ensemble: multiple agent instantiations operating on a shared substrate through the same harness instance. Careful bite-sizing and context management (detailed plan upfront, one story at a time) significantly increase accuracy. Context engineering is what makes that coordination reliable.
+Chain them together — or run them in parallel — and you have an ensemble: multiple agent instantiations operating on a shared substrate through the same surface. Careful bite-sizing and context management (detailed plan upfront, one story at a time) significantly increase accuracy. Context engineering is what makes that coordination reliable. The surface is what makes it persistent.
 
 ### The Six Operations
 
-Write · Select · Probe · Compress · Isolate · Assign — six primitives for managing context as a scarce resource.
+Write · Select · Probe · Compress · Isolate · Assign — six primitives for managing context as a scarce resource across the surface.
 
 ---
 
@@ -67,7 +72,7 @@ Write · Select · Probe · Compress · Isolate · Assign — six primitives for
 
 Enso is a harness protocol — the rules and schema that constrain, inform, verify, and correct agent instantiations in production.
 
-A harness instance bootstraps a structured substrate. Every agent instantiation reads from and writes to the same shared environment. They remember. They stay accurate. They improve over time.
+A harness instance bootstraps a structured substrate. Every agent instantiation reads from and writes to the same shared surface. They remember. They stay accurate. They improve over time.
 
 ---
 

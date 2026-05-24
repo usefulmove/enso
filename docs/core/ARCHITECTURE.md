@@ -2,22 +2,31 @@
 
 ## Overview
 
-enso is a single-file seed protocol (`AGENTS.md`) that bootstraps a context management system for AI agent collaboration. Drop it into any project, point an agent to it, and the agent creates the persistent context structure. The harness protocol is minimal by design — it grows through use.
+enso is a single-file seed protocol (`AGENTS.md`) that bootstraps an **agent orchestration surface** for AI agent collaboration. An orchestration surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Drop `AGENTS.md` into any project, point an agent to it, and the agent creates the persistent context structure. The harness protocol is minimal by design — it grows through use.
 
-## The Stack
+## The Surface
 
-enso separates concerns into distinct layers:
+The canonical stack separates concerns into distinct layers. The surface — the harness instance — lives in the middle: the contract layer that coordinates across seams.
 
 | Layer | Role | Example |
 |-------|------|---------|
 | **Model** | Token generator / reasoning engine | Claude Sonnet, GPT-5, Kimi K2.6 |
 | **Runtime** | Loop execution, tool dispatch, session host | OpenCode, Claude Code, Cursor, Codex |
 | **Harness protocol** | Rules and artifact schema for agentic work | `enso` |
-| **Harness instance** | Configured runtime + protocol + project state | This project's `AGENTS.md`, docs, skills, logs |
+| **Harness instance** | Configured runtime + protocol + project state — the surface | This project's `AGENTS.md`, docs, skills, logs |
 | **Agent instantiation** | Ephemeral task process summoned by the runtime | Each prompt loop execution |
 | **Substrate** | Durable environment being read and transformed | Codebase, docs, configs, harness artifacts |
 
 The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace, not external infrastructure. Agent instantiations do not persist; the harness instance and substrate do.
+
+### Surface Seams
+
+| Seam | What crosses it | Role |
+|------|-----------------|------|
+| **Human → Surface** | Intent, register, voice | The human enters the surface with goals and identity |
+| **Surface → Agent** | Routing, context handoff, specialization | The surface dispatches to the right specialist via Assign |
+| **Agent → Agent** | Synthesis, verification, continuity | Specialists collaborate through shared persistent context |
+| **Agent → System** | Tools, runtime, mutation | Execution under harness rules |
 
 ---
 
@@ -27,7 +36,7 @@ The harness instance is **coupled to** the substrate — adjacent and coextensiv
 
 AI agent sessions are ephemeral. Each session starts cold. Without a system for persisting and selecting context, every session re-derives what the last one already knew. The human becomes the memory. That doesn't scale.
 
-enso exists to make context durable — to give agent instantiations a persistent substrate they can read from and write to across sessions. But that framing undersells it. The deeper insight is this:
+enso exists to make context durable — to give agent instantiations a persistent substrate they can read from and write to across sessions. The surface is how that durability becomes a contract. But that framing undersells it. The deeper insight is this:
 
 **enso is a recursive fold-forward(story, context).**
 
@@ -100,24 +109,25 @@ If context has a schema — a definition of what a valid accumulator looks like 
 - Safely hand off between sessions (serialize/deserialize the accumulator)
 - Compose stories with confidence that the output of story N is a valid input for story N+1
 
-That is the north star. enso is not a task tracker. It is a structured execution environment for transforming a codebase — one verified step at a time.
+That is the north star. enso is not a task tracker. It is a structured execution environment for transforming a codebase — one verified step at a time — across a persistent orchestration surface.
 
 ---
 
 ## Components
 
-| Component | Responsibility |
-|-----------|----------------|
-| `AGENTS.md` | The harness protocol. Always-present instructions for any agent working in the project. Single source of truth for operations, lifecycle, and guidelines. |
-| `docs/core/` | Source of truth. PRD defines the problem and goals. ARCHITECTURE (this file) maps the system. |
-| `docs/stories/` | Active work items. One file per story. Each declares goal, acceptance criteria, context scope, and approach before execution begins. |
-| `docs/reference/` | Long-term memory. LESSONS.md accumulates patterns and gotchas. `completed/` holds finished stories. |
-| `docs/skills/` | Self-extension. Agent-authored scripts and procedures for vertical workflows. Agents build tools here. |
-| `docs/logs/` | Session history. Written by `/enso-persist` after each session. |
-| `/enso-start` | Session entry point. Loads core context, detects active story, bootstraps new projects. |
-| `/enso-persist` | Persist working state. Extracts lessons, saves progress, prepares for session handoff (complete or pausing). |
-| `/enso-log` | Read-only log viewer. Shows recent session summaries and active stories. |
-| `/enso-help` | Quick reference. Shows commands, workflow, and live project status. |
+| Component | Responsibility | Seam Role |
+|-----------|--------------|-----------|
+| `AGENTS.md` | The harness protocol. Always-present instructions for any agent working in the project. Single source of truth for operations, lifecycle, and guidelines. | The surface protocol — the contract any agent reads when entering |
+| `docs/core/` | Source of truth. PRD defines the problem and goals. ARCHITECTURE (this file) maps the system. | Durable contract state — the surface's persistent memory |
+| `docs/stories/` | Active work items. One file per story. Each declares goal, acceptance criteria, context scope, and approach before execution begins. | The fold step — context transformation in progress |
+| `docs/reference/` | Long-term memory. LESSONS.md accumulates patterns and gotchas. `completed/` holds finished stories. | Accumulated invariants — truths that hold across all fold steps |
+| `docs/skills/` | Self-extension. Agent-authored scripts and procedures for vertical workflows. Agents build tools here. | Self-extension — the surface becomes more capable over time |
+| `docs/logs/` | Session history. Written by `/enso-persist` after each session. | The fold trace — what happened, when |
+| `/enso-start` | Session entry point. Loads core context, detects active story, bootstraps new projects. | Surface activation — human intent enters the system |
+| `/enso-persist` | Persist working state. Extracts lessons, saves progress, prepares for session handoff (complete or pausing). | Checkpoint — serialize the accumulator |
+| `/enso-log` | Read-only log viewer. Shows recent session summaries and active stories. | Retrospective — inspect the fold trace |
+| `/enso-help` | Quick reference. Shows commands, workflow, and live project status. | Onboarding — orient an agent entering the surface |
+| `agent/` | Specialist definitions — Reasoner, Coder, Curator, Evaluator, etc. Templates for the Assign operation. | Routing layer — who does what on the surface |
 
 ## Key Decisions
 
