@@ -1,5 +1,5 @@
 ---
-name: session-persist
+name: enso-session-persist
 description: Persist working state by extracting lessons, saving progress, and preparing for session handoff. Use when ending or pausing a session, or when the user explicitly asks to checkpoint state.
 license: MIT
 compatibility: opencode

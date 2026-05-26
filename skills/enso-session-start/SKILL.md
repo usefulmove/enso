@@ -1,5 +1,5 @@
 ---
-name: session-start
+name: enso-session-start
 description: Start an enso session by loading core context, detecting the active story, or bootstrapping a new project. Use when beginning work in an enso project or when no harness instance is detected.
 license: MIT
 compatibility: opencode
