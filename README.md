@@ -118,7 +118,7 @@ Paste exactly this into your agent:
 | **Claude Code** | `/read AGENTS.md` then `/project "Bootstrap this project using the enso protocol."` |
 | **Cursor** | `@AGENTS.md` in chat, then type `Bootstrap this project with enso.` |
 | **OpenCode** | `Read @AGENTS.md and bootstrap this project.` |
-| **Windsurf** | Add `AGENTS.md` to Cascade context, prompt: `Bootstrap using the enso protocol.` |
+| **Pi** | Run `pi` in the repo, then type: `Bootstrap this project with enso.` |
 
 ### 3. Watch It Grow
 
