@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.8.0
+version: 0.9.0
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -47,6 +47,7 @@ Work like a development partner, not a helpdesk.
 |-----|------|
 | PRD | `docs/core/PRD.md` |
 | Architecture | `docs/core/ARCHITECTURE.md` |
+| Story Spec | `docs/reference/STORY.md` |
 
 ---
 
@@ -60,7 +61,8 @@ The major seams in enso:
 
 | Seam | Interface | Enabling Point |
 |------|-----------|----------------|
-| Planning -> Execution | Story template (Goal, AC, Approach, Verification) | The story doc itself -- reviewed before any code is touched |
+| Planning -> Execution | `enso.story/v1` story contract (frontmatter state + required sections) | The live story doc itself -- planned and reviewed before implementation |
+| Role -> Role | Story state, role-owned sections, transition log, human gates | Planner, Generator, Evaluator, Human, and Orchestrator transitions over the same story instance |
 | Ephemeral -> Persistent | Six operations (Write, Select, Probe, Compress, Isolate, Assign) | The agent's explicit choice to invoke Write instead of silently mutating context |
 | Agent -> Codebase | Context Scope (Write / Read / Exclude) | The scoped file list loaded at runtime |
 | Agent -> Capability | SKILL.md frontmatter (name, description, compatibility) | The scripts dropped into `docs/skills/<name>/` |
@@ -73,11 +75,14 @@ Every interface is a language. enso's vocabulary is its seam graph.
 **Agent orchestration surface (AOS).** The surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Enso is the harness that makes it deterministic, inspectable, and compounding. File-based truth replaces vector-database drift. Context lives in verified docs and explicit state, session over session.
 
 **Workflow:**
-1. Bootstrap directory structure
+1. Bootstrap directory structure and fetch the canonical story spec
 2. Request user input for problem, scope, constraints
 3. Generate PRD
-4. Execute stories
-5. Build tools as needed
+4. Create live `enso.story/v1` stories (`STORY-001+`)
+5. Execute stories through Planner, Generator, and Evaluator roles with Human gates
+6. Build tools as needed
+
+**Story substrate:** `STORY-000` is reserved for the `enso.story/v1` specification. Live stories (`STORY-001+`) are persisted state objects containing the contract, current state, role outputs, verification evidence, and transition history for one unit of work.
 
 **Goal:** Minimize tokens while maintaining verifiable, recursive workflows.
 
@@ -164,6 +169,9 @@ Architecture docs are maps drawn through exploration, not blueprints to read.
    ```bash
    mkdir -p docs/{core,stories,reference/completed,skills,logs}
    touch docs/reference/LESSONS.md
+   if [ ! -f docs/reference/STORY.md ]; then
+     curl -fsSL -o docs/reference/STORY.md https://raw.githubusercontent.com/usefulmove/enso/main/docs/reference/STORY.md
+   fi
    mkdir -p .opencode
    ln -s ../docs/skills .opencode/skills
    ```
@@ -176,7 +184,7 @@ Architecture docs are maps drawn through exploration, not blueprints to read.
 
 5. **System Mapping** — Create minimal `ARCHITECTURE.md`. Extend through [agentic discovery](#22-agentic-discovery) as you work.
 
-6. **First story** at `docs/stories/`
+6. **First live story** at `docs/stories/STORY-001.md` using `enso.story/v1`
 
 7. **Begin work**
 
@@ -196,31 +204,36 @@ Architecture docs are maps drawn through exploration, not blueprints to read.
 |-----|------|
 | PRD | `docs/core/PRD.md` |
 | Architecture | `docs/core/architecture/ARCHITECTURE.md` |
+| Story Spec | `docs/reference/STORY.md` |
 ```
 
 ## 4. Planning Phase
 
-No file modifications until story Approach section is complete.
+No implementation file modifications until the live story reaches `ready`.
 
 **Required:**
-1. Create/locate story in `docs/stories/`
-2. Complete Approach (Steps, Risks, Verification)
-3. Verify Context Scope (Write/Read/Exclude)
-4. Then execute
+1. Create/locate an `enso.story/v1` story in `docs/stories/`
+2. Ensure frontmatter state, active role, scope, acceptance criteria, and verification are present
+3. Planner completes `## Planner Output` with Steps, Risks, Assumptions, and Verification
+4. Human approves the plan (`plan_review` -> `ready`) before generation
+5. Verify Context Scope (Write/Read/Exclude)
+6. Then execute only inside the declared Write scope
 
 Apply §10.1 during planning: state assumptions, present tradeoffs, and stop if confused.
 
-**Small tasks:** Minimal story with one-line Steps is acceptable.
+**Small tasks:** Minimal `enso.story/v1` stories are acceptable, but they still need acceptance criteria, verification, scope, and a transition log.
 
 ## 5. Document Lifecycle
 
 **Core Docs** — Update in place. Don't preserve history—git does.
 
-**Stories** — Create when planning, update during execution.
-- **Planning stories** (deliverable = decision/breakdown): move when downstream execution stories are created.
-- **Execution stories** (deliverable = code): move when acceptance criteria are met and code is merged.
-
-Don't move execution stories until the code is actually done.
+**Stories** — Live `enso.story/v1` state objects in `docs/stories/`.
+- `STORY-000` is reserved for the specification and MUST NOT be used as an execution story.
+- Live stories use concrete IDs (`STORY-001+`) and carry frontmatter state plus role-owned sections.
+- Planning output is written under `## Planner Output`; implementation notes under `## Generator Iterations`; review under `## Evaluator Results`; decisions under `## Human Decisions`.
+- Every state change appends `## Transition Log`.
+- Do not move execution stories until they reach `done` or until the human explicitly closes/migrates them.
+- Planning stories (deliverable = decision/breakdown) may move when downstream execution stories are created and the transition is logged.
 
 **Reference** — Read-only during execution. **Update `LESSONS.md` with new learnings.**
 
@@ -355,45 +368,115 @@ Persistence is not optional cleanup — it's how the harness instance accumulate
 | Decision | Rationale |
 ```
 
-### Story
+### Story (`enso.story/v1`)
+
+`STORY-000` is reserved for the story specification. Live execution stories use `STORY-001+`. Fetch the full spec into `docs/reference/STORY.md` during bootstrap; use this compact template for new stories.
 
 ```markdown
-# [STORY-ID] [Title]
-**Branch:** `{ticket-id}-{slug}` *(omit for harness-only stories)*
-**Worktree:** `~/repos/{ticket-id}-{slug}/` *(omit for harness-only stories; use "not yet created" until worktree exists)*
+---
+schema: enso.story/v1
+id: STORY-001
+title: Example story
+state: seeded
+active_role: planner
+iteration: 0
+max_iterations: 3
+created_at: YYYY-MM-DDTHH:MM:SSZ
+updated_at: YYYY-MM-DDTHH:MM:SSZ
+priority: medium
+
+scope:
+  write:
+    - path/to/file
+  read:
+    - docs/core/ARCHITECTURE.md
+  exclude:
+    - .git/
+
+acceptance_criteria:
+  - id: AC1
+    text: Example criterion
+
+verification:
+  - id: V1
+    command: npm test
+    pass_when: exit_code == 0
+---
+
+# STORY-001 Example story
+**Branch:** `{ticket-id}-{slug}` *(optional; omit for harness-only stories)*
+**Worktree:** `~/repos/{ticket-id}-{slug}/` *(optional; use "not yet created" until created)*
 
 ## Goal
 
+## Non-Goals
+
+## Constraints
+
 ## Acceptance Criteria
-- [ ]
+- [ ] AC1 Example criterion
+
+## Verification Contract
+- [ ] V1 `npm test`
 
 ## Context Scope
 **Write:**
+- path/to/file
+
 **Read:**
+- docs/core/ARCHITECTURE.md
+
 **Exclude:**
+- .git/
 
-## Approach & Verification Plan
+## Planner Output
 
-### Steps
+### Plan v1
+**Date:** YYYY-MM-DD HH:MM
+
+#### Summary
+
+#### Steps
 1.
 
-### Risks & Unknowns
+#### Assumptions
 -
 
-### Verification
+#### Risks
+-
 
-- [ ] Read every file in `Write:` scope before making changes
-- [ ] How will you know this is correct? Define verifiable success criteria (tests, commands, expected output). See §10.4.
-- [ ] Update `docs/core/architecture/` if new subsystems discovered.
+#### Open Questions
+-
 
-### Reflection
+## Generator Iterations
+
+## Evaluator Results
+
+## Human Decisions
+
+## Evidence
+
+### Verification Runs
+| Verification ID | Command | Result | Exit Code | Output Ref |
+|---|---|---|---|---|
+
+### Changed Files
+-
+
+## Transition Log
+| Time | Actor | Event | From | To | Note |
+|---|---|---|---|---|---|
+
+## Reflection
 - [ ] Encountered recurring friction → create skill?
 - [ ] Discovered new pattern → update architecture doc?
 - [ ] Lesson learned → add to LESSONS.md?
 - [ ] No new insights → proceed
 
-**Do not begin execution until this section is complete.**
+**Do not begin generation until the plan is approved and state is `ready`.**
 ```
+
+**Minimum story gate:** acceptance criteria, verification, scope, planner output, and transition log must be present before generation. Generator must not change the frozen contract after plan approval; evaluator must not edit implementation files; no agent may self-approve.
 
 ### Session Summary
 

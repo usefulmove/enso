@@ -2,7 +2,9 @@
 
 ## Purpose
 
-The HITL PGE loop is a strict pi extension pattern for running a planner -> generator <-> evaluator adversarial development loop with `STORY.md` as the canonical persisted state object.
+The HITL PGE loop is a strict pi extension pattern for running a planner -> generator <-> evaluator adversarial development loop over a live story instance.
+
+`STORY-000` defines the `enso.story/v1` story specification in `docs/reference/STORY.md`. Live execution stories (`STORY-001+`) conform to that specification and serve as the canonical persisted state objects passed through the loop.
 
 The design goal is not to make agents autonomous. It is to make agent state transitions explicit, auditable, and human-gated.
 
@@ -28,9 +30,9 @@ The pi extension shell performs effects only after pure validation succeeds:
 - write rendered story
 - block unsafe tool calls
 
-## STORY.md as State Value
+## Story Instance as State Value
 
-`STORY.md` has two layers:
+Each live story file has two layers:
 
 1. YAML frontmatter: canonical machine state.
 2. Markdown body: human-readable contract and audit trail.
@@ -93,7 +95,7 @@ Important invariants:
 - Generator output requires explicit human `approve_generation` before evaluation; the generator cannot advance itself into evaluation.
 - Evaluator output always enters `eval_review`; pass and fail verdicts both require a human `approve_evaluator_verdict` or `request_revision` decision before the loop exits review.
 - Revision output requires explicit human `approve_revision` before generation/evaluation resumes.
-- Plan review requires explicit pre-approval of the current detailed `STORY.md` plan/story update before entering generation.
+- Plan review requires explicit pre-approval of the current detailed live story update before entering generation.
 - Planner/generator/evaluator may emit `clarifying_question`, which moves the story to `needs_input`; the human `answer_input` event resumes the interrupted state.
 - Every successful transition appends a transition-log entry.
 
@@ -105,7 +107,7 @@ Planner owns story shape: goal, acceptance criteria, context scope, approach, ri
 
 Completion event: `planner_completed`.
 
-A planner-completed event stops at `plan_review`. At that gate the human pre-approves the current detailed `STORY.md` update before the orchestrator dispatches generation. The planner cannot directly enter generation.
+A planner-completed event stops at `plan_review`. At that gate the human pre-approves the current detailed live story update before the orchestrator dispatches generation. The planner cannot directly enter generation.
 
 ### Generator
 
@@ -152,7 +154,7 @@ Advanced/debugging escape hatch: generate a role-specific prompt and place it in
 
 The extension applies tool posture based on current story state:
 
-- planning: read tools plus edit/write only for the active `STORY.md`; this lets the planner produce the detailed story update that the human pre-approves at `plan_review`
+- planning: read tools plus edit/write only for the active live story file; this lets the planner produce the detailed story update that the human pre-approves at `plan_review`
 - evaluation: read-only tools plus a narrow bash allowlist (`pwd`, `ls`, and read-only `git status/diff/log/show/branch/worktree list`); arbitrary interpreters, package scripts, shell redirection, and mutating commands are blocked
 - generation/revision: read/write tools enabled before role output, but write/edit targets must be inside story `Write:` scope; once `pending_approval` is set the same state becomes a review-only human gate
 - review states: review-only, human gate expected

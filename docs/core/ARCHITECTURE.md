@@ -50,6 +50,16 @@ A story is a function. It takes the current state of the world — the codebase,
 
 This is not a metaphor. It is the execution model.
 
+### From fold to execution loop
+
+The concrete role loop is:
+
+![Planner Generator Evaluator adversarial loop](../../assets/planner-generator-evaluator-adversarial-loop.png)
+
+A live story instance is the state value passed through that loop. `STORY-000` names the story specification; execution stories (`STORY-001+`) conform to it and carry the contract, current state, role outputs, verification evidence, and transition history for one unit of work.
+
+Operationally, the Planner shapes the story contract, the Generator transforms only the declared write scope, the Evaluator verifies against the frozen contract, and the Human approves or redirects gate transitions. That is how the abstract fold becomes an auditable state machine without making the planner-generator-evaluator pattern the only possible enso runtime.
+
 ### What this means for each primitive
 
 | Primitive | Role in the fold |
@@ -119,7 +129,7 @@ That is the north star. enso is not a task tracker. It is a structured execution
 |-----------|--------------|-----------|
 | `AGENTS.md` | The harness protocol. Always-present instructions for any agent working in the project. Single source of truth for operations, lifecycle, and guidelines. | The surface protocol — the contract any agent reads when entering |
 | `docs/core/` | Source of truth. PRD defines the problem and goals. ARCHITECTURE (this file) maps the system. | Durable contract state — the surface's persistent memory |
-| `docs/stories/` | Active work items. One file per story. Each declares goal, acceptance criteria, context scope, and approach before execution begins. | The fold step — context transformation in progress |
+| `docs/stories/` | Active work items. One file per story. Each declares goal, acceptance criteria, context scope, and approach before execution begins. In the PGE loop, each live story is the persisted state value passed between Planner, Generator, Evaluator, and Human gates. | The fold step — context transformation in progress |
 | `docs/reference/` | Long-term memory. LESSONS.md accumulates patterns and gotchas. `completed/` holds finished stories. | Accumulated invariants — truths that hold across all fold steps |
 | `docs/skills/` | Self-extension. Agent-authored scripts and procedures for vertical workflows. Agents build tools here. | Self-extension — the surface becomes more capable over time |
 | `docs/logs/` | Session history. Written by `session-persist` after each session. | The fold trace — what happened, when |
@@ -137,5 +147,6 @@ That is the north star. enso is not a task tracker. It is a structured execution
 | Single-file seed (AGENTS.md) | Minimal adoption friction — one file starts the whole system |
 | Agent-authored skills | Self-extension compounds over time; downloaded tools don't fit specific workflows |
 | Human approves before writing | `session-persist` drafts first — human reviews, then confirms |
+| `enso.story/v1` is the canonical story contract | Live stories are auditable state objects with role-owned sections, verification evidence, and transition logs |
 | Stories declare scope explicitly | Write/Read/Exclude boundaries prevent scope creep and context pollution |
 | Skills for session lifecycle | Session skills (`session-start`, `session-persist`, `read-session-logs`, `enso-reference`) use standard `SKILL.md` frontmatter — runtime-agnostic, discoverable by any agent |

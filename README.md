@@ -99,6 +99,20 @@ Enso fixes that by giving each agent instantiation a durable project context to 
 
 ---
 
+## The Execution Loop
+
+The surface becomes executable when work moves through an explicit role loop:
+
+![Planner Generator Evaluator adversarial loop](assets/planner-generator-evaluator-adversarial-loop.png)
+
+The **Planner** turns intent into a story contract: goal, scope, acceptance criteria, and verification. The **Generator** implements only inside the story's declared write scope. The **Evaluator** checks the result against the frozen contract and evidence. The **Human** approves plans, accepts results, requests revisions, or blocks unsafe transitions.
+
+The substrate for that loop is a live story file. `STORY-000` is reserved for the [`enso.story/v1` specification](docs/reference/STORY.md); live stories such as `STORY-001+` conform to that spec and carry the current state, role outputs, verification evidence, and transition history for one unit of work.
+
+This planner-generator-evaluator pattern is one concrete execution model for enso, not a requirement that every runtime implement it the same way. The strict pi version is documented in [`docs/reference/hitl-pge-loop-design.md`](docs/reference/hitl-pge-loop-design.md).
+
+---
+
 ## Quick Start
 
 ### 1. Plant the Seed
@@ -198,7 +212,7 @@ Enso treats context as a scarce resource. Every token competes for attention. Th
 | **Agentic discovery** | Agents probe the codebase and build a mental map before talking to you |
 | **Institutional memory** | Lessons and anti-patterns captured in `LESSONS.md`, preventing repeat mistakes |
 | **Self-extending agents** | Capabilities compound over time—the agent becomes uniquely capable for its domain |
-| **Multi-agent surface** | Specialists (Coder, Reasoner, Evaluator, Curator) activated by the Assign operation and coordinated through shared context |
+| **Multi-agent surface** | Specialists (Planner, Generator, Evaluator, Curator) activated by the Assign operation and coordinated through shared story state |
 
 ---
 
@@ -221,6 +235,8 @@ Enso treats context as a scarce resource. Every token competes for attention. Th
 ## References
 
 - **Pi Principle** — Agents extend themselves by authoring tools. [pi-mono](https://github.com/badlogic/pi-mono/)
+- **Story State Spec** — `STORY-000`, the canonical `enso.story/v1` contract for live story instances. [`docs/reference/STORY.md`](docs/reference/STORY.md)
+- **HITL PGE Loop Design** — Strict planner-generator-evaluator loop over live story state. [`docs/reference/hitl-pge-loop-design.md`](docs/reference/hitl-pge-loop-design.md)
 - **Sisyphus Orchestration Loop** — Multi-step task execution with verification gates. [oh-my-opencode ecosystem](https://github.com/topics/sisyphus)
 - **Agentic Context Engineering** — Research on context management for AI agents. [arXiv:2510.04618](https://arxiv.org/pdf/2510.04618)
 - **Vercel Agent Evals** — Persistent context via AGENTS.md achieved 100% pass rate vs. 79% for skill retrieval. [Blog](https://vercel.com/blog/agents-md-outperforms-skills-in-our-agent-evals)

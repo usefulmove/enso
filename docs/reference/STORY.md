@@ -1,8 +1,10 @@
 # STORY-000 — `enso.story/v1`
 
-A story is the canonical persisted state object for one unit of work.
+`STORY-000` is the specification for enso story files. It defines the `enso.story/v1` contract that live execution stories must follow. The portable harness protocol in `AGENTS.md` uses this spec as its canonical story template.
 
-It contains:
+A live story instance (`STORY-001+`) is the canonical persisted state object for one unit of work. In a planner-generator-evaluator loop, that story instance is the state value passed across role transitions.
+
+Each live story contains:
 1. the **contract**
 2. the **current state**
 3. the **role outputs**
@@ -475,4 +477,4 @@ verification:
 
 ## 13. Reserved ID
 
-`STORY-000` is reserved for this specification and MUST NOT be used as an execution story.
+`STORY-000` is reserved for this specification and MUST NOT be used as an execution story. Execution stories use concrete IDs such as `STORY-001`, conform to this schema, and carry the live state for one unit of work.
