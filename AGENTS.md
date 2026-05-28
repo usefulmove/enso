@@ -1,6 +1,6 @@
 ---
 protocol: enso
-version: 0.9.0
+version: 0.10.0
 audience: agent
 operations: [Write, Select, Probe, Compress, Isolate, Assign]
 directories:
@@ -221,6 +221,8 @@ No implementation file modifications until the live story reaches `ready`.
 
 Apply §10.1 during planning: state assumptions, present tradeoffs, and stop if confused.
 
+**Outcome-framed key results.** Acceptance criteria are the story's key results: write them as measurable, binary outcomes (what becomes true), not activities (what files change). Carry magnitude in a threshold (`p95 <= 200ms`), never a 0.0-1.0 grade; put baselines in the Goal as motivation; do not use stretch or optional criteria. Trivial or mechanical stories may state the activity directly (§2 instruction economy beats ceremony). The full contract ladder — Objective (Goal) -> Key Results (Acceptance Criteria) -> Proof (Verification) — is specified in `docs/reference/STORY.md`.
+
 **Small tasks:** Minimal `enso.story/v1` stories are acceptable, but they still need acceptance criteria, verification, scope, and a transition log.
 
 ## 5. Document Lifecycle
@@ -370,7 +372,7 @@ Persistence is not optional cleanup — it's how the harness instance accumulate
 
 ### Story (`enso.story/v1`)
 
-`STORY-000` is reserved for the story specification. Live execution stories use `STORY-001+`. Fetch the full spec into `docs/reference/STORY.md` during bootstrap; use this compact template for new stories.
+`STORY-000` is reserved for the story specification. Live execution stories use `STORY-001+`. Fetch the full spec into `docs/reference/STORY.md` during bootstrap; use this compact template for new stories. Write acceptance criteria as outcome-framed, binary key results (see the contract ladder in `docs/reference/STORY.md`); trivial stories may state the activity directly.
 
 ```markdown
 ---

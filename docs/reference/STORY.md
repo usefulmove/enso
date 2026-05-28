@@ -229,6 +229,24 @@ A conforming story MUST contain these sections:
 
 ---
 
+## 7.1 The contract ladder
+
+The contract sections form one outcome ladder. Each rung has a distinct job; they are not restatements of each other.
+
+| Rung | Section | Job |
+|---|---|---|
+| Objective | `## Goal` | The qualitative outcome — what is true in the world after the story, and why it matters. Baselines (e.g. "p95 is currently ~800ms") live here as motivation. |
+| Key Results | `## Acceptance Criteria` | Measurable, binary, outcome-framed statements that, together, prove the objective is met. |
+| Proof | `## Verification Contract` | The executable evidence for each key result. A `pass_when` is the threshold made runnable. |
+
+**Key results are binary.** Each acceptance criterion is true or false — no grading (0.0-1.0), no partial credit. Magnitude is carried by a threshold, not a score: write `p95 <= 200ms`, not "improve p95." A threshold is both measurable and binary.
+
+**Outcome, not activity.** State what becomes true, not which files change: prefer "malformed input is rejected with HTTP 400" over "add validation to the handler." Escape hatch: trivial or mechanical stories (e.g. a rote rename) may state the activity directly — enso §2 instruction economy beats ceremony.
+
+**No stretch.** A story is sized so its full success is its acceptance. There are no required-vs-optional or "nice-to-have" key results. Optional work is a separate story. An egg hatches or it does not.
+
+---
+
 ## 8. Entry formats
 
 ### Planner entry

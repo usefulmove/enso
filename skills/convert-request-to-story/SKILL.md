@@ -64,11 +64,12 @@ Create `docs/stories/STORY-XXX-[slug].md` with:
 # [STORY-XXX] [Descriptive Title]
 
 ## Goal
-[Transformed from vague request into a declarative, verifiable goal.]
+[The outcome: what becomes true in the world, and why. Put any baseline here as motivation.]
 
 ## Acceptance Criteria
-- [ ] <criterion with evidence of completion>
-- [ ] <another criterion>
+[Key results: measurable, binary, outcome-framed. Carry magnitude in a threshold, not a grade.]
+- [ ] <an outcome that is true/false — e.g. "malformed input is rejected with HTTP 400">
+- [ ] <another measurable outcome>
 
 ## Context Scope
 **Write:**
@@ -119,6 +120,7 @@ Wait for user confirmation. Do not execute until approved.
 | Anti-Pattern | Why It's Bad | What to Do Instead |
 |--------------|-------------|-------------------|
 | Single criterion: "Make it work" | Not verifiable. "Work" is vague. | List 3-5 specific, checkable criteria |
+| Activity-framed: "Add validation to the handler" | Describes an edit, not a result | State the outcome: "malformed input is rejected with HTTP 400" (trivial/mechanical stories may state the activity) |
 | No Write scope defined | Agent may drift across the codebase | Explicitly list files/directories that will change |
 | No Read scope defined | Agent may miss critical context | Explicitly list key reference files |
 | "Fix all tests" with no baseline | Can't verify what changed | State which tests fail now and which should pass |
