@@ -65,10 +65,10 @@ Required sections:
 | `intake` | Human / orchestrator | read-only | human | `planning`, `blocked` |
 | `planning` | Planner | read-only | automatic after valid plan draft | `plan_review`, `blocked` |
 | `plan_review` | Human | review-only | human | `generation`, `planning`, `blocked` |
-| `generation` | Generator | Write scope only | automatic after generator event | `evaluation`, `blocked` |
-| `evaluation` | Evaluator | read + verification only | automatic after verdict | `eval_review`, `revision`, `blocked` |
-| `eval_review` | Human | review-only | human | `accepted`, `revision`, `blocked` |
-| `revision` | Planner / Generator | scoped mutation | depends on event | `generation`, `evaluation`, `blocked`, `needs_input` |
+| `generation` | Generator, then Human gate after output | Write scope only before output; review-only while approval is pending | human approval after generator event | `evaluation`, `revision`, `needs_input`, `blocked` |
+| `evaluation` | Evaluator | read + verification only | automatic after verdict submission | `eval_review`, `needs_input`, `blocked` |
+| `eval_review` | Human | review-only | human verdict approval or revision request | `accepted`, `revision`, `blocked` |
+| `revision` | Planner / Generator, then Human gate after output | scoped mutation before output; review-only while approval is pending | human approval after revision output | `generation`, `evaluation`, `blocked`, `needs_input` |
 | `needs_input` | Human | review-only | human | interrupted state |
 | `accepted` | Human / orchestrator | verification-only | human | `done`, `revision`, `blocked` |
 | `done` | Orchestrator | none | terminal | none |
@@ -78,6 +78,11 @@ Required sections:
 
 Events are typed records with an actor. The state machine rejects illegal actor/event/state combinations.
 
+Additional v0 human gate events beyond the seed model:
+
+- `approve_generation` — human approves pending generator output and enters evaluation.
+- `approve_revision` — human approves pending revision output and resumes generation or evaluation based on the recorded target.
+
 Important invariants:
 
 - Generator cannot approve, accept, or mark done.
@@ -85,6 +90,9 @@ Important invariants:
 - `done` can only be reached from `accepted`.
 - `accept` and `mark_done` require evidence.
 - Human-gated states require an explicit human event.
+- Generator output requires explicit human `approve_generation` before evaluation; the generator cannot advance itself into evaluation.
+- Evaluator output always enters `eval_review`; pass and fail verdicts both require a human `approve_evaluator_verdict` or `request_revision` decision before the loop exits review.
+- Revision output requires explicit human `approve_revision` before generation/evaluation resumes.
 - Plan review requires explicit pre-approval of the current detailed `STORY.md` plan/story update before entering generation.
 - Planner/generator/evaluator may emit `clarifying_question`, which moves the story to `needs_input`; the human `answer_input` event resumes the interrupted state.
 - Every successful transition appends a transition-log entry.
@@ -103,13 +111,13 @@ A planner-completed event stops at `plan_review`. At that gate the human pre-app
 
 Generator performs scoped implementation. It may mutate only declared `Write:` scope paths while state is `generation` or `revision`.
 
-Completion event: `generator_completed` with implementation summary and evidence.
+Completion event: `generator_completed` with implementation summary and evidence. This records pending generated work and opens a human `approve_generation` / `request_revision` gate; it does not let the generator enter evaluation by itself.
 
 ### Evaluator
 
 Evaluator is adversarial and read/verification-only. It reviews implementation against the story contract and external evidence. It cannot mutate implementation files.
 
-Completion event: `evaluator_completed` with verdict, critique, and evidence.
+Completion event: `evaluator_completed` with verdict, critique, and evidence. Both pass and fail verdicts go to `eval_review`; the human approves a passing verdict or requests revision.
 
 ## pi Extension Commands
 
@@ -145,23 +153,24 @@ Advanced/debugging escape hatch: generate a role-specific prompt and place it in
 The extension applies tool posture based on current story state:
 
 - planning: read tools plus edit/write only for the active `STORY.md`; this lets the planner produce the detailed story update that the human pre-approves at `plan_review`
-- evaluation: read-only + conservative bash
-- generation/revision: read/write tools enabled, but write/edit targets must be inside story `Write:` scope
+- evaluation: read-only tools plus a narrow bash allowlist (`pwd`, `ls`, and read-only `git status/diff/log/show/branch/worktree list`); arbitrary interpreters, package scripts, shell redirection, and mutating commands are blocked
+- generation/revision: read/write tools enabled before role output, but write/edit targets must be inside story `Write:` scope; once `pending_approval` is set the same state becomes a review-only human gate
 - review states: review-only, human gate expected
 
-Bash is blocked outside generation/revision if it resembles mutation (`rm`, `mv`, `cp`, `touch`, `git commit`, redirection, etc.).
+Bash is blocked outside generation/revision unless it exactly matches the narrow read-only allowlist. Do not allow arbitrary `node`, `npx`, package-manager scripts, shell redirection, or mutating commands in planner/evaluator/review phases.
 
 ## Parser and Renderer Rules
 
 - Frontmatter is parsed with a small conservative YAML subset: scalar values and nested mappings.
 - Machine state is normalized on render.
+- `next_allowed_transitions` must exactly match the pure state machine for the current state plus any pending human approval metadata.
 - Markdown body is preserved except `## Transition Log`, which is normalized from state.
 - Parse-render-parse must preserve semantic machine state.
 
 ## v0 Limitations
 
 - The YAML parser intentionally supports only the subset used by enso stories.
-- Tool enforcement for bash is conservative and pattern-based, not a sandbox.
+- Tool enforcement for bash is conservative and pattern-based, not a sandbox; v0 intentionally sacrifices general shell-based test execution in evaluator mode to prevent direct file mutation through interpreters or package scripts.
 - Subagents are not required in v0; role separation is via prompts, event validation, and tool posture.
 - The extension targets interactive pi for human gates. Non-interactive modes fail closed for approval flows.
 
