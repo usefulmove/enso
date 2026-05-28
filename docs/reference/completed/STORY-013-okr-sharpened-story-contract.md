@@ -2,12 +2,12 @@
 schema: enso.story/v1
 id: STORY-013
 title: OKR-sharpened story contract
-state: evaluating
-active_role: evaluator
+state: done
+active_role: none
 iteration: 1
 max_iterations: 3
 created_at: 2026-05-28T00:00:00Z
-updated_at: 2026-05-28T00:10:00Z
+updated_at: 2026-05-28T00:20:00Z
 priority: medium
 
 scope:
@@ -162,6 +162,39 @@ Landed the OKR discipline as a contract clarification with no schema change. Add
 
 ## Evaluator Results
 
+### Evaluation 1
+**Date:** 2026-05-28 00:15
+**Status:** ACCEPTED
+**Escalation Required:** false
+
+#### Tool Findings
+| Criterion | Command / Check | Result |
+|---|---|---|
+| V1 | `grep -ni "key result\|outcome\|ladder\|threshold" docs/reference/STORY.md AGENTS.md` | PASS — Terms present in both files (STORY.md §7.1; AGENTS.md L224, L375) |
+| V2 | `grep -n "schema: enso.story/v1" docs/reference/STORY.md && grep -n "version: 0.10.0" AGENTS.md` | PASS — schema id unchanged at lines 35 and 423; version bumped to 0.10.0 at line 3 |
+| V3 | `git diff --name-only && git status --short` | PASS — Changes limited to exactly the four Write-scope files: AGENTS.md, docs/reference/STORY.md, docs/stories/STORY-013-okr-sharpened-story-contract.md, skills/convert-request-to-story/SKILL.md |
+
+All six acceptance criteria are satisfied by the staged diff and command output.
+
+#### Convention Findings
+None. No violations found against AGENTS.md or docs/reference/STORY.md.
+
+Notable alignment checks:
+- The new §7.1 in STORY.md is placed between §7 (Required sections) and §8 (Entry formats), the correct structural location for a semantic clarification of those sections.
+- The AGENTS.md §4 and §9 additions reference docs/reference/STORY.md as the canonical source for the ladder, maintaining a single source of truth.
+- The skill update matches the template guidance in AGENTS.md §9 and adds an anti-pattern table row consistent with the existing format.
+- Story STORY-013 itself follows the new discipline: all six ACs are outcome-framed, binary statements.
+
+#### Design Findings
+None blocking. Subjective assessment:
+- The "contract ladder" metaphor (Objective → Key Results → Proof) is a significant conceptual improvement — it gives planners a clear semantic frame for what existed as three disconnected sections.
+- The escape hatch ("trivial or mechanical stories may state the activity directly") is well-placed and prevents the discipline from becoming ceremonial overhead.
+- The 0.10.0 version bump is justified: a protocol-level guidance change, not merely an editorial pass.
+- The "egg hatches or it does not" line reinforces the no-stretch rule effectively.
+
+#### Actionable Feedback
+None. The implementation is complete and correct.
+
 ## Human Decisions
 
 ### Decision 1
@@ -169,6 +202,20 @@ Landed the OKR discipline as a contract clarification with no schema change. Add
 **At state:** plan_review
 **Decision:** approve_plan
 **Rationale:** User approved the plan after settling the design (no schema bump, AGENTS.md -> 0.10.0).
+**Binding:** true
+
+### Decision 2
+**Date:** 2026-05-28 00:20
+**At state:** evaluation_review
+**Decision:** accept_result
+**Rationale:** Evaluation complete and passing; all ACs met with no schema change.
+**Binding:** true
+
+### Decision 3
+**Date:** 2026-05-28 00:20
+**At state:** accepted
+**Decision:** mark_done
+**Rationale:** Work accepted; closing out the story.
 **Binding:** true
 
 ## Evidence
@@ -194,6 +241,9 @@ Landed the OKR discipline as a contract clarification with no schema change. Add
 | 2026-05-28T00:05:00Z | human | approve_plan | plan_review | ready | User approved the plan. |
 | 2026-05-28T00:05:01Z | orchestrator | start_generation | ready | generating | Begin scoped edits. |
 | 2026-05-28T00:10:00Z | generator | submit_generation | generating | evaluating | Landed contract ladder, version bump, and skill update; V1-V3 pass. |
+| 2026-05-28T00:15:00Z | evaluator | submit_evaluation | evaluating | evaluation_review | All checks PASS; ACCEPTED. |
+| 2026-05-28T00:20:00Z | human | accept_result | evaluation_review | accepted | Evaluation passed. |
+| 2026-05-28T00:20:01Z | human | mark_done | accepted | done | Story closed. |
 
 ## Reflection
 - [ ] Encountered recurring friction -> create skill?
