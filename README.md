@@ -53,6 +53,7 @@ The harness is the 80% factor in agent reliability. Same model, better harness, 
 | **Ephemeral → Persistent** | Six operations: Write, Select, Probe, Compress, Isolate, Assign | The agent's explicit invocation |
 | **Agent → Codebase** | Context Scope (Write / Read / Exclude) | The scoped file list loaded at runtime |
 | **Agent → Capability** | `SKILL.md` frontmatter | The scripts in `docs/skills/<name>/` |
+| **Agent → Agent** | Spawn contract (context scope, prompt envelope, return path) | The `bash` invocation of `pi` from within a running harness |
 | **Stance → Protocol** | `SOUL.md` / `AGENTS.md` dual-document structure | Which persona files are injected into the harness at runtime |
 
 Every interface is a language. enso's vocabulary is its seam graph.

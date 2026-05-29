@@ -85,11 +85,16 @@ kind: execution
 tags: []
 parent: null
 depends_on: []
+dependent_stories: []  # stories blocked on this one
 pending_gate: null
 escalation_reason: null
 blocked_reason: null
 current_contract_version: 1
 ```
+
+- `parent` — Parent story ID for sub-task delegation. A parent may spawn child stories; the orchestrator gates parent `ready` until all `depends_on` children reach `done`.
+- `depends_on` — Story IDs that must reach `done` before this story may leave `seeded`.
+- `dependent_stories` — Story IDs blocked on this one. The orchestrator updates these when this story transitions to `done`.
 
 ---
 
@@ -370,6 +375,17 @@ Rules:
 - `To` must match new state.
 - actor must be authorized.
 - rows must be chronological.
+
+---
+
+## 10.1 Sub-story delegation
+
+A story may delegate work to child stories. The orchestrator enforces these rules:
+
+- A story enters `ready` only when `depends_on` is empty or every listed story has `state: done`.
+- A story with `parent` set MUST NOT modify `parent`'s `scope.write` paths; the parent contract may read child `## Evidence` sections for its own verification.
+- When a child reaches `done`, the orchestrator updates any story with that child in `depends_on`, removing it or re-checking readiness.
+- A parent story's generator may append a `## Child Stories` section listing spawned IDs; this is advisory, not authoritative.
 
 ---
 
