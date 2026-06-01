@@ -8,7 +8,7 @@ Without an **orchestration surface**, agents cannot coordinate. They cannot hand
 
 ## Goals
 
-1. Enable reliable, persistent AI collaboration across sessions and tools through a project-local orchestration surface
+1. Enable reliable, persistent AI collaboration across sessions and tools through a project-local orchestration surface. enso exists to enable Pygmalion-style figure-shaping against a persistent substrate — the standard is whether the figure stands on its own when the maker's hand lifts.
 2. Treat context as a scarce resource — load only what's needed, persist before it's lost
 3. Make the surface self-extending through agent instantiations — agents author capabilities that persist across sessions
 4. Reduce cold-start cost through structured persistent context (PRD, stories, logs, lessons)

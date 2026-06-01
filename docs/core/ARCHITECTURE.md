@@ -19,6 +19,10 @@ The canonical stack separates concerns into distinct layers. The surface — the
 
 The harness instance is **coupled to** the substrate — adjacent and coextensive with the workspace, not external infrastructure. Agent instantiations do not persist; the harness instance and substrate do.
 
+### The Figure-Mapping
+
+enso is built on the Pygmalion model. **The maker** is the human user. **The medium** is the substrate — the durable, persistent environment (codebase, docs, configs, repo state) that every figure is shaped from. **The figure** is the orchestration surface itself: the thing the maker relates to, and through it the agent instantiations that do the work. **Agent instantiations** are the ephemeral gestures against the medium that the figure coordinates. **The harness protocol and harness instance** are the technique the maker's hand uses against the medium — the seam graph that lets the hand work without breaking the clay. The standard is whether the figure stands on its own when the hand lifts.
+
 ### Surface Seams
 
 | Seam | What crosses it | Role |

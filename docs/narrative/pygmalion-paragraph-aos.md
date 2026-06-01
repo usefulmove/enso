@@ -1,0 +1,1 @@
+*enso is built on the Pygmalion model: the maker is the human, the medium is the persistent substrate, the figure is the orchestration surface the human relates to.*

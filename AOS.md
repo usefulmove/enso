@@ -1,5 +1,7 @@
 # Agent Orchestration Surface
 
+*enso is built on the Pygmalion model: the maker is the human, the medium is the persistent substrate, the figure is the orchestration surface the human relates to.*
+
 An orchestration surface is the persistent, inspectable contract layer between a human and a swarm of agents—and between the agents themselves.
 
 Most systems treat handoffs like a phone tree: transfer the human, drop the context, hope someone picks up. The human feels it. Distance replaces contact.

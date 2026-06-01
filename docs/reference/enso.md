@@ -27,7 +27,7 @@ All three are context problems. All three are solvable — by building a surface
 
 Before we talk about context engineering, let's define the surface.
 
-An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without a surface, every session starts cold. Decisions vanish. Lessons evaporate. The human becomes the memory system.
+An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without a surface, every session starts cold. Decisions vanish. Lessons evaporate. The human becomes the memory system. In the Pygmalion framing: the maker is the human, the medium is the persistent substrate, and the figure is the orchestration surface the human relates to.
 
 The surface makes three things possible:
 - **Deterministic context** — agents read from and write to the same shared state
@@ -40,7 +40,7 @@ The surface makes three things possible:
 
 **Persistent Context** — structured information that survives across sessions and evolves with the project. The harness instance. A structure with planning and architecture docs, active stories, lessons learned. This is the long-term memory layer — the surface's durable state.
 
-**Reference Context** — discoverable. Docs on disk, search results. One tool call away from being in the context window. The substrate.
+**Reference Context** — discoverable. Docs on disk, search results. One tool call away from being in the context window. The substrate. The medium.
 
 ### The Stack
 
