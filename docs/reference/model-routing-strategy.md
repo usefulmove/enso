@@ -2,7 +2,7 @@
 
 | Category | Default | Fallback | Budget | Use Cases |
 |----------|---------|----------|--------|-----------|
-| Planning & Reasoning | GPT 5.5 | Sonnet 4.6 | Deepseek v4 Pro | architecture, decomposition, ambiguity |
+| Planning & Reasoning | Opus 4.8 | GPT 5.5 | Deepseek v4 Pro | architecture, decomposition, ambiguity |
 | Research | Gemini 3.1 Pro | GPT 5.4 | Kimi K2.6 | lit. review, analysis, summarization |
 | Narrative | Deepseek v4 Flash | Sonnet 4.6 | Deepseek v4 Flash | writing |
 | Creative & Brainstorming | Opus 4.8 | Gemini 3.1 Pro | Kimi K2.6 | idea generation |
