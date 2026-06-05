@@ -72,7 +72,7 @@ The major seams in enso:
 
 Every interface is a language. enso's vocabulary is its seam graph.
 
-**Agent orchestration surface (AOS).** The surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Enso is the harness that makes it deterministic, inspectable, and compounding. File-based truth replaces vector-database drift. Context lives in verified docs and explicit state, session over session.
+**Agent orchestration surface (AOS).** The surface is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. It is not just many interfaces or a pile of APIs; it is a coherent collection of interfaces presented as one thing. The human touches it as one object, each interface has a role, seams are intentional, transitions do not feel like abandonment, and the vocabulary is shared enough to become usable. Enso is the harness that makes it deterministic, inspectable, and compounding. File-based truth replaces vector-database drift. Context lives in verified docs and explicit state, session over session.
 
 **Workflow:**
 1. Bootstrap directory structure and fetch the canonical story spec

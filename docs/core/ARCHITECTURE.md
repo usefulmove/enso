@@ -8,6 +8,8 @@ enso is a single-file seed protocol (`AGENTS.md`) that bootstraps an **agent orc
 
 The canonical stack separates concerns into distinct layers. The surface — the harness instance — lives in the middle: the contract layer that coordinates across seams.
 
+A surface is not just many interfaces. A pile of APIs is not a surface. A surface is a coherent collection of interfaces presented as one thing: the human touches it as one object, each interface has a role, the seams are intentional, transitions don't feel like abandonment, and the vocabulary is shared enough to become usable.
+
 | Layer | Role | Example |
 |-------|------|---------|
 | **Model** | Token generator / reasoning engine | Claude Sonnet, GPT-5, Kimi K2.6 |

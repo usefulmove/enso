@@ -28,6 +28,8 @@ The model is not the problem. The model is magnificent. The problem is that **de
 
 An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents—and between the agents themselves. Without it, decisions vanish, lessons evaporate, and the human becomes the memory system. That doesn't scale.
 
+A surface is not just many interfaces. A pile of APIs is not a surface. A surface is a coherent collection of interfaces presented as one thing: the human touches it as one object, each interface has a role, the seams are intentional, transitions don't feel like abandonment, and the vocabulary is shared enough to become usable.
+
 ---
 
 ## The Solution: The Surface

@@ -29,6 +29,8 @@ Before we talk about context engineering, let's define the surface.
 
 An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without a surface, every session starts cold. Decisions vanish. Lessons evaporate. The human becomes the memory system. In the Pygmalion framing: the maker is the human, the medium is the persistent substrate, and the figure is the orchestration surface the human relates to.
 
+A surface is not just many interfaces. A pile of APIs is not a surface. A surface is a coherent collection of interfaces presented as one thing: the human touches it as one object, each interface has a role, the seams are intentional, transitions don't feel like abandonment, and the vocabulary is shared enough to become usable.
+
 The surface makes three things possible:
 - **Deterministic context** — agents read from and write to the same shared state
 - **Inspectability** — the contract is visible, versioned, and verifiable

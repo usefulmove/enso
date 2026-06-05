@@ -19,6 +19,8 @@ All three are context problems. All three are solvable by building a surface.
 
 An **orchestration surface** is the persistent, inspectable contract layer between a human and a swarm of agents — and between the agents themselves. Without it, every session starts cold.
 
+A surface is not just many interfaces. It is a coherent collection of interfaces presented as one thing: each interface has a role, the seams are intentional, transitions preserve continuity, and the vocabulary is shared enough to become usable.
+
 ### The Layers
 
 **Working Context** — what's in the context window right now. Ephemeral and expensive.
