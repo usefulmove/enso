@@ -89,6 +89,7 @@ Every interface is a language. enso's vocabulary is its seam graph.
 **Principle:** Software building software.
 
 **enso is a harness protocol that realizes an orchestration surface.**
+The protocol is runtime-agnostic: OpenCode, Claude Code, pi, and other hosts can implement the same seams with different discovery and configuration paths.
 The harness instance (this project) and substrate (codebase, docs, harness files) persist. Agent instantiations (each task execution) do not.
 
 - **Model**: The LLM — token generator, reasoning engine
@@ -165,15 +166,28 @@ Architecture docs are maps drawn through exploration, not blueprints to read.
 
 ## 3. Bootstrapping
 
-1. **Create structure**
+1. **Create core structure**
    ```bash
    mkdir -p docs/{core,stories,reference/completed,skills,logs}
    touch docs/reference/LESSONS.md
    if [ ! -f docs/reference/STORY.md ]; then
      curl -fsSL -o docs/reference/STORY.md https://raw.githubusercontent.com/usefulmove/enso/main/docs/reference/STORY.md
    fi
+   ```
+
+   **Wire skill discovery for your runtime** (choose one or more):
+   ```bash
+   # OpenCode
    mkdir -p .opencode
    ln -s ../docs/skills .opencode/skills
+
+   # Claude Code
+   mkdir -p .claude
+   ln -s ../docs/skills .claude/skills
+
+   # pi
+   mkdir -p .pi
+   ln -s ../docs/skills .pi/skills
    ```
 
 2. **Optionally fill in Codebase/Docs Index tables** (see Section 3.1)
@@ -293,32 +307,32 @@ references/   # Optional
 assets/       # Optional
 ```
 
-**Discovery:** OpenCode does NOT discover skills in `docs/skills/`. Create a symlink:
-```bash
-ln -s ../docs/skills .opencode/skills
-```
+**Discovery:** `docs/skills/` is enso's persistent source of truth. Runtimes discover skills from their own configuration paths, so expose `docs/skills/` to the active runtime with a symlink or runtime setting.
 
-This makes `docs/skills/` discoverable while keeping skills collocated with documentation.
+### Runtime discovery
+
+| Runtime | Project discovery path(s) | Example wiring from repo root |
+|---------|---------------------------|--------------------------------|
+| OpenCode | `.opencode/skills/<name>/SKILL.md`, `.claude/skills/<name>/SKILL.md`, `.agents/skills/<name>/SKILL.md` | `mkdir -p .opencode && ln -s ../docs/skills .opencode/skills` |
+| Claude Code | `.claude/skills/<name>/SKILL.md` | `mkdir -p .claude && ln -s ../docs/skills .claude/skills` |
+| pi | `.pi/skills/<name>/SKILL.md`, `.agents/skills/<name>/SKILL.md`, configured skill paths | `mkdir -p .pi && ln -s ../docs/skills .pi/skills` |
+| Other runtimes | Runtime-specific Agent Skills location | Follow the runtime's Agent Skills integration docs |
+
+Use `.agents/skills/` when a runtime supports it and you want a shared agent-compatible path; otherwise use the runtime's native path.
 
 **Frontmatter (Required):** Each SKILL.md must start with:
 ```yaml
 ---
-name: <skill-name>              # Required: matches directory name, 1-64 chars
+name: <skill-name>              # Required: match directory name for Agent Skills compatibility; pi is lenient
 description: <one sentence>     # Required: what it does AND when to use it
-license: MIT                    # Required
-compatibility: opencode         # Required
+license: MIT                    # Required by enso
+compatibility: <runtime-or-requirements> # Optional/freeform example: opencode, claude-code, pi, etc.
 ---
 ```
 
-Without frontmatter, skills will NOT appear in discovery.
+Without usable frontmatter, skills may not appear in discovery.
 
-**Bootstrap:** Run this once when setting up a new project:
-```bash
-mkdir -p .opencode
-ln -s ../docs/skills .opencode/skills
-```
-
-**Priority:** Local skills (`.opencode/skills/` → `docs/skills/`) take precedence over global skills.
+**Bootstrap:** During project setup, wire `docs/skills/` to your active runtime's discovery path (see the table above). Project-local skills take precedence according to the runtime's own precedence rules.
 
 **Building:** Scan existing skills first, build minimal solution, persist to `docs/skills/<tool-name>/`, iterate.
 
